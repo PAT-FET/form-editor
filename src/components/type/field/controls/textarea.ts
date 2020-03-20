@@ -1,4 +1,4 @@
-import { FieldRule } from '../rule';
+import { FieldRule } from '../rule'
 
 export interface FieldTextareaDefinition {
   type: 'textarea';

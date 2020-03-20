@@ -1,4 +1,4 @@
-import { FieldRule } from '../rule';
+import { FieldRule } from '../rule'
 
 export interface FieldInputDefinition {
   type: 'input';
@@ -12,9 +12,8 @@ export interface FieldInputDefinition {
 export interface FieldInputOptions {
   disabled: boolean;
   dataType: 'string' | 'email';
-  defaultValue?: string;
-  required?: boolean;
-  pattern?: string;
-  placeholder?: string;
-
+  defaultValue: string;
+  required: boolean;
+  pattern: string;
+  placeholder: string;
 }

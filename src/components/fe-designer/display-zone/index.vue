@@ -1,16 +1,27 @@
 <template>
 <div :class="[$style.container]">
   <div :class="[$style.content]">
-
+    <form-instance :def="def" design></form-instance>
   </div>
 </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, ProvideReactive, Provide } from 'vue-property-decorator'
+import FormInstance from '@/components/form-instance/index.vue'
+import { FormDefinition, ControlDefinition } from '@/components/type'
 
-@Component
+@Component({
+  components: { FormInstance }
+})
 export default class DisplayZone extends Vue {
+  @Prop() def!: FormDefinition
+
+  @ProvideReactive() activeControl: ControlDefinition | null = null
+
+  @Provide() setActiveControl (control: ControlDefinition) {
+    this.activeControl = control
+  }
 }
 </script>
 

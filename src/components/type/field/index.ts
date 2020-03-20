@@ -12,8 +12,8 @@ export {
   FieldImguploadOptions, FieldImguploadDefinition
 }
 
-export * from './type'
-export * from './rule'
+export * from './type';
+export * from './rule';
 
 export type FieldOptions = 
 FieldInputOptions | 

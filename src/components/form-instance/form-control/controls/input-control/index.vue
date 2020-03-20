@@ -1,5 +1,7 @@
 <template>
-<div>FeGenerator</div>
+<el-form-item :label="def.name">
+  <el-input :value="def.defaultValue"></el-input>
+</el-form-item>
 </template>
 
 <script lang="ts">
@@ -8,6 +10,6 @@ import { FieldInputDefinition } from '@/components/type'
 
 @Component
 export default class InputControl extends Vue {
-  @Prop() definition!: FieldInputDefinition
+  @Prop() def!: FieldInputDefinition
 }
 </script>

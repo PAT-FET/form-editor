@@ -3,7 +3,7 @@
   <control-pane :class="[$style.left]"></control-pane>
   <div :class="[$style.main]">
     <tool-bar></tool-bar>
-    <display-zone :class="[$style.zone]"></display-zone>
+    <display-zone :class="[$style.zone]" :def="def"></display-zone>
   </div>
   <attr-pane :class="[$style.right]"></attr-pane>
 </div>
@@ -15,11 +15,52 @@ import ToolBar from './tool-bar/index.vue'
 import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
+import { FormDefinition } from '@/components/type'
+import { genKey } from '@/components/utils'
 
 @Component({
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
 })
 export default class FeDesigner extends Vue {
+  def: FormDefinition = {
+    list: [
+      {
+        key: genKey(),
+        type: 'input',
+        model: 'abc',
+        name: '单文本',
+        options: {
+          disabled: false,
+          dataType: 'string',
+          defaultValue: '',
+          required: false,
+          pattern: '',
+          placeholder: ''
+        }
+      },
+      {
+        key: genKey(),
+        type: 'input',
+        model: 'efg',
+        name: '单文本',
+        options: {
+          disabled: false,
+          dataType: 'string',
+          defaultValue: '',
+          required: false,
+          pattern: '',
+          placeholder: ''
+        }
+      }
+    ],
+    config: {
+      disabled: false
+    }
+  }
+
+  setJSON (json: string) {
+    this.def = JSON.parse(json)
+  }
 }
 </script>
 

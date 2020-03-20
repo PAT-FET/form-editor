@@ -1,5 +1,5 @@
-import { FieldRule } from '../rule';
-import { FileData } from '../type';
+import { FieldRule } from '../rule'
+import { FileData } from '../type'
 
 export interface FieldImguploadDefinition {
   type: 'imgupload';
