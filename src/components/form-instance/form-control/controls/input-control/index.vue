@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name">
+<el-form-item :label="def.name" :prop="def.model">
   <el-input :value="def.defaultValue"></el-input>
 </el-form-item>
 </template>

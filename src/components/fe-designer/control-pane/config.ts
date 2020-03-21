@@ -1,29 +1,19 @@
+import {
+  FieldInputDefinition,
+  FieldTextareaDefinition,
+  FieldSelectDefinition,
+  FieldFileuploadDefinition,
+  FieldImguploadDefinition,
+  GridDefinition
+} from '@/components/type'
+
 const controls = [
-  {
-    name: 'input',
-    label: '单行文本',
-    icon: ''
-  },
-  {
-    name: 'textarea',
-    label: '多行文本',
-    icon: ''
-  },
-  {
-    name: 'select',
-    label: '下拉选择框',
-    icon: ''
-  },
-  {
-    name: 'fileupload',
-    label: '文件',
-    icon: ''
-  },
-  {
-    name: 'imgupload',
-    label: '图片',
-    icon: ''
-  }
+  new FieldInputDefinition(),
+  new FieldTextareaDefinition(),
+  new FieldSelectDefinition(),
+  new FieldFileuploadDefinition(),
+  new FieldImguploadDefinition(),
+  new GridDefinition()
 ]
 
 export function getControls () {

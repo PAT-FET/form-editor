@@ -6,11 +6,13 @@ import { ControlDefinition } from '@/components/type'
 import ControlMask from './control-mask/index.vue'
 
 import InputControl from './controls/input-control/index.vue'
+import TextareaControl from './controls/textarea-control/index.vue'
 
 @Component({
   components: {
     ControlMask,
-    InputControl
+    InputControl,
+    TextareaControl
   }
 })
 export default class FormContorl extends Vue {

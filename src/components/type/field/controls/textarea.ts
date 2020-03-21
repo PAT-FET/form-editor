@@ -1,18 +1,19 @@
 import { FieldRule } from '../rule'
+import { genKey } from '@/components/utils'
 
-export interface FieldTextareaDefinition {
-  type: 'textarea';
-  key: string;
-  name: string;
-  model: string;
-  options: FieldTextareaOptions;
-  rules?: FieldRule;
+export class FieldTextareaDefinition {
+  type = 'textarea'
+  key: string = genKey()
+  name = '多行文本'
+  model: string = 'textarea_' + genKey()
+  options: FieldTextareaOptions = new FieldTextareaOptions()
+  rules?: FieldRule
 }
 
-export interface FieldTextareaOptions {
-  disabled: boolean;
-  defaultValue?: string;
-  required?: boolean;
-  pattern?: string;
-  placeholder?: string;
+export class FieldTextareaOptions {
+  disabled = false
+  defaultValue = ''
+  required = false
+  pattern = ''
+  placeholder = ''
 }

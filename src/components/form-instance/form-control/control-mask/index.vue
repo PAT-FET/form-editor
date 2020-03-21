@@ -22,15 +22,15 @@ export default class ControlMask extends Vue {
 
   @InjectReactive() activeControl!: ControlDefinition
 
-   @Inject() setActiveControl!: (control: ControlDefinition) => void
+  @Inject() setActiveControl!: (control: ControlDefinition) => void
 
-   onSelect () {
-     this.setActiveControl(this.def)
-   }
+  onSelect () {
+    this.setActiveControl(this.def)
+  }
 
-   get activeCls () {
-     return this.def === this.activeControl ? this.$style.active : ''
-   }
+  get activeCls () {
+    return this.def === this.activeControl ? this.$style.active : ''
+  }
 
   $style!: any
 }

@@ -1,12 +1,14 @@
 import { FieldDefinition } from '../../field'
+import { genKey } from '@/components/utils'
 
-export interface GridDefinition {
-  type: 'grid';
-  key: string;
-  columns: {};
+export class GridDefinition {
+  type = 'grid'
+  key: string = genKey()
+  name = '栅格布局'
+  columns: GridOptions[] = [new GridOptions(), new GridOptions()]
 }
 
-export interface GridOptions {
-  span: number;
-  list: FieldDefinition[];
+export class GridOptions {
+  span = 12
+  list: FieldDefinition[] = []
 }

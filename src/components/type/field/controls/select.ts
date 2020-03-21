@@ -1,20 +1,21 @@
 import { FieldRule } from '../rule'
+import { genKey } from '@/components/utils'
 
-export interface FieldSelectDefinition {
-  type: 'select';
-  key: string;
-  name: string;
-  model: string;
-  options: FieldSelectOptions;
-  rules?: FieldRule;
+export class FieldSelectDefinition {
+  type = 'select'
+  key: string = genKey()
+  name = '下拉选择框'
+  model: string = 'select_' + genKey()
+  options: FieldSelectOptions = new FieldSelectOptions()
+  rules?: FieldRule
 }
 
-export interface FieldSelectOptions {
-  disabled: boolean;
-  multiple: boolean;
-  clearable: boolean;
-  options: Array<Record<string, string>>;
-  defaultValue?: string;
-  required?: boolean;
-  placeholder?: string;
+export class FieldSelectOptions {
+  disabled = false
+  multiple = false
+  clearable = true
+  options: Array<Record<string, string>> = []
+  defaultValue: string | string[] = ''
+  required = false
+  placeholder = ''
 }

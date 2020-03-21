@@ -1,19 +1,20 @@
 import { FieldRule } from '../rule'
+import { genKey } from '@/components/utils'
 
-export interface FieldInputDefinition {
-  type: 'input';
-  key: string;
-  name: string;
-  model: string;
-  options: FieldInputOptions;
-  rules?: FieldRule;
+export class FieldInputDefinition {
+  type = 'input'
+  key: string = genKey()
+  name = '单文本框'
+  model: string = 'input_' + genKey()
+  options: FieldInputOptions = new FieldInputOptions()
+  rules?: FieldRule
 }
 
-export interface FieldInputOptions {
-  disabled: boolean;
-  dataType: 'string' | 'email';
-  defaultValue: string;
-  required: boolean;
-  pattern: string;
-  placeholder: string;
+export class FieldInputOptions {
+  disabled = false
+  dataType: 'string' | 'email' = 'string'
+  defaultValue = ''
+  required = false
+  pattern = ''
+  placeholder = ''
 }

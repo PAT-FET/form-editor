@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, ProvideReactive, Provide } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import FormInstance from '@/components/form-instance/index.vue'
 import { FormDefinition, ControlDefinition } from '@/components/type'
 
@@ -16,12 +16,6 @@ import { FormDefinition, ControlDefinition } from '@/components/type'
 })
 export default class DisplayZone extends Vue {
   @Prop() def!: FormDefinition
-
-  @ProvideReactive() activeControl: ControlDefinition | null = null
-
-  @Provide() setActiveControl (control: ControlDefinition) {
-    this.activeControl = control
-  }
 }
 </script>
 

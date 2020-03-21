@@ -2,18 +2,38 @@
 <div>
   <div :class="$style.title">控件列表</div>
   <ul :class="$style.list">
-    <li :class="$style.item" v-for="row in rows" :key="row.name">{{row.label}}</li>
+    <li :class="$style.item" v-for="row in rows" :key="row.key" @click="onAdd(row)">{{row.name}}</li>
   </ul>
 </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
 import { getControls } from './config'
+import { FormDefinition, ControlDefinition } from '@/components/type'
+import { cloneControlDef } from '@/components/utils'
 
 @Component
 export default class ControlPane extends Vue {
+  @Prop() def!: FormDefinition
+
+  @InjectReactive() activeControl!: ControlDefinition
+
+  @Inject() setActiveControl!: (control: ControlDefinition) => void
+
   rows = getControls()
+
+  onAdd (row: ControlDefinition) {
+    const list = this.def.list
+    const item = cloneControlDef(row)
+    if (!this.activeControl) {
+      list.push(item)
+    } else {
+      const idx = list.findIndex(v => v === this.activeControl)
+      list.splice(idx === -1 ? list.length - 1 : idx + 1, 0, item)
+    }
+    this.setActiveControl(item)
+  }
 }
 </script>
 

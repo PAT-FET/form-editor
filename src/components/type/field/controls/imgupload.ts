@@ -1,19 +1,20 @@
 import { FieldRule } from '../rule'
 import { FileData } from '../type'
+import { genKey } from '@/components/utils'
 
-export interface FieldImguploadDefinition {
-  type: 'imgupload';
-  key: string;
-  name: string;
-  model: string;
-  options: FieldImguploadOptions;
+export class FieldImguploadDefinition {
+  type = 'imgupload'
+  key: string = genKey()
+  name = '图片'
+  model: string = 'imgupload_' + genKey()
+  options: FieldImguploadOptions = new FieldImguploadOptions()
   rules?: FieldRule;
 }
 
-export interface FieldImguploadOptions {
-  disabled: boolean;
-  action: string;
-  limit: number;
-  defaultValue: FileData[];
-  required?: boolean;
+export class FieldImguploadOptions {
+  disabled = false
+  action = ''
+  limit = 8
+  defaultValue: FileData[] = []
+  required = false
 }

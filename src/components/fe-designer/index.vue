@@ -1,6 +1,6 @@
 <template>
 <div :class="[$style.container]">
-  <control-pane :class="[$style.left]"></control-pane>
+  <control-pane :class="[$style.left]" :def="def"></control-pane>
   <div :class="[$style.main]">
     <tool-bar></tool-bar>
     <display-zone :class="[$style.zone]" :def="def"></display-zone>
@@ -10,52 +10,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, ProvideReactive, Provide } from 'vue-property-decorator'
 import ToolBar from './tool-bar/index.vue'
 import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
-import { FormDefinition } from '@/components/type'
+import { FormDefinition, ControlDefinition } from '@/components/type'
 import { genKey } from '@/components/utils'
 
 @Component({
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
 })
 export default class FeDesigner extends Vue {
-  def: FormDefinition = {
-    list: [
-      {
-        key: genKey(),
-        type: 'input',
-        model: 'abc',
-        name: '单文本',
-        options: {
-          disabled: false,
-          dataType: 'string',
-          defaultValue: '',
-          required: false,
-          pattern: '',
-          placeholder: ''
-        }
-      },
-      {
-        key: genKey(),
-        type: 'input',
-        model: 'efg',
-        name: '单文本',
-        options: {
-          disabled: false,
-          dataType: 'string',
-          defaultValue: '',
-          required: false,
-          pattern: '',
-          placeholder: ''
-        }
-      }
-    ],
-    config: {
-      disabled: false
-    }
+  def: FormDefinition = new FormDefinition()
+
+  @ProvideReactive() activeControl: ControlDefinition | null = null
+
+  @Provide() setActiveControl (control: ControlDefinition) {
+    this.activeControl = control
   }
 
   setJSON (json: string) {

@@ -6,9 +6,9 @@ export * from './layout'
 
 export type ControlDefinition = FieldDefinition | GridDefinition;
 
-export interface FormDefinition {
-  list: Array<ControlDefinition>;
-  config: FormOptions;
+export class FormDefinition {
+  list: Array<ControlDefinition> = []
+  config: FormOptions = new FormOptions()
 }
 
 export interface GridOptions {
@@ -16,8 +16,8 @@ export interface GridOptions {
   list: FieldDefinition[]
 }
 
-export interface FormOptions {
-  disabled: boolean;
+export class FormOptions {
+  disabled: boolean = false;
 }
 
 
