@@ -1,5 +1,5 @@
 <template>
-<el-form ref="fm" label-width="80px">
+<el-form ref="fm" label-width="100px">
   <form-control v-for="row in controlDefs" :key="row.key" :def="row" :design="design"></form-control>
 </el-form>
 </template>

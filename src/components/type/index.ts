@@ -1,10 +1,10 @@
-import { FieldDefinition } from './field';
-import { GridDefinition } from './layout';
+import { FieldDefinition } from './field'
+import { GridDefinition } from './layout'
 
 export * from './field'
 export * from './layout'
 
-export type ControlDefinition = FieldDefinition | GridDefinition;
+export type ControlDefinition = FieldDefinition | GridDefinition
 
 export class FormDefinition {
   list: Array<ControlDefinition> = []

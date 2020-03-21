@@ -14,7 +14,7 @@ export class FieldSelectOptions {
   disabled = false
   multiple = false
   clearable = true
-  options: Array<Record<string, string>> = []
+  options: Array<{ value: string; label?: string }> = [{ value: 'Option1' }, { value: 'Option2' }, { value: 'Option3' }]
   defaultValue: string | string[] = ''
   required = false
   placeholder = ''

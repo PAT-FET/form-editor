@@ -15,24 +15,12 @@ import { cloneControlDef } from '@/components/utils'
 
 @Component
 export default class ControlPane extends Vue {
-  @Prop() def!: FormDefinition
-
-  @InjectReactive() activeControl!: ControlDefinition
-
-  @Inject() setActiveControl!: (control: ControlDefinition) => void
+  @Inject() addControl!: (control: ControlDefinition) => void
 
   rows = getControls()
 
   onAdd (row: ControlDefinition) {
-    const list = this.def.list
-    const item = cloneControlDef(row)
-    if (!this.activeControl) {
-      list.push(item)
-    } else {
-      const idx = list.findIndex(v => v === this.activeControl)
-      list.splice(idx === -1 ? list.length - 1 : idx + 1, 0, item)
-    }
-    this.setActiveControl(item)
+    this.addControl(row)
   }
 }
 </script>

@@ -16,7 +16,7 @@ import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
 import { FormDefinition, ControlDefinition } from '@/components/type'
-import { genKey } from '@/components/utils'
+import { genKey, cloneControlDef } from '@/components/utils'
 
 @Component({
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
@@ -28,6 +28,28 @@ export default class FeDesigner extends Vue {
 
   @Provide() setActiveControl (control: ControlDefinition) {
     this.activeControl = control
+  }
+
+  @Provide() addControl (control: ControlDefinition) {
+    const list = this.def.list
+    const item = cloneControlDef(control)
+    if (!this.activeControl) {
+      list.push(item)
+    } else {
+      const idx = list.findIndex(v => v === this.activeControl)
+      list.splice(idx === -1 ? list.length - 1 : idx + 1, 0, item)
+    }
+    this.setActiveControl(item)
+  }
+
+  @Provide() delControl (control: ControlDefinition) {
+    const list = this.def.list
+    const idx = list.findIndex(v => v === control)
+    if (idx !== -1) {
+      list.splice(idx, 1)
+      const next = idx === list.length ? idx - 1 : (idx === 0 ? 0 : idx)
+      this.setActiveControl(list[next] || null)
+    }
   }
 
   setJSON (json: string) {

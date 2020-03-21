@@ -7,12 +7,16 @@ import ControlMask from './control-mask/index.vue'
 
 import InputControl from './controls/input-control/index.vue'
 import TextareaControl from './controls/textarea-control/index.vue'
+import SelectControl from './controls/select-control/index.vue'
+import FileuploadControl from './controls/fileupload-control/index.vue'
 
 @Component({
   components: {
     ControlMask,
     InputControl,
-    TextareaControl
+    TextareaControl,
+    SelectControl,
+    FileuploadControl
   }
 })
 export default class FormContorl extends Vue {

@@ -5,8 +5,8 @@
     <div :class="[$style.drag]"><i class="el-icon-rank"></i></div>
     <div :class="[$style.model]" v-if="def.model">{{def.model}}</div>
     <div :class="[$style.action]">
-      <i class="el-icon-document-copy"></i>
-      <i class="el-icon-delete"></i>
+      <i class="el-icon-document-copy" @click.stop="onCopy"></i>
+      <i class="el-icon-delete" @click.stop="onDel"></i>
     </div>
   </div>
 </div>
@@ -24,8 +24,20 @@ export default class ControlMask extends Vue {
 
   @Inject() setActiveControl!: (control: ControlDefinition) => void
 
+  @Inject() delControl!: (control: ControlDefinition) => void
+
+  @Inject() addControl!: (control: ControlDefinition) => void
+
   onSelect () {
     this.setActiveControl(this.def)
+  }
+
+  onDel () {
+    this.delControl(this.def)
+  }
+
+  onCopy () {
+    this.addControl(this.def)
   }
 
   get activeCls () {
