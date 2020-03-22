@@ -1,4 +1,4 @@
-import { ControlDefinition } from '../type'
+import { ControlDefinition } from '@/components/type'
 
 let idx = 10000
 

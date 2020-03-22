@@ -12,7 +12,7 @@
     :on-remove="onRemove">
     <i class="el-icon-plus"></i>
   </el-upload>
-  <el-dialog :visible.sync="visible">
+  <el-dialog :visible.sync="visible" append-to-body>
     <img width="100%" :src="url" alt="">
   </el-dialog>
 </el-form-item>

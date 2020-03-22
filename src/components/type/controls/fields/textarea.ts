@@ -1,4 +1,4 @@
-import { FieldRule } from '../rule'
+import { FieldRule, FileData } from '@/components/type/core'
 import { genKey } from '@/components/utils'
 
 export class FieldTextareaDefinition {

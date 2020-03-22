@@ -1,4 +1,4 @@
-import { FieldDefinition } from '../../field'
+import { FieldDefinition } from '../fields'
 import { genKey } from '@/components/utils'
 
 export class GridDefinition {

@@ -1,5 +1,4 @@
-import { FieldRule } from '../rule'
-import { FileData } from '../type'
+import { FieldRule, FileData } from '@/components/type/core'
 import { genKey } from '@/components/utils'
 
 export class FieldFileuploadDefinition {
