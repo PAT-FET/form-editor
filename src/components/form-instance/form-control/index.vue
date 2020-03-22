@@ -9,6 +9,7 @@ import InputControl from './controls/input-control/index.vue'
 import TextareaControl from './controls/textarea-control/index.vue'
 import SelectControl from './controls/select-control/index.vue'
 import FileuploadControl from './controls/fileupload-control/index.vue'
+import ImguploadControl from './controls/imgupload-control/index.vue'
 
 @Component({
   components: {
@@ -16,7 +17,8 @@ import FileuploadControl from './controls/fileupload-control/index.vue'
     InputControl,
     TextareaControl,
     SelectControl,
-    FileuploadControl
+    FileuploadControl,
+    ImguploadControl
   }
 })
 export default class FormContorl extends Vue {

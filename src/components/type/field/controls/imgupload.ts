@@ -13,7 +13,7 @@ export class FieldImguploadDefinition {
 
 export class FieldImguploadOptions {
   disabled = false
-  action = ''
+  action = 'http://localhost:3000/form/uploadFile'
   limit = 8
   defaultValue: FileData[] = []
   required = false

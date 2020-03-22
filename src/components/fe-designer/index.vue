@@ -22,7 +22,7 @@ import { genKey, cloneControlDef } from '@/components/utils'
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
 })
 export default class FeDesigner extends Vue {
-  def: FormDefinition = new FormDefinition()
+  @ProvideReactive() def: FormDefinition = new FormDefinition()
 
   @ProvideReactive() activeControl: ControlDefinition | null = null
 
@@ -50,6 +50,10 @@ export default class FeDesigner extends Vue {
       const next = idx === list.length ? idx - 1 : (idx === 0 ? 0 : idx)
       this.setActiveControl(list[next] || null)
     }
+  }
+
+  @Provide() clearControl () {
+    this.def.list = []
   }
 
   setJSON (json: string) {
