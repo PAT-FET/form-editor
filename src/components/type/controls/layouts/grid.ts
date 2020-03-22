@@ -10,5 +10,5 @@ export class GridDefinition {
 
 export class GridOptions {
   span = 12
-  list: FieldDefinition[] = []
+  list: Array<FieldDefinition | GridDefinition > = []
 }

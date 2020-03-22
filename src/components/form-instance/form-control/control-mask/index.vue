@@ -1,5 +1,5 @@
 <template>
-<div :class="[$style.container, activeCls]" @click="onSelect">
+<div :class="[$style.container, activeCls, layoutCls]" @click="onSelect">
   <slot></slot>
   <div :class="[$style.mask]">
     <div :class="[$style.drag]"><i class="el-icon-rank"></i></div>
@@ -28,6 +28,18 @@ export default class ControlMask extends Vue {
 
   @Inject() addControl!: (control: ControlDefinition) => void
 
+  get isLayout () {
+    return this.def.type === 'grid'
+  }
+
+  get layoutCls () {
+    return this.isLayout ? this.$style.layout : ''
+  }
+
+  get activeCls () {
+    return this.def === this.activeControl ? this.$style.active : ''
+  }
+
   onSelect () {
     this.setActiveControl(this.def)
   }
@@ -40,14 +52,18 @@ export default class ControlMask extends Vue {
     this.addControl(this.def)
   }
 
-  get activeCls () {
-    return this.def === this.activeControl ? this.$style.active : ''
-  }
-
   $style!: any
 }
 </script>
 <style lang="scss" module>
+.layout {
+  .drag {
+    background-color: #e6a23c;
+  }
+  .action {
+    background-color: #e6a23c;
+  }
+}
 .container {
   padding-bottom: 18px;
   position: relative;
@@ -57,14 +73,27 @@ export default class ControlMask extends Vue {
   overflow: hidden;
   position: relative;
 
+  &.layout {
+    background-color: rgba(253,246,236,.3);
+  }
+
   &:hover {
     background-color: #ecf5ff;
     border-color: #409eff;
+    &.layout {
+      border-color: #e6a23c;
+      background-color: #fdf6ec;
+    }
   }
 
   &.active {
     outline: 2px solid #409eff;
     border: 1px solid #409eff;
+
+    &.layout {
+      outline: 2px solid #e6a23c;
+      border: 1px solid #e6a23c;
+    }
 
     & .drag, & .model, & .action {
       display: block;

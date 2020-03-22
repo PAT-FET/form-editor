@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, ProvideReactive } from 'vue-property-decorator'
 import { FieldInputDefinition, FormDefinition, ControlDefinition } from '@/components/type'
 import FormControl from './form-control/index.vue'
 
@@ -15,7 +15,7 @@ import FormControl from './form-control/index.vue'
 export default class FormInstance extends Vue {
   @Prop() def!: FormDefinition
 
-  @Prop(Boolean) design!: boolean
+  @ProvideReactive() @Prop(Boolean) design!: boolean
 
   get controlDefs (): ControlDefinition[] {
     return this.def.list || []

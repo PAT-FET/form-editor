@@ -1,27 +1,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
 import { CreateElement, VNode } from 'vue'
 import { ControlDefinition } from '@/components/type'
 
 import ControlMask from './control-mask/index.vue'
-
-import InputControl from './controls/input-control/index.vue'
-import TextareaControl from './controls/textarea-control/index.vue'
-import SelectControl from './controls/select-control/index.vue'
-import FileuploadControl from './controls/fileupload-control/index.vue'
-import ImguploadControl from './controls/imgupload-control/index.vue'
+import ControlMixins from './controls'
 
 @Component({
   components: {
-    ControlMask,
-    InputControl,
-    TextareaControl,
-    SelectControl,
-    FileuploadControl,
-    ImguploadControl
+    ControlMask
   }
 })
-export default class FormContorl extends Vue {
+export default class FormContorl extends mixins(ControlMixins) {
   @Prop() def!: ControlDefinition
 
   @Prop(Boolean) design!: boolean
