@@ -8,7 +8,9 @@ export class FormDefinition {
 }
 
 export class FormOptions {
-  disabled: boolean = false;
+  labelWidth: number = 100
+  labelPosition: 'top' | 'right' | 'left' = 'right'
+  size: 'small' | 'medium' | 'mini' = 'small'
 }
 
 

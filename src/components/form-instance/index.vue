@@ -1,12 +1,12 @@
 <template>
-<el-form ref="fm" label-width="100px">
+<el-form ref="fm" :label-width="config.labelWidth + 'px'" :label-position="config.labelPosition" :size="config.size">
   <form-control v-for="row in controlDefs" :key="row.key" :def="row" :design="design"></form-control>
 </el-form>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, ProvideReactive } from 'vue-property-decorator'
-import { FieldInputDefinition, FormDefinition, ControlDefinition } from '@/components/type'
+import { FieldInputDefinition, FormDefinition, ControlDefinition, FormOptions } from '@/components/type'
 import FormControl from './form-control/index.vue'
 
 @Component({
@@ -19,6 +19,10 @@ export default class FormInstance extends Vue {
 
   get controlDefs (): ControlDefinition[] {
     return this.def.list || []
+  }
+
+  get config (): FormOptions {
+    return this.def.config
   }
 }
 </script>
