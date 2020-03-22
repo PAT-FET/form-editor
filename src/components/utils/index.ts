@@ -3,7 +3,8 @@ import { ControlDefinition } from '@/components/type'
 let idx = 10000
 
 export function genKey () {
-  return Date.now() + '' + (idx++) + 10000
+  idx += 1
+  return Date.now() + '' + idx
 }
 
 export function cloneControlDef (def: ControlDefinition) {

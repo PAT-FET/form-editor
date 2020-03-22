@@ -12,6 +12,7 @@ export class FieldInputDefinition {
 
 export class FieldInputOptions {
   disabled = false
+  hidden = false
   dataType: 'string' | 'email' = 'string'
   defaultValue = ''
   required = false

@@ -17,6 +17,8 @@ export default class FormInstance extends Vue {
 
   @ProvideReactive() @Prop(Boolean) design!: boolean
 
+  @ProvideReactive() formData: Record<string, any> = {}
+
   get controlDefs (): ControlDefinition[] {
     return this.def.list || []
   }

@@ -6,5 +6,5 @@ import { ControlDefinition } from '@/components/type'
   components: { AttrField }
 })
 export default class FormAttr extends Vue {
-  @InjectReactive() activeControl!: ControlDefinition | null
+  @InjectReactive() activeControl!: ControlDefinition
 }
