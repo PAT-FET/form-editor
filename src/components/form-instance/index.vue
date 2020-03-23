@@ -15,9 +15,13 @@ import FormControl from './form-control/index.vue'
 export default class FormInstance extends Vue {
   @Prop() def!: FormDefinition
 
-  @ProvideReactive() @Prop(Boolean) design!: boolean
+  @Prop(Boolean) design!: boolean
 
   formData: Record<string, any> = {}
+
+  @Provide() getDesign () {
+    return this.design
+  }
 
   @Provide() getFormData () {
     return this.formData

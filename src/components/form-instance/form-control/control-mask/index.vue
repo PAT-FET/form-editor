@@ -20,13 +20,17 @@ import { ControlDefinition } from '@/components/type'
 export default class ControlMask extends Vue {
   @Prop() def!: ControlDefinition
 
-  @InjectReactive() activeControl!: ControlDefinition
-
   @Inject() setActiveControl!: (control: ControlDefinition) => void
+
+  @Inject() getActiveControl!: () => ControlDefinition
 
   @Inject() delControl!: (control: ControlDefinition) => void
 
   @Inject() addControl!: (control: ControlDefinition) => void
+
+  get activeControl (): ControlDefinition {
+    return this.getActiveControl()
+  }
 
   get isLayout () {
     return this.def.type === 'grid'

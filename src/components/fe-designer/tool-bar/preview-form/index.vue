@@ -1,7 +1,7 @@
 <template>
 <div >
 <el-dialog title="预览" :visible.sync="visible" width="780">
-  <form-instance :def="def" ref="fi" v-if="visible"></form-instance>
+  <form-instance :def="def" :design="false" ref="fi" v-if="visible"></form-instance>
   <div slot="footer" style="text-align: center;">
     <el-button type="primary" @click="onGetData">获取数据</el-button>
     <el-button>重 置</el-button>

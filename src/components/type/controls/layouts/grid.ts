@@ -5,10 +5,16 @@ export class GridDefinition {
   type = 'grid'
   key: string = genKey()
   name = '栅格布局'
-  columns: GridOptions[] = [new GridOptions(), new GridOptions()]
+  columns: GridColumn[] = [new GridColumn(), new GridColumn()]
+  options: GridOptions = new GridOptions()
+}
+
+export class GridColumn {
+  span = 12
+  list: Array<FieldDefinition | GridDefinition> = []
 }
 
 export class GridOptions {
-  span = 12
-  list: Array<FieldDefinition | GridDefinition > = []
+  hidden = false
+  gutter = 0
 }

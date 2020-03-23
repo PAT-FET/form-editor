@@ -30,6 +30,10 @@ export default class FeDesigner extends Vue {
     this.activeControl = control
   }
 
+  @Provide() getActiveControl (): ControlDefinition | null {
+    return this.activeControl
+  }
+
   @Provide() addControl (control: ControlDefinition) {
     const list = this.def.list
     const item = cloneControlDef(control)
