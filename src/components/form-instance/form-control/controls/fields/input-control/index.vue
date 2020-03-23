@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-input v-model="value"
     :disabled="options.disabled"
     :type="options.dataType"
@@ -9,49 +9,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch, InjectReactive } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
 import { FieldInputDefinition, FieldInputOptions } from '@/components/type'
+import FieldMixins from '../FieldMixins'
 
 @Component
-export default class InputControl extends Vue {
-  @Prop() def!: FieldInputDefinition
+export default class InputControl<FieldInputDefinition, FieldInputOptions> extends mixins(FieldMixins) {
 
-  @InjectReactive() formData!: Record<string, any>
-
-  get options (): FieldInputOptions {
-    return this.def.options
-  }
-
-  get defaultValue () {
-    return this.options.defaultValue
-  }
-
-  get model () {
-    return this.def.model
-  }
-
-  get value (): string {
-    return this.formData[this.def.model]
-  }
-
-  set value (val) {
-    this.formData[this.def.model] = val
-  }
-
-  @Watch('defaultValue') defaultValueChange () {
-    this.value = this.defaultValue
-  }
-
-  @Watch('model') modelChange (newVal: string, oldVal: string) {
-    this.$set(this.formData, newVal, this.formData[oldVal])
-    delete this.formData[oldVal]
-  }
-
-  created () {
-    if (this.formData[this.def.model] === undefined) this.$set(this.formData, this.def.model, this.defaultValue)
-  }
-
-  beforeDestroy () {
-    delete this.formData[this.def.model]
-  }
 }
 </script>
