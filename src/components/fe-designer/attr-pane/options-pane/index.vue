@@ -2,16 +2,18 @@
 <div>
   <ul :class="[$style.list]">
     <li :class="[$style.item]" v-for="(row, i) in list" :key="row.value">
-      <div :class="[$style.space]">
+      <div :class="[$style.space]" v-if="checkable">
           <el-radio v-model="actualValue" :label="row.value" v-if="!multiple"></el-radio>
           <el-checkbox v-model="actualValue" :label="row.value" v-else></el-checkbox>
       </div>
-      <div>
-        <el-input v-model="row.value" size="mini"></el-input>
-      </div>
-      <div :class="[$style.space]">
-          <el-input v-model="row.label" size="mini"></el-input>
-      </div>
+      <slot :row="row">
+        <div>
+          <el-input v-model="row.value" size="mini"></el-input>
+        </div>
+        <div :class="[$style.space]">
+            <el-input v-model="row.label" size="mini"></el-input>
+        </div>
+      </slot>
       <div :class="[$style.space, $style.move]"><i class="el-icon-rank"></i></div>
       <div><el-button type="danger" icon="el-icon-minus" circle size="mini" style="padding: 4px;" @click="onRemove(i)"></el-button></div>
     </li>
@@ -25,11 +27,15 @@ import { Component, Prop, Vue, Emit, InjectReactive } from 'vue-property-decorat
 
 @Component
 export default class OptionsPane extends Vue {
-  @Prop(Array) list!: Array<{label: string; value: string}>
+  @Prop(Array) list!: Array<any>
 
   @Prop(Boolean) multiple!: boolean
 
   @Prop([Array, String]) value!: any[] | string
+
+  @Prop({ type: Boolean, default: true }) checkable!: boolean
+
+  @Prop() addFn!: (list: any[]) => void
 
   @Emit() input (value: any[] | string) {}
 
@@ -42,7 +48,11 @@ export default class OptionsPane extends Vue {
   }
 
   onAdd () {
-    this.list.push({ label: '新选项', value: '新选项' })
+    if (this.addFn) {
+      this.addFn(this.list)
+    } else {
+      this.list.push({ label: '新选项', value: '新选项' })
+    }
   }
 
   onRemove (i: number) {

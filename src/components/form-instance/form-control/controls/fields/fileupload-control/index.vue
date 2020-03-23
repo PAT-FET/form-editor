@@ -1,13 +1,15 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model">
+<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-upload
-    :action="def.options.action"
+    :disabled="options.disabled"
+    :action="options.action"
     :on-preview="onPreview"
     :on-remove="onRemove"
     :before-remove="beforeRemove"
     multiple
-    :limit="def.options.limit"
+    :limit="options.limit"
     :on-exceed="onExceed"
+    :on-change="onChange"
     :file-list="fileList">
     <el-button size="small" type="primary">点击上传</el-button>
     <div slot="tip" class="el-upload__tip">{{def.options.tip}}</div>
@@ -17,32 +19,53 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { FieldFileuploadDefinition } from '@/components/type'
-import { download } from '@/components/utils'
+import { mixins } from 'vue-class-component'
+import FieldMixins from '../FieldMixins'
+import { FieldFileuploadDefinition, FieldFileuploadOptions } from '@/components/type'
+import { download, genKey } from '@/components/utils'
 
 @Component
-export default class FileuploadControl extends Vue {
-  @Prop() def!: FieldFileuploadDefinition
-
-  get fileList () {
-    return []
-  }
+export default class FileuploadControl extends mixins(FieldMixins) {
+  fileList: any[] = []
 
   onRemove (file: any, fileList: any[]) {
     console.log(file, fileList)
   }
 
   onPreview (file: any) {
-    const { url, name } = file
+    const { name } = file
+    const url = file.url || (file.response && file.response.url)
     download(url, name)
   }
 
   onExceed (files: any[], fileList: any[]) {
-    this.$message.warning(`当前限制选择 ${this.def.options.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    this.$message.warning(`当前限制选择 ${this.options.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
   }
 
   beforeRemove (file: any, fileList: any[]) {
     return this.$confirm(`确定移除 ${file.name}？`)
   }
+
+  onChange (file: any, fileList: any[]) {
+    const ret = fileList
+      .filter(v => v.status === 'success')
+      .map(v => {
+        return {
+          url: (v.response && v.response.url) || v.url,
+          uid: v.uid,
+          name: v.name,
+          status: v.status
+        }
+      })
+    this.value = ret
+  }
+
+  created () {
+    this.fileList = this.value.map((v: any) => {
+      return Object.assign({}, v)
+    })
+  }
+
+  options!: FieldFileuploadOptions
 }
 </script>

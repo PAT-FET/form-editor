@@ -12,7 +12,7 @@ export class FieldFileuploadDefinition {
 
 export class FieldFileuploadOptions {
   disabled = false
-  action = ''
+  action = 'http://localhost:3000/form/uploadFile'
   limit = 8
   tip = ''
   defaultValue: FileData[] = []
