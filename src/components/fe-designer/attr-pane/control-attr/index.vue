@@ -16,9 +16,10 @@ import InputAttr from './input-attr/index.vue'
 import TextareaAttr from './textarea-attr/index.vue'
 import SelectAttr from './select-attr/index.vue'
 import FileuploadAttr from './fileupload-attr/index.vue'
+import ImguploadAttr from './imgupload-attr/index.vue'
 
 @Component({
-  components: { InputAttr, TextareaAttr, SelectAttr, FileuploadAttr }
+  components: { InputAttr, TextareaAttr, SelectAttr, FileuploadAttr, ImguploadAttr }
 })
 export default class ControlAttr extends Vue {
   @InjectReactive() activeControl!: ControlDefinition | null
