@@ -58,7 +58,7 @@ export default class FileuploadAttr extends mixins(ControlMixins) {
   }
 
   addFn (list: any[]) {
-    list.push({ name: '', url: '' })
+    list.push({ name: '', url: '', uid: Date.now(), status: 'success' })
   }
 }
 </script>

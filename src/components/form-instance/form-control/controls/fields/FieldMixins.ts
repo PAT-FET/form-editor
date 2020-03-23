@@ -35,7 +35,11 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   get rules () {
     const ret: any[] = []
     if (this.options.required) {
-      ret.push({ required: true, message: '填写项', trigger: 'change' })
+      const rule: any = { required: true, message: '必填项', trigger: 'change' }
+      if (Array.isArray(this.options.required)) {
+        rule.type = 'array'
+      }
+      ret.push(rule)
     }
     const pattern = (this.options as any).pattern
     if (pattern) {
