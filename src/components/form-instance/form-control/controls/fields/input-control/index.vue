@@ -10,8 +10,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch, InjectReactive } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { FieldInputDefinition, FieldInputOptions } from '@/components/type'
 import FieldMixins from '../FieldMixins'
+import { FieldInputDefinition, FieldInputOptions } from '@/components/type'
 
 @Component
 export default class InputControl<FieldInputDefinition, FieldInputOptions> extends mixins(FieldMixins) {

@@ -39,7 +39,7 @@ export default class AttrPane extends Vue {
       }
     }
     .el-tabs__content {
-      height: 100%;
+      height: calc(100% - 48px);
       overflow: auto;
     }
   }

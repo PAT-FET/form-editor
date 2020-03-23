@@ -13,8 +13,8 @@ export class FieldSelectDefinition {
 export class FieldSelectOptions {
   disabled = false
   multiple = false
-  clearable = true
-  options: Array<{ value: string; label?: string }> = [{ value: 'Option1' }, { value: 'Option2' }, { value: 'Option3' }]
+  clearable = false
+  options: Array<{ value: string; label?: string }> = [{ value: 'Option1', label: '选项1' }, { value: 'Option2', label: '选项2' }, { value: 'Option3', label: '选项3' }]
   defaultValue: string | string[] = ''
   required = false
   placeholder = ''

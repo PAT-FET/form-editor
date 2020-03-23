@@ -13,9 +13,11 @@
 import { Component, Prop, Vue, InjectReactive } from 'vue-property-decorator'
 import { ControlDefinition } from '@/components/type'
 import InputAttr from './input-attr/index.vue'
+import TextareaAttr from './textarea-attr/index.vue'
+import SelectAttr from './select-attr/index.vue'
 
 @Component({
-  components: { InputAttr }
+  components: { InputAttr, TextareaAttr, SelectAttr }
 })
 export default class ControlAttr extends Vue {
   @InjectReactive() activeControl!: ControlDefinition | null
