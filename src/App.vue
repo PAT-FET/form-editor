@@ -20,7 +20,15 @@
           placeholder="请输入表单数据"></el-input>
       </div>
     </div>
-    <fe-generator></fe-generator>
+    <div style="text-align: center;">
+      <el-button type="primary" size="small" @click="run">执 行</el-button>
+    </div>
+
+    <el-divider></el-divider>
+
+    <div style="padding: 20px;">
+      <fe-generator :data="data" :value="value"></fe-generator>
+    </div>
   </div>
 </template>
 
@@ -35,10 +43,31 @@ export default class App extends Vue {
   formJson = ''
 
   formData = ''
+
+  data: any = null
+
+  value: any = null
+
+  run () {
+    if (!this.formJson) {
+      this.data = null
+    } else {
+      this.data = JSON.parse(this.formJson)
+    }
+
+    if (!this.formData) {
+      this.value = null
+    } else {
+      this.value = JSON.parse(this.formData)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
+#app {
+  padding-bottom: 40px;
+}
 body {
   margin: 0;
   padding: 0;

@@ -49,7 +49,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   @Watch('defaultValue') defaultValueChange () {
-    this.value = this.defaultValue
+    if (this.value === undefined) this.value = this.defaultValue
   }
 
   @Watch('model') modelChange (newVal: string, oldVal: string) {
@@ -57,7 +57,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
     delete this.formData[oldVal]
   }
 
-  created () {
+  @Watch('formData', { immediate: true }) formDataChange () {
     if (this.formData[this.def.model] === undefined) this.$set(this.formData, this.def.model, this.defaultValue)
   }
 

@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
 import { FieldFileuploadDefinition, FieldFileuploadOptions } from '@/components/type'
@@ -59,9 +59,11 @@ export default class FileuploadControl extends mixins(FieldMixins) {
     this.value = ret
   }
 
-  created () {
-    this.fileList = this.value.map((v: any) => {
-      return Object.assign({}, v)
+  @Watch('formData', { immediate: true }) formDataChange () {
+    this.$nextTick(() => {
+      this.fileList = (this.value || []).map((v: any) => {
+        return Object.assign({}, v)
+      })
     })
   }
 

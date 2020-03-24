@@ -46,3 +46,14 @@ export function download (url: string, name: string) {
   document.body.removeChild(link) // 下载完成移除元素
   window.URL.revokeObjectURL(url) // 释放掉blob对象
 }
+
+export function copyToClipboard (copyTxt: string) {
+  // createInput.value = copyTxt
+  document.addEventListener('copy', handler) // 增加copy监听
+  document.execCommand('copy') // 执行copy命令触发监听
+  document.removeEventListener('copy', handler)
+  function handler (event: any) {
+    event.clipboardData.setData('text/plain', copyTxt)
+    event.preventDefault()
+  }
+}
