@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <fe-designer style="height: 500px;"></fe-designer>
+    <fe-designer style="height: 500px;" :file-action="action" :img-action="action"></fe-designer>
 
     <el-divider></el-divider>
 
@@ -41,6 +41,8 @@ import components from '@/components'
   components: { ...components }
 })
 export default class App extends Vue {
+  action = 'http://localhost:3000/form/uploadFile'
+
   formJson = ''
 
   formData = ''

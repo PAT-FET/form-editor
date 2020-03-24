@@ -26,6 +26,8 @@ export default class FeDesigner extends Vue {
   @ProvideReactive() @Prop({ type: Boolean, default: true }) generateJson!: boolean
   @ProvideReactive() @Prop({ type: Boolean, default: true }) clearable!: boolean
   @ProvideReactive() @Prop({ type: Boolean, default: true }) upload!: boolean
+  @Prop(String) fileAction!: string
+  @Prop(String) imgAction!: string
 
   @ProvideReactive() def: FormDefinition = new FormDefinition()
 
@@ -39,9 +41,20 @@ export default class FeDesigner extends Vue {
     return this.activeControl
   }
 
+  @Provide() cloneControl (control: ControlDefinition) {
+    const clone = cloneControlDef(control)
+    if (clone.type === 'fileupload' && this.fileAction) {
+      (clone.options as any).action = this.fileAction
+    }
+    if (clone.type === 'imgupload' && this.imgAction) {
+      (clone.options as any).action = this.imgAction
+    }
+    return clone
+  }
+
   @Provide() addControl (control: ControlDefinition) {
     const list = this.def.list
-    const item = cloneControlDef(control)
+    const item = this.cloneControl(control)
     if (!this.activeControl) {
       list.push(item)
     } else {

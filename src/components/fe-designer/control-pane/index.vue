@@ -32,6 +32,8 @@ export default class ControlPane extends Vue {
 
   @Inject() setActiveControl!: (control: ControlDefinition) => void
 
+  @Inject() cloneControl!: (control: ControlDefinition) => ControlDefinition
+
   rows = getControls()
 
   onAdd (row: ControlDefinition) {
@@ -39,11 +41,7 @@ export default class ControlPane extends Vue {
   }
 
   cloneFn (clone: any) {
-    const ret = cloneControlDef(clone)
-    this.$nextTick(() => {
-      const ls = findList(this.def.list, ret)
-      if (ls) this.setActiveControl(ret)
-    })
+    const ret = this.cloneControl(clone)
     return ret
   }
 }
