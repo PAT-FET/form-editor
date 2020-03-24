@@ -14,32 +14,47 @@
     :on-remove="onRemove">
     <i class="el-icon-plus"></i>
   </el-upload>
-  <el-dialog :visible.sync="visible" append-to-body>
+  <!-- <el-dialog :visible.sync="visible" append-to-body>
     <img width="100%" :src="url" alt="">
-  </el-dialog>
+  </el-dialog> -->
+  <el-image v-if="visible"
+    ref="img"
+    style="width: 0px; height: 0px"
+    :src="url"
+    :preview-src-list="urls">
+  </el-image>
 </el-form-item>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Ref } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
 import { FieldImguploadDefinition, FieldImguploadOptions } from '@/components/type'
 
 @Component
 export default class ImguploadControl extends mixins(FieldMixins) {
+  @Ref() img!: any
+
   fileList: any[] = []
 
   visible = false
 
   url = ''
 
+  get urls () {
+    return this.value.map((v: any) => v.url)
+  }
+
   onRemove (file: any, fileList: any[]) {
   }
 
   onPreview (file: any) {
-    this.url = file.url
+    this.url = (file.response && file.response.url) || file.url
     this.visible = true
+    this.$nextTick(() => {
+      this.img.clickHandler()
+    })
   }
 
   onExceed (files: any[], fileList: any[]) {
