@@ -37,7 +37,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
     const name = this.def.name
     if (this.options.required) {
       const rule: any = { required: true, message: `${name}必填填写`, trigger: 'change' }
-      if (Array.isArray(this.options.required)) {
+      if (Array.isArray(this.options.defaultValue)) {
         rule.type = 'array'
       }
       ret.push(rule)

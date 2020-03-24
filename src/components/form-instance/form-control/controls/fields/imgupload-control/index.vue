@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
+<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
   <el-upload
     :disabled="options.disabled"
     :action="def.options.action"
@@ -36,6 +36,8 @@ import { FieldImguploadDefinition, FieldImguploadOptions } from '@/components/ty
 export default class ImguploadControl extends mixins(FieldMixins) {
   @Ref() img!: any
 
+  @Ref() fi: any
+
   fileList: any[] = []
 
   visible = false
@@ -47,6 +49,7 @@ export default class ImguploadControl extends mixins(FieldMixins) {
   }
 
   onRemove (file: any, fileList: any[]) {
+    this.onChange(file, fileList)
   }
 
   onPreview (file: any) {
@@ -77,6 +80,9 @@ export default class ImguploadControl extends mixins(FieldMixins) {
         }
       })
     this.value = ret
+    this.$nextTick(() => {
+      this.fi.validate('change')
+    })
   }
 
   @Watch('formData', { immediate: true }) formDataChange () {

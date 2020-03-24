@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
+<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
   <el-upload
     :disabled="options.disabled"
     :action="options.action"
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
 import { FieldFileuploadDefinition, FieldFileuploadOptions } from '@/components/type'
@@ -26,9 +26,12 @@ import { download, genKey } from '@/components/utils'
 
 @Component
 export default class FileuploadControl extends mixins(FieldMixins) {
+  @Ref() fi: any
+
   fileList: any[] = []
 
   onRemove (file: any, fileList: any[]) {
+    this.onChange(file, fileList)
   }
 
   onPreview (file: any) {
@@ -57,6 +60,9 @@ export default class FileuploadControl extends mixins(FieldMixins) {
         }
       })
     this.value = ret
+    this.$nextTick(() => {
+      this.fi.validate('change')
+    })
   }
 
   @Watch('formData', { immediate: true }) formDataChange () {

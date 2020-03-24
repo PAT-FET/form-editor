@@ -7,7 +7,7 @@ export class FieldImguploadDefinition {
   name = '图片'
   model: string = 'imgupload_' + genKey()
   options: FieldImguploadOptions = new FieldImguploadOptions()
-  rules?: FieldRule[];
+  rules?: FieldRule[] = []
 }
 
 export class FieldImguploadOptions {

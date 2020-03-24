@@ -7,7 +7,7 @@ export class FieldFileuploadDefinition {
   name = '文件'
   model: string = 'fileupload_' + genKey()
   options: FieldFileuploadOptions = new FieldFileuploadOptions()
-  rules?: FieldRule[];
+  rules?: FieldRule[] = []
 }
 
 export class FieldFileuploadOptions {

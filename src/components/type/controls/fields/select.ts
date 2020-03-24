@@ -7,7 +7,7 @@ export class FieldSelectDefinition {
   name = '下拉选择框'
   model: string = 'select_' + genKey()
   options: FieldSelectOptions = new FieldSelectOptions()
-  rules?: FieldRule[]
+  rules?: FieldRule[] = []
 }
 
 export class FieldSelectOptions {

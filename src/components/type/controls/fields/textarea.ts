@@ -7,7 +7,7 @@ export class FieldTextareaDefinition {
   name = '多行文本'
   model: string = 'textarea_' + genKey()
   options: FieldTextareaOptions = new FieldTextareaOptions()
-  rules?: FieldRule[]
+  rules?: FieldRule[] = []
 }
 
 export class FieldTextareaOptions {
