@@ -2,7 +2,7 @@
 <div :class="[$style.container, activeCls, layoutCls]" @click="onSelect">
   <slot></slot>
   <div :class="[$style.mask]">
-    <div :class="[$style.drag]"><i class="el-icon-rank"></i></div>
+    <div :class="[$style.drag]" class="drag-widget"><i class="el-icon-rank"></i></div>
     <div :class="[$style.model]" v-if="def.model">{{def.model}}</div>
     <div :class="[$style.action]">
       <i class="el-icon-document-copy" @click.stop="onCopy"></i>

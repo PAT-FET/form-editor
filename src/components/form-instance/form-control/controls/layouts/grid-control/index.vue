@@ -1,6 +1,14 @@
 <template>
 <el-row :class="[designCls]" :gutter="options.gutter" :hidden="options.hidden">
   <el-col v-for="(row, i) in columns" :key="i" :span="row.span">
+    <draggable
+      tag="div"
+      v-model="col.list"
+      :no-transition-on-drag="true"
+      v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+      @end="handleMoveEnd"
+      @add="handleWidgetColAdd($event, element, colIndex)"
+    >
     <div :class="[$style.col]">
       <form-control v-for="item in row.list" :key="item.key" :def="item" :design="design"></form-control>
     </div>
