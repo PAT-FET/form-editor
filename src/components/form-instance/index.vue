@@ -1,7 +1,8 @@
 <template>
 <el-form :model="formData" ref="fm" :label-width="config.labelWidth + 'px'" :label-position="config.labelPosition" :size="config.size" :class="[$style.container]">
-  <draggable v-model="def.list" v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
-   v-if="design">
+  <draggable v-model="def.list"
+    v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+    v-if="design">
     <form-control v-for="row in controlDefs" :key="row.key" :def="row" :design="design"></form-control>
   </draggable>
   <template v-else>

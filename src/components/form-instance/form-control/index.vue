@@ -10,7 +10,8 @@ import ControlMixins from './controls'
 @Component({
   components: {
     ControlMask
-  }
+  },
+  name: 'form-control'
 })
 export default class FormContorl extends mixins(ControlMixins) {
   @Prop() def!: ControlDefinition

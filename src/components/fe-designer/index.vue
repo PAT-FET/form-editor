@@ -15,8 +15,30 @@ import ToolBar from './tool-bar/index.vue'
 import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
-import { FormDefinition, ControlDefinition } from '@/components/type'
+import { FormDefinition, ControlDefinition, GridDefinition } from '@/components/type'
 import { genKey, cloneControlDef } from '@/components/utils'
+
+function findList (list: ControlDefinition[], item: ControlDefinition) {
+  let ret: any = null
+  list.some(v => {
+    if (v === item) {
+      ret = list
+      return true
+    }
+    if (v.type === 'grid') {
+      const has = (v as GridDefinition).columns.some(w => {
+        const r = findList(w.list, item)
+        if (r) {
+          ret = r
+          return true
+        }
+      })
+      if (has) return true
+    }
+    return false
+  })
+  return ret
+}
 
 @Component({
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
@@ -37,17 +59,19 @@ export default class FeDesigner extends Vue {
   @Provide() addControl (control: ControlDefinition) {
     const list = this.def.list
     const item = cloneControlDef(control)
+    debugger
     if (!this.activeControl) {
       list.push(item)
     } else {
-      const idx = list.findIndex(v => v === this.activeControl)
-      list.splice(idx === -1 ? list.length - 1 : idx + 1, 0, item)
+      const ls = findList(list, this.activeControl) as ControlDefinition[]
+      const idx = ls.findIndex(v => v === this.activeControl)
+      ls.splice(idx === -1 ? ls.length - 1 : idx + 1, 0, item)
     }
     this.setActiveControl(item)
   }
 
   @Provide() delControl (control: ControlDefinition) {
-    const list = this.def.list
+    const list = findList(this.def.list, control) as ControlDefinition[]
     const idx = list.findIndex(v => v === control)
     if (idx !== -1) {
       list.splice(idx, 1)

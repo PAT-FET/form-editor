@@ -1,5 +1,5 @@
 <template>
-<div :class="[$style.container, activeCls, layoutCls]" @click="onSelect">
+<div :class="[$style.container, activeCls, layoutCls]" @click.stop="onSelect">
   <slot></slot>
   <div :class="[$style.mask]">
     <div :class="[$style.drag]" class="drag-widget"><i class="el-icon-rank"></i></div>
@@ -61,10 +61,10 @@ export default class ControlMask extends Vue {
 </script>
 <style lang="scss" module>
 .layout {
-  .drag {
+  &>.mask>.drag {
     background-color: #e6a23c;
   }
-  .action {
+  &>.mask>.action {
     background-color: #e6a23c;
   }
 }
@@ -99,8 +99,10 @@ export default class ControlMask extends Vue {
       border: 1px solid #e6a23c;
     }
 
-    & .drag, & .model, & .action {
-      display: block;
+    &>.mask {
+      &>.drag, &>.model, &>.action {
+        display: block;
+      }
     }
   }
 }
@@ -123,6 +125,7 @@ export default class ControlMask extends Vue {
   background-color: #409eff;
   padding: 0 2px;
   color: #fff;
+  z-index: 1000;
 }
 
 .model {
@@ -132,6 +135,7 @@ export default class ControlMask extends Vue {
   top: 0;
   color: #67c23a;
   font-size: 12px;
+  z-index: 1000;
 }
 
 .action {
@@ -141,6 +145,7 @@ export default class ControlMask extends Vue {
   bottom: 0;
   background-color: #409eff;
   color: #fff;
+  z-index: 1000;
 
   &>i {
     margin: 0 4px;
