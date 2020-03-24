@@ -1,5 +1,5 @@
 <template>
-<form-instance :def="def" :form-data="formData"></form-instance>
+<form-instance :def="def" :form-data="formData" :edit="edit"></form-instance>
 </template>
 
 <script lang="ts">
@@ -15,6 +15,8 @@ export default class FeGenerator extends Vue {
   @Prop() data!: any
 
   @Prop() value!: any
+
+  @Prop({ type: Boolean, default: true }) edit!: any
 
   def: FormDefinition = new FormDefinition()
 

@@ -1,7 +1,7 @@
 <template>
 <el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
   <el-upload
-    :disabled="options.disabled"
+    :disabled="disabled"
     :action="def.options.action"
     list-type="picture-card"
     :on-preview="onPreview"

@@ -1,5 +1,5 @@
 
-import { Component, Prop, Vue, Watch, Inject } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Inject, InjectReactive } from 'vue-property-decorator'
 import { FieldDefinition, FieldOptions } from '@/components/type'
 
 @Component
@@ -7,6 +7,8 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   @Prop() def!: D
 
   @Inject() getFormData!: () => Record<string, any>
+
+  @InjectReactive() edit!: boolean
 
   get formData () {
     return this.getFormData()
@@ -30,6 +32,11 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   set value (val) {
     this.formData[this.def.model] = val
+  }
+
+  get disabled () {
+    if (!this.edit) return true
+    return this.options.disabled
   }
 
   get rules () {

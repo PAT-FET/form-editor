@@ -26,9 +26,9 @@
     </div>
 
     <el-divider></el-divider>
-
+    <el-checkbox v-model="edit" style="margin: 0 20px;">是否可编辑</el-checkbox>
     <div style="padding: 20px;">
-      <fe-generator :data="data" :value="value"></fe-generator>
+      <fe-generator :data="data" :value="value" :edit="edit"></fe-generator>
     </div>
   </div>
 </template>
@@ -48,6 +48,8 @@ export default class App extends Vue {
   data: any = null
 
   value: any = null
+
+  edit = true
 
   run () {
     if (!this.formJson) {

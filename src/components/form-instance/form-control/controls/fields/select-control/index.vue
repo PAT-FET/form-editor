@@ -2,7 +2,7 @@
 <el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-select v-model="value"
     collapse-tags
-    :disabled="options.disabled"
+    :disabled="disabled"
     :multiple="options.multiple"
     :clearable="options.clearable"
     :placeholder="options.placeholder">

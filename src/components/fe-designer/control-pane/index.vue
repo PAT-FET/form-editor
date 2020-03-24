@@ -6,7 +6,10 @@
     tag="ul" :list="rows"
     v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
     :clone="cloneFn">
-    <li :class="$style.item" v-for="row in rows" :key="row.key" @click="onAdd(row)">{{row.name}}</li>
+    <li :class="$style.item" v-for="row in rows" :key="row.key" @click="onAdd(row)">
+      <i class="iconfont" :class="['icon-' + row.type, $style.icon]"></i>
+      <span>{{row.name}}</span>
+    </li>
   </draggable>
 </div>
 </template>
@@ -17,6 +20,7 @@ import { getControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList } from '@/components/utils'
 import draggable from 'vuedraggable'
+import '@/components/iconfont/iconfont.css'
 
 @Component({
   components: { draggable }
@@ -68,12 +72,18 @@ export default class ControlPane extends Vue {
   margin: 4px 2px;
   font-size: 12px;
   color: #333;
-  text-align: center;
+  text-align: left;
 
   &:hover {
     cursor: pointer;
     border: dashed 1px #409eff;
     color: #409eff;
   }
+}
+
+.icon {
+  margin-right: 6px;
+  margin-left: 8px;
+  font-size: 14px;
 }
 </style>

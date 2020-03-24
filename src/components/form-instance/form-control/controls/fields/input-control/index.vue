@@ -1,7 +1,7 @@
 <template>
 <el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-input v-model="value"
-    :disabled="options.disabled"
+    :disabled="disabled"
     :type="options.dataType"
     :placeholder="options.placeholder"></el-input>
 </el-form-item>

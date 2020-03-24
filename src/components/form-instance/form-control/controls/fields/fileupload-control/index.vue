@@ -1,7 +1,7 @@
 <template>
 <el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
   <el-upload
-    :disabled="options.disabled"
+    :disabled="disabled"
     :action="options.action"
     :on-preview="onPreview"
     :on-remove="onRemove"
@@ -11,7 +11,7 @@
     :on-exceed="onExceed"
     :on-change="onChange"
     :file-list="fileList">
-    <el-button size="small" type="primary" :disabled="options.disabled">点击上传</el-button>
+    <el-button size="small" type="primary" :disabled="disabled">点击上传</el-button>
     <div slot="tip" class="el-upload__tip">{{def.options.tip}}</div>
   </el-upload>
 </el-form-item>
