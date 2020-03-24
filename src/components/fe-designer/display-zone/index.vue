@@ -1,7 +1,7 @@
 <template>
 <div :class="[$style.container]">
   <div :class="[$style.content]">
-    <form-instance :def="def" design></form-instance>
+    <form-instance :def="def" :form-data="formData" design></form-instance>
   </div>
 </div>
 </template>
@@ -16,6 +16,8 @@ import { FormDefinition, ControlDefinition } from '@/components/type'
 })
 export default class DisplayZone extends Vue {
   @Prop() def!: FormDefinition
+
+  formData: any = {}
 }
 </script>
 
