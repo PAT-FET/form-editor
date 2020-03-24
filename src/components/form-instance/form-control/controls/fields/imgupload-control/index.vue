@@ -35,7 +35,6 @@ export default class ImguploadControl extends mixins(FieldMixins) {
   url = ''
 
   onRemove (file: any, fileList: any[]) {
-    console.log(file, fileList)
   }
 
   onPreview (file: any) {

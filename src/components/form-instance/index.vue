@@ -1,6 +1,7 @@
 <template>
 <el-form :model="formData" ref="fm" :label-width="config.labelWidth + 'px'" :label-position="config.labelPosition" :size="config.size" :class="[$style.container]">
   <draggable v-model="def.list"
+    style="min-height: 100%;"
     v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
     v-if="design">
     <form-control v-for="row in controlDefs" :key="row.key" :def="row" :design="design"></form-control>
@@ -47,6 +48,7 @@ export default class FormInstance extends Vue {
 
 <style lang="scss" module>
 .container {
+  height: 100%;
   :global {
     .ghost{
       background-color: #F56C6C !important;
@@ -58,6 +60,7 @@ export default class FormInstance extends Vue {
       content: '';
       overflow: hidden;
       padding: 0;
+      width: 100%;
     }
   }
 }

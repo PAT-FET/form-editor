@@ -16,29 +16,7 @@ import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
 import { FormDefinition, ControlDefinition, GridDefinition } from '@/components/type'
-import { genKey, cloneControlDef } from '@/components/utils'
-
-function findList (list: ControlDefinition[], item: ControlDefinition) {
-  let ret: any = null
-  list.some(v => {
-    if (v === item) {
-      ret = list
-      return true
-    }
-    if (v.type === 'grid') {
-      const has = (v as GridDefinition).columns.some(w => {
-        const r = findList(w.list, item)
-        if (r) {
-          ret = r
-          return true
-        }
-      })
-      if (has) return true
-    }
-    return false
-  })
-  return ret
-}
+import { genKey, cloneControlDef, findList } from '@/components/utils'
 
 @Component({
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
@@ -59,7 +37,6 @@ export default class FeDesigner extends Vue {
   @Provide() addControl (control: ControlDefinition) {
     const list = this.def.list
     const item = cloneControlDef(control)
-    debugger
     if (!this.activeControl) {
       list.push(item)
     } else {
@@ -82,6 +59,7 @@ export default class FeDesigner extends Vue {
 
   @Provide() clearControl () {
     this.def.list = []
+    this.activeControl = null
   }
 
   setJSON (json: string) {

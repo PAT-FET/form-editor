@@ -29,7 +29,6 @@ export default class FileuploadControl extends mixins(FieldMixins) {
   fileList: any[] = []
 
   onRemove (file: any, fileList: any[]) {
-    console.log(file, fileList)
   }
 
   onPreview (file: any) {

@@ -1,4 +1,4 @@
-import { ControlDefinition } from '@/components/type'
+import { ControlDefinition, GridDefinition } from '@/components/type'
 
 let idx = 10000
 
@@ -11,6 +11,28 @@ export function cloneControlDef (def: ControlDefinition) {
   const ret: ControlDefinition = JSON.parse(JSON.stringify(def))
   ret.key = genKey()
   if ((ret as any).model !== undefined) (ret as any).model = ret.type + '_' + genKey()
+  return ret
+}
+
+export function findList (list: ControlDefinition[], item: ControlDefinition) {
+  let ret: any = null
+  list.some(v => {
+    if (v === item) {
+      ret = list
+      return true
+    }
+    if (v.type === 'grid') {
+      const has = (v as GridDefinition).columns.some(w => {
+        const r = findList(w.list, item)
+        if (r) {
+          ret = r
+          return true
+        }
+      })
+      if (has) return true
+    }
+    return false
+  })
   return ret
 }
 

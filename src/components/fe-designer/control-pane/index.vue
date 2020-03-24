@@ -1,9 +1,13 @@
 <template>
 <div>
   <div :class="$style.title">控件列表</div>
-  <ul :class="$style.list">
+  <draggable
+    :class="$style.list"
+    tag="ul" :list="rows"
+    v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
+    :clone="cloneFn">
     <li :class="$style.item" v-for="row in rows" :key="row.key" @click="onAdd(row)">{{row.name}}</li>
-  </ul>
+  </draggable>
 </div>
 </template>
 
@@ -11,16 +15,32 @@
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
 import { getControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
-import { cloneControlDef } from '@/components/utils'
+import { cloneControlDef, findList } from '@/components/utils'
+import draggable from 'vuedraggable'
 
-@Component
+@Component({
+  components: { draggable }
+})
 export default class ControlPane extends Vue {
+  @Prop() def!: FormDefinition
+
   @Inject() addControl!: (control: ControlDefinition) => void
+
+  @Inject() setActiveControl!: (control: ControlDefinition) => void
 
   rows = getControls()
 
   onAdd (row: ControlDefinition) {
     this.addControl(row)
+  }
+
+  cloneFn (clone: any) {
+    const ret = cloneControlDef(clone)
+    this.$nextTick(() => {
+      const ls = findList(this.def.list, ret)
+      if (ls) this.setActiveControl(ret)
+    })
+    return ret
   }
 }
 </script>

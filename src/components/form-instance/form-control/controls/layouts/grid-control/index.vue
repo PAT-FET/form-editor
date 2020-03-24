@@ -1,5 +1,5 @@
 <template>
-<el-row :class="[designCls]" :gutter="options.gutter" :hidden="options.hidden">
+<el-row type="flex" :class="[designCls]" :gutter="options.gutter" :justify="options.justify" :align="options.align" :hidden="options.hidden">
   <el-col v-for="(row, i) in columns" :key="i" :span="row.span">
     <draggable
       v-if="design"
@@ -52,7 +52,6 @@ export default class GridControl extends Vue {
   }
 
   onInput (list: any, row: any) {
-    console.log(list, row)
     row.list = list || []
   }
 

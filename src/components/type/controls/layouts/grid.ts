@@ -17,4 +17,6 @@ export class GridColumn {
 export class GridOptions {
   hidden = false
   gutter = 0
+  justify: 'start' | 'end' | 'center' | 'space-around' | 'space-between' = 'start'
+  align: 'bottom' | 'middle' | 'top' = 'top'
 }
