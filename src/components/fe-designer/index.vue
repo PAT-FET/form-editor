@@ -22,6 +22,11 @@ import { genKey, cloneControlDef, findList } from '@/components/utils'
   components: { ToolBar, ControlPane, DisplayZone, AttrPane }
 })
 export default class FeDesigner extends Vue {
+  @ProvideReactive() @Prop({ type: Boolean, default: true }) preview!: boolean
+  @ProvideReactive() @Prop({ type: Boolean, default: true }) generateJson!: boolean
+  @ProvideReactive() @Prop({ type: Boolean, default: true }) clearable!: boolean
+  @ProvideReactive() @Prop({ type: Boolean, default: true }) upload!: boolean
+
   @ProvideReactive() def: FormDefinition = new FormDefinition()
 
   @ProvideReactive() activeControl: ControlDefinition | null = null
@@ -62,8 +67,17 @@ export default class FeDesigner extends Vue {
     this.activeControl = null
   }
 
-  setJSON (json: string) {
-    this.def = JSON.parse(json)
+  @Provide() setJSON (json: string) {
+    if (!json) {
+      this.def = new FormDefinition()
+    } else {
+      this.def = JSON.parse(json)
+    }
+    this.activeControl = null
+  }
+
+  getJSON () {
+    return JSON.stringify(this.def)
   }
 }
 </script>

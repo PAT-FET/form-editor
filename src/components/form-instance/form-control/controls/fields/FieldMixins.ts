@@ -34,8 +34,9 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   get rules () {
     const ret: any[] = []
+    const name = this.def.name
     if (this.options.required) {
-      const rule: any = { required: true, message: '必填项', trigger: 'change' }
+      const rule: any = { required: true, message: `${name}必填填写`, trigger: 'change' }
       if (Array.isArray(this.options.required)) {
         rule.type = 'array'
       }
@@ -43,8 +44,13 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
     }
     const pattern = (this.options as any).pattern
     if (pattern) {
-      ret.push({ pattern, message: `不合法表达式, 格式${pattern}`, trigger: 'change' })
+      ret.push({ pattern, message: `${name}格式不匹配: ${pattern}`, trigger: 'change' })
     }
+    this.def.rules = ret.map(v => {
+      const item = Object.assign({}, v)
+      delete item.trigger
+      return item
+    })
     return ret
   }
 

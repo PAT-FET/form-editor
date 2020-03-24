@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <fe-designer style="height: 500px;"></fe-designer>
 
     <el-divider></el-divider>

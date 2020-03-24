@@ -7,7 +7,7 @@ export class FieldInputDefinition {
   name = '单文本框'
   model: string = 'input_' + genKey()
   options: FieldInputOptions = new FieldInputOptions()
-  rules?: FieldRule
+  rules?: FieldRule[]
 }
 
 export class FieldInputOptions {
