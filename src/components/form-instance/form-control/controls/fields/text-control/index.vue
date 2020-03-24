@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="label" :prop="def.model" :hidden="options.hidden">
   <span>{{value}}</span>
 </el-form-item>
 </template>

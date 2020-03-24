@@ -39,6 +39,10 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
     return this.options.disabled
   }
 
+  get label () {
+    return this.def.name + ' : '
+  }
+
   get rules () {
     const ret: any[] = []
     const name = this.def.name
@@ -62,7 +66,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   @Watch('defaultValue') defaultValueChange () {
-    if (this.value === undefined) this.value = this.defaultValue
+    this.value = this.defaultValue
   }
 
   @Watch('model') modelChange (newVal: string, oldVal: string) {

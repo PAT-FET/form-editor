@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="def.name" :prop="def.model" :rules="rules" :hidden="options.hidden">
+<el-form-item :label="label" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-input type="textarea" :rows="3" v-model="value"
     :disabled="disabled"
     :placeholder="options.placeholder">
