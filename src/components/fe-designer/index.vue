@@ -121,7 +121,6 @@ export default class FeDesigner extends Vue {
 .right {
   width: 300px;
   height: 100%;
-  overflow: auto;
 }
 
 .zone {

@@ -83,9 +83,9 @@ export default class ControlMask extends Vue {
 
   &:hover {
     background-color: #ecf5ff;
-    border-color: #409eff;
+    border: #409eff 1px solid;
     &.layout {
-      border-color: #e6a23c;
+      border: #e6a23c 1px solid;
       background-color: #fdf6ec;
     }
   }

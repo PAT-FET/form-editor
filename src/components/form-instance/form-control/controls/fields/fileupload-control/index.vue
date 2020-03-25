@@ -35,9 +35,13 @@ export default class FileuploadControl extends mixins(FieldMixins) {
   }
 
   onPreview (file: any) {
-    const { name } = file
-    const url = file.url || (file.response && file.response.url)
-    download(url, name)
+    this.$confirm(`确定下载 ${file.name}？`).then(() => {
+      const { name } = file
+      const url = file.url || (file.response && file.response.url)
+      download(url, name)
+    }).catch(() => {
+      // ignore
+    })
   }
 
   onExceed (files: any[], fileList: any[]) {
@@ -49,6 +53,7 @@ export default class FileuploadControl extends mixins(FieldMixins) {
   }
 
   onChange (file: any, fileList: any[]) {
+    if (file.status !== 'success') return
     const ret = fileList
       .filter(v => v.status === 'success')
       .map(v => {
@@ -65,12 +70,16 @@ export default class FileuploadControl extends mixins(FieldMixins) {
     })
   }
 
-  @Watch('formData', { immediate: true }) formDataChange () {
+  refresh () {
     this.$nextTick(() => {
       this.fileList = (this.value || []).map((v: any) => {
         return Object.assign({}, v)
       })
     })
+  }
+
+  @Watch('formData', { immediate: true }) formDataChange () {
+    this.refresh()
   }
 
   options!: FieldFileuploadOptions

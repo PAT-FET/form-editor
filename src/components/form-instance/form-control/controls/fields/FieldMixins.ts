@@ -10,6 +10,12 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   @InjectReactive() edit!: boolean
 
+  @Inject() getDesign!: () => boolean
+
+  get design () {
+    return this.getDesign()
+  }
+
   get formData () {
     return this.getFormData()
   }
@@ -31,7 +37,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   set value (val) {
-    this.formData[this.def.model] = val
+    this.$set(this.formData, this.def.model, val)
   }
 
   get disabled () {
@@ -65,8 +71,12 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
     return ret
   }
 
-  @Watch('defaultValue') defaultValueChange () {
+  @Watch('defaultValue', { deep: true }) defaultValueChange () {
+    if (!this.design) return
     this.value = this.defaultValue
+    if ((this as any).refresh) {
+      (this as any).refresh()
+    }
   }
 
   @Watch('model') modelChange (newVal: string, oldVal: string) {
@@ -75,10 +85,14 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   @Watch('formData', { immediate: true }) formDataChange () {
-    if (this.formData[this.def.model] === undefined) this.$set(this.formData, this.def.model, this.defaultValue)
+    if (this.formData[this.def.model] === undefined) this.value = this.defaultValue
   }
 
   beforeDestroy () {
     delete this.formData[this.def.model]
+  }
+
+  created () {
+    if (this.formData[this.def.model] === undefined) this.value = this.defaultValue
   }
 }

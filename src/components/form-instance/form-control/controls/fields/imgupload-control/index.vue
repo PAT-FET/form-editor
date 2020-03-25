@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
+<el-form-item :label="label" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi" :class="[disabledCls]">
   <el-upload
     :disabled="disabled"
     :action="def.options.action"
@@ -44,8 +44,10 @@ export default class ImguploadControl extends mixins(FieldMixins) {
 
   url = ''
 
-  get urls () {
-    return this.value.map((v: any) => v.url)
+  urls: string[] = []
+
+  get disabledCls () {
+    return this.disabled ? this.$style.disabled : ''
   }
 
   onRemove (file: any, fileList: any[]) {
@@ -53,10 +55,14 @@ export default class ImguploadControl extends mixins(FieldMixins) {
   }
 
   onPreview (file: any) {
+    this.visible = false
     this.url = (file.response && file.response.url) || file.url
-    this.visible = true
+    this.urls = (this.value || []).map((v: any) => v.url)
     this.$nextTick(() => {
-      this.img.clickHandler()
+      this.visible = true
+      this.$nextTick(() => {
+        this.img.clickHandler()
+      })
     })
   }
 
@@ -69,6 +75,7 @@ export default class ImguploadControl extends mixins(FieldMixins) {
   }
 
   onChange (file: any, fileList: any[]) {
+    if (file.status !== 'success') return
     const ret = fileList
       .filter(v => v.status === 'success')
       .map(v => {
@@ -85,7 +92,7 @@ export default class ImguploadControl extends mixins(FieldMixins) {
     })
   }
 
-  @Watch('formData', { immediate: true }) formDataChange () {
+  refresh () {
     this.$nextTick(() => {
       this.fileList = (this.value || []).map((v: any) => {
         return Object.assign({}, v)
@@ -93,6 +100,26 @@ export default class ImguploadControl extends mixins(FieldMixins) {
     })
   }
 
+  @Watch('formData', { immediate: true }) formDataChange () {
+    this.refresh()
+  }
+
   options!: FieldImguploadOptions
+
+  $style: any
 }
 </script>
+
+<style lang="scss" module>
+.disabled {
+  :global {
+    .el-upload--picture-card {
+      cursor: not-allowed !important;
+      background: #efefef !important;
+      &:hover {
+        border: 1px dashed #c0ccda !important;
+      }
+    }
+  }
+}
+</style>
