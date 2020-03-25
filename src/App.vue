@@ -35,11 +35,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import components from '@/components'
 
-@Component({
-  components: { ...components }
-})
+@Component
 export default class App extends Vue {
   action = 'http://localhost:3000/form/uploadFile'
 
