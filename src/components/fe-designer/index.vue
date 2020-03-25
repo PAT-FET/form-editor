@@ -33,6 +33,10 @@ export default class FeDesigner extends Vue {
 
   @ProvideReactive() activeControl: ControlDefinition | null = null
 
+  @Provide() getFormDef () {
+    return this.def
+  }
+
   @Provide() setActiveControl (control: ControlDefinition) {
     this.activeControl = control
   }

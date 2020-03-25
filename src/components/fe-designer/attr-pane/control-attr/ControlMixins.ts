@@ -1,4 +1,4 @@
-import { Component, Prop, Vue, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, Inject } from 'vue-property-decorator'
 import AttrField from '../atrr-field/index.vue'
 import { ControlDefinition } from '@/components/type'
 
@@ -6,5 +6,9 @@ import { ControlDefinition } from '@/components/type'
   components: { AttrField }
 })
 export default class ControlMixins extends Vue {
-  @InjectReactive() activeControl!: ControlDefinition
+  @Inject() getActiveControl!: () => ControlDefinition
+
+  get activeControl (): ControlDefinition {
+    return this.getActiveControl()
+  }
 }

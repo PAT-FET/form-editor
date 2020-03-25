@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, Inject } from 'vue-property-decorator'
 import AttrField from '../atrr-field/index.vue'
 import { FormDefinition, FormOptions } from '@/components/type'
 
@@ -29,7 +29,11 @@ import { FormDefinition, FormOptions } from '@/components/type'
   components: { AttrField }
 })
 export default class FormAttr extends Vue {
-  @InjectReactive() def!: FormDefinition
+  @Inject() getFormDef!: () => FormDefinition
+
+  get def () {
+    return this.getFormDef()
+  }
 
   get config (): FormOptions {
     return this.def.config
