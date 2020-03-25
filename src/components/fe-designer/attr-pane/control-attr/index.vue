@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, Inject } from 'vue-property-decorator'
 import { ControlDefinition } from '@/components/type'
 import InputAttr from './input-attr/index.vue'
 import TextareaAttr from './textarea-attr/index.vue'
@@ -24,7 +24,11 @@ import GridAttr from './grid-attr/index.vue'
   components: { InputAttr, TextareaAttr, SelectAttr, TextAttr, FileuploadAttr, ImguploadAttr, GridAttr }
 })
 export default class ControlAttr extends Vue {
-  @InjectReactive() activeControl!: ControlDefinition | null
+  @Inject() getActiveControl!: () => ControlDefinition
+
+  get activeControl (): ControlDefinition {
+    return this.getActiveControl()
+  }
 
   get current () {
     return this.activeControl && this.activeControl.type + '-attr'
