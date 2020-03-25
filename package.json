@@ -1,10 +1,12 @@
 {
-  "name": "form-editor",
+  "name": "@pat-fet/form-editor",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/form-editor.common.js",
+  "types": "src/components/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --dest docs",
+    "build:lib": "vue-cli-service build --target lib --name form-editor src/components/index.ts",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -44,5 +46,12 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
   }
 }
