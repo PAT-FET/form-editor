@@ -86,7 +86,9 @@ export default class FeDesigner extends Vue {
     } else {
       this.def = JSON.parse(json)
     }
-    this.activeControl = null
+    this.$nextTick(() => {
+      if (this.def.list[0]) this.setActiveControl(this.def.list[0])
+    })
   }
 
   getJSON () {
