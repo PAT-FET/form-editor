@@ -8,9 +8,13 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   @Inject() getFormData!: () => Record<string, any>
 
-  @InjectReactive() edit!: boolean
+  @Inject() getEdit!: () => boolean
 
   @Inject() getDesign!: () => boolean
+
+  get edit () {
+    return this.getEdit()
+  }
 
   get design () {
     return this.getDesign()

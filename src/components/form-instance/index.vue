@@ -28,7 +28,11 @@ export default class FormInstance extends Vue {
 
   @Prop() formData!: Record<string, any>
 
-  @ProvideReactive() @Prop({ type: Boolean, default: true }) edit!: any
+  @Prop({ type: Boolean, default: true }) edit!: any
+
+  @Provide() getEdit (): boolean {
+    return this.edit
+  }
 
   @Provide() getDesign () {
     return this.design
