@@ -28,7 +28,11 @@ import { copyToClipboard } from '@/components/utils'
   components: { FormInstance }
 })
 export default class PreviewForm extends Vue {
-  @InjectReactive() def!: FormDefinition
+  @Inject() getFormDef!: () => FormDefinition
+
+  get def () {
+    return this.getFormDef()
+  }
 
   @Ref() fi!: any
 

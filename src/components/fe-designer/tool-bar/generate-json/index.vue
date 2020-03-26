@@ -19,7 +19,11 @@ import { copyToClipboard } from '@/components/utils'
   components: { FormInstance }
 })
 export default class GenerateJson extends Vue {
-  @InjectReactive() def!: FormDefinition
+  @Inject() getFormDef!: () => FormDefinition
+
+  get def () {
+    return this.getFormDef()
+  }
 
   visible = false
 
