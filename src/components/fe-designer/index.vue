@@ -15,7 +15,7 @@ import ToolBar from './tool-bar/index.vue'
 import ControlPane from './control-pane/index.vue'
 import DisplayZone from './display-zone/index.vue'
 import AttrPane from './attr-pane/index.vue'
-import { FormDefinition, ControlDefinition, GridDefinition } from '@/components/type'
+import { FormDefinition, ControlDefinition, GridDefinition, ControlOptions } from '@/components/type'
 import { genKey, cloneControlDef, findList } from '@/components/utils'
 
 @Component({
@@ -26,8 +26,9 @@ export default class FeDesigner extends Vue {
   @ProvideReactive() @Prop({ type: Boolean, default: true }) generateJson!: boolean
   @ProvideReactive() @Prop({ type: Boolean, default: true }) clearable!: boolean
   @ProvideReactive() @Prop({ type: Boolean, default: true }) upload!: boolean
-  @Prop(String) fileAction!: string
-  @Prop(String) imgAction!: string
+  // @Prop(String) fileAction!: string
+  // @Prop(String) imgAction!: string
+  @Prop() options!: Record<string, Partial<ControlOptions>>
 
   @ProvideReactive() def: FormDefinition = new FormDefinition()
 
@@ -47,11 +48,10 @@ export default class FeDesigner extends Vue {
 
   @Provide() cloneControl (control: ControlDefinition) {
     const clone = cloneControlDef(control)
-    if (clone.type === 'fileupload' && this.fileAction) {
-      (clone.options as any).action = this.fileAction
-    }
-    if (clone.type === 'imgupload' && this.imgAction) {
-      (clone.options as any).action = this.imgAction
+    let options = this.options && this.options[control.type]
+    if (options) {
+      options = JSON.parse(JSON.stringify(options))
+      Object.assign(clone.options, options)
     }
     return clone
   }

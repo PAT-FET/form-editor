@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <fe-designer style="height: 500px;" :file-action="action" :img-action="action"></fe-designer>
+    <fe-designer style="height: 500px;" :options="options"></fe-designer>
 
     <el-divider></el-divider>
 
@@ -38,8 +38,6 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class App extends Vue {
-  action = 'http://localhost:3000/form/uploadFile'
-
   formJson = ''
 
   formData = ''
@@ -49,6 +47,18 @@ export default class App extends Vue {
   value: any = null
 
   edit = true
+
+  options = {
+    fileupload: {
+      action: 'http://localhost:3000/form/uploadFile'
+    },
+    imgupload: {
+      action: 'http://localhost:3000/form/uploadFile'
+    },
+    input: {
+      disabled: true
+    }
+  }
 
   run () {
     if (!this.formJson) {
