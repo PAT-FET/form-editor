@@ -8,16 +8,18 @@ import {
   GridDefinition
 } from '@/components/type'
 
-const controls = [
+export const basicControls = [
   new FieldInputDefinition(),
   new FieldTextareaDefinition(),
   new FieldSelectDefinition(),
-  new FieldTextDefinition(),
-  new FieldFileuploadDefinition(),
-  new FieldImguploadDefinition(),
-  new GridDefinition()
+  new FieldTextDefinition()
 ]
 
-export function getControls () {
-  return controls
-}
+export const advancedControls = [
+  new FieldFileuploadDefinition(),
+  new FieldImguploadDefinition()
+]
+
+export const layoutControls = [
+  new GridDefinition()
+]

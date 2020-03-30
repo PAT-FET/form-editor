@@ -1,22 +1,24 @@
 <template>
 <div>
-  <div :class="$style.title">控件列表</div>
-  <draggable
-    :class="$style.list"
-    tag="ul" :list="rows"
-    v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
-    :clone="cloneFn">
-    <li :class="$style.item" v-for="row in rows" :key="row.key" @click="onAdd(row)">
-      <i class="iconfont" :class="['icon-' + row.type, $style.icon]"></i>
-      <span>{{row.name}}</span>
-    </li>
-  </draggable>
+  <div v-for="(row, i) in rows" :key="i">
+    <div :class="$style.title">{{row.title}}</div>
+    <draggable
+      :class="$style.list"
+      tag="ul" :list="row.list"
+      v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
+      :clone="cloneFn">
+      <li :class="$style.item" v-for="item in row.list" :key="item.key" @click="onAdd(item)">
+        <i class="iconfont" :class="['icon-' + item.type, $style.icon]"></i>
+        <span>{{item.name}}</span>
+      </li>
+    </draggable>
+  </div>
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
-import { getControls } from './config'
+import { basicControls, advancedControls, layoutControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList } from '@/components/utils'
 import draggable from 'vuedraggable'
@@ -34,7 +36,13 @@ export default class ControlPane extends Vue {
 
   @Inject() cloneControl!: (control: ControlDefinition) => ControlDefinition
 
-  rows = getControls()
+  get rows () {
+    const ret = []
+    ret.push({ title: '基本字段', list: basicControls })
+    ret.push({ title: '高级字段', list: advancedControls })
+    ret.push({ title: '布局字段', list: layoutControls })
+    return ret
+  }
 
   onAdd (row: ControlDefinition) {
     this.addControl(row)
@@ -55,7 +63,7 @@ export default class ControlPane extends Vue {
 
 .list {
   margin: 0;
-  padding: 0 10px;
+  padding: 0 10px 10px 10px;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
