@@ -3,6 +3,7 @@ import InputControl from './fields/input-control/index.vue'
 import TextareaControl from './fields/textarea-control/index.vue'
 import SelectControl from './fields/select-control/index.vue'
 import TextControl from './fields/text-control/index.vue'
+import HtmlControl from './fields/html-control/index.vue'
 import FileuploadControl from './fields/fileupload-control/index.vue'
 import ImguploadControl from './fields/imgupload-control/index.vue'
 
@@ -14,6 +15,7 @@ import GridControl from './layouts/grid-control/index.vue'
     TextareaControl,
     SelectControl,
     TextControl,
+    HtmlControl,
     FileuploadControl,
     ImguploadControl,
     GridControl

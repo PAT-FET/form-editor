@@ -3,6 +3,7 @@ import {
   FieldTextareaDefinition,
   FieldSelectDefinition,
   FieldTextDefinition,
+  FieldHtmlDefinition,
   FieldFileuploadDefinition,
   FieldImguploadDefinition,
   GridDefinition
@@ -12,7 +13,8 @@ export const basicControls = [
   new FieldInputDefinition(),
   new FieldTextareaDefinition(),
   new FieldSelectDefinition(),
-  new FieldTextDefinition()
+  new FieldTextDefinition(),
+  new FieldHtmlDefinition()
 ]
 
 export const advancedControls = [
