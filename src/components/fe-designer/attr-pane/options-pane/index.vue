@@ -1,6 +1,13 @@
 <template>
 <div>
-  <ul :class="[$style.list]">
+  <draggable
+      :class="[$style.list]"
+      :value="list"
+      @input="onInput($event)"
+      tag="ul"
+      :no-transition-on-drag="true"
+      v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+    >
     <li :class="[$style.item]" v-for="(row, i) in list" :key="row.value">
       <div :class="[$style.space]" v-if="checkable">
           <el-radio v-model="actualValue" :label="row.value" v-if="!multiple"></el-radio>
@@ -14,18 +21,21 @@
             <el-input v-model="row.label" size="mini"></el-input>
         </div>
       </slot>
-      <div :class="[$style.space, $style.move]"><i class="el-icon-rank"></i></div>
+      <div :class="[$style.space, $style.move]" class="drag-widget"><i class="el-icon-rank"></i></div>
       <div><el-button type="danger" icon="el-icon-minus" circle size="mini" style="padding: 4px;" @click="onRemove(i)"></el-button></div>
     </li>
-  </ul>
+  </draggable>
   <el-button type="text" @click="onAdd">{{addText}}</el-button>
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Emit, InjectReactive } from 'vue-property-decorator'
+import draggable from 'vuedraggable'
 
-@Component
+@Component({
+  components: { draggable }
+})
 export default class OptionsPane extends Vue {
   @Prop(Array) list!: Array<any>
 
@@ -55,6 +65,10 @@ export default class OptionsPane extends Vue {
     } else {
       this.list.push({ label: '新选项', value: '新选项' })
     }
+  }
+
+  onInput (list: any) {
+    this.list.splice(0, this.list.length, ...list)
   }
 
   onRemove (i: number) {
