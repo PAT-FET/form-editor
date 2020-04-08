@@ -33,7 +33,7 @@ export default class ControlMask extends Vue {
   }
 
   get isLayout () {
-    return this.def.type === 'grid'
+    return ['grid', 'tabs'].includes(this.def.type)
   }
 
   get layoutCls () {

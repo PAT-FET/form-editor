@@ -8,6 +8,7 @@ import FileuploadControl from './fields/fileupload-control/index.vue'
 import ImguploadControl from './fields/imgupload-control/index.vue'
 
 import GridControl from './layouts/grid-control/index.vue'
+import TabsControl from './layouts/tabs-control/index.vue'
 
 @Component({
   components: {
@@ -18,7 +19,8 @@ import GridControl from './layouts/grid-control/index.vue'
     HtmlControl,
     FileuploadControl,
     ImguploadControl,
-    GridControl
+    GridControl,
+    TabsControl
   }
 })
 export default class ControlMixins extends Vue {

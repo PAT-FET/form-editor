@@ -18,7 +18,7 @@
       <div><el-button type="danger" icon="el-icon-minus" circle size="mini" style="padding: 4px;" @click="onRemove(i)"></el-button></div>
     </li>
   </ul>
-  <el-button type="text" @click="onAdd">添加列</el-button>
+  <el-button type="text" @click="onAdd">{{addText}}</el-button>
 </div>
 </template>
 
@@ -36,6 +36,8 @@ export default class OptionsPane extends Vue {
   @Prop({ type: Boolean, default: true }) checkable!: boolean
 
   @Prop() addFn!: (list: any[]) => void
+
+  @Prop({ type: String, default: '添加列' }) addText!: string
 
   @Emit() input (value: any[] | string) {}
 

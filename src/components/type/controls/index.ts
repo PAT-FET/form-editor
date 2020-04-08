@@ -1,9 +1,9 @@
 import { FieldDefinition , FieldOptions} from './fields'
-import { GridDefinition, GridOptions } from './layouts'
+import { LayoutDefinition, LayoutOptions } from './layouts'
 
 export * from './fields'
 export * from './layouts'
 
-export type ControlDefinition = FieldDefinition | GridDefinition
+export type ControlDefinition = FieldDefinition | LayoutDefinition
 
-export type ControlOptions = FieldOptions | GridOptions
+export type ControlOptions = FieldOptions | LayoutOptions

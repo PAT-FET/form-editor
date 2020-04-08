@@ -6,7 +6,8 @@ import {
   FieldHtmlDefinition,
   FieldFileuploadDefinition,
   FieldImguploadDefinition,
-  GridDefinition
+  GridDefinition,
+  TabsDefinition
 } from '@/components/type'
 
 export const basicControls = [
@@ -23,5 +24,6 @@ export const advancedControls = [
 ]
 
 export const layoutControls = [
-  new GridDefinition()
+  new GridDefinition(),
+  new TabsDefinition()
 ]
