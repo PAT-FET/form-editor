@@ -8,9 +8,17 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   @Inject() getFormData!: () => Record<string, any>
 
+  @Inject() getRowFormData!: () => any
+
   @Inject() getEdit!: () => boolean
 
   @Inject() getDesign!: () => boolean
+
+  @Inject('getTable') injectGetTable!: () => any
+
+  get table () {
+    return this.injectGetTable()
+  }
 
   get edit () {
     return this.getEdit()
@@ -21,7 +29,11 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   get formData () {
-    return this.getFormData()
+    return this.rowFormData || this.getFormData()
+  }
+
+  get rowFormData () {
+    return this.getRowFormData()
   }
 
   get options (): O {
@@ -50,7 +62,11 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   get label () {
-    return this.def.name + ' : '
+    return this.table ? '' : (this.def.name + ' : ')
+  }
+
+  get labelWidth () {
+    return this.table ? '0px' : undefined
   }
 
   get rules () {

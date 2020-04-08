@@ -1,6 +1,15 @@
 <template>
 <div :class="[$style.container, activeCls, layoutCls]" @click.stop="onSelect">
-  <slot></slot>
+  <div v-if="table">
+    <el-table border :data="[def]" :class="[$style.table]">
+      <el-table-column width="198" :label="def.name">
+        <slot></slot>
+      </el-table-column>
+    </el-table>
+  </div>
+  <div v-else>
+    <slot></slot>
+  </div>
   <div :class="[$style.mask]">
     <div :class="[$style.drag]" class="drag-widget"><i class="el-icon-rank"></i></div>
     <div :class="[$style.model]" v-if="def.model">{{def.model}}</div>
@@ -15,7 +24,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
 import { ControlDefinition } from '@/components/type'
-import { isLayoutType } from '@/components/utils'
+import { isEmbedType } from '@/components/utils'
 
 @Component
 export default class ControlMask extends Vue {
@@ -29,12 +38,18 @@ export default class ControlMask extends Vue {
 
   @Inject() addControl!: (control: ControlDefinition) => void
 
+  @Inject() getTable!: () => any
+
+  get table () {
+    return this.getTable()
+  }
+
   get activeControl (): ControlDefinition {
     return this.getActiveControl()
   }
 
   get isLayout () {
-    return isLayoutType(this.def.type)
+    return isEmbedType(this.def.type)
   }
 
   get layoutCls () {
@@ -152,5 +167,10 @@ export default class ControlMask extends Vue {
     margin: 0 4px;
     cursor: pointer;
   }
+}
+
+.table {
+  width: 200px;
+  flex: 0 0 auto;
 }
 </style>

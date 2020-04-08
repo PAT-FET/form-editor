@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :prop="def.model" :rules="rules" :hidden="options.hidden">
+<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :rules="rules" :hidden="options.hidden">
   <el-select v-model="value"
     collapse-tags
     :disabled="disabled"

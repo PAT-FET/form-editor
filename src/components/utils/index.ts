@@ -1,4 +1,4 @@
-import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition } from '@/components/type'
+import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition, FieldTableDefinition } from '@/components/type'
 
 let idx = 10000
 
@@ -48,13 +48,20 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
         return true
       }
     }
+    if (v.type === 'table') {
+      const r = findList((v as FieldTableDefinition).tableColumns, item)
+      if (r) {
+        ret = r
+        return true
+      }
+    }
     return false
   })
   return ret
 }
 
-export function isLayoutType (type: string) {
-  return ['grid', 'tabs', 'block'].includes(type)
+export function isEmbedType (type: string) {
+  return ['grid', 'tabs', 'block', 'table'].includes(type)
 }
 
 export function download (url: string, name: string) {

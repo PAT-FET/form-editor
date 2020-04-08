@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
+<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :rules="rules" :hidden="options.hidden" ref="fi">
   <el-upload
     :disabled="disabled"
     :action="options.action"

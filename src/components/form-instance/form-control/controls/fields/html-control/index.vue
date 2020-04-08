@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
   <span v-html="html"></span>
 </el-form-item>
 </template>

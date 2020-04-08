@@ -42,6 +42,10 @@ export default class FormInstance extends Vue {
     return this.formData
   }
 
+  @Provide() getTable (): any {
+    return null
+  }
+
   get controlDefs (): ControlDefinition[] {
     return this.def.list || []
   }

@@ -6,6 +6,7 @@ import { FieldHtmlOptions, FieldHtmlDefinition } from './html'
 
 import { FieldFileuploadOptions, FieldFileuploadDefinition } from './fileupload'
 import { FieldImguploadOptions, FieldImguploadDefinition } from './imgupload'
+import { FieldTableOptions, FieldTableDefinition, TableColumn } from './table'
 
 export {
   FieldInputOptions, FieldInputDefinition,
@@ -15,7 +16,8 @@ export {
   FieldHtmlOptions, FieldHtmlDefinition,
 
   FieldFileuploadOptions, FieldFileuploadDefinition,
-  FieldImguploadOptions, FieldImguploadDefinition
+  FieldImguploadOptions, FieldImguploadDefinition,
+  FieldTableOptions, FieldTableDefinition, TableColumn,
 }
 
 export type FieldOptions =
@@ -25,7 +27,8 @@ FieldSelectOptions |
 FieldTextOptions |
 FieldHtmlOptions |
 FieldFileuploadOptions |
-FieldImguploadOptions;
+FieldImguploadOptions |
+FieldTableOptions;
 
 export type FieldDefinition =
 FieldInputDefinition |
@@ -34,4 +37,5 @@ FieldSelectDefinition |
 FieldTextDefinition |
 FieldHtmlDefinition |
 FieldFileuploadDefinition |
-FieldImguploadDefinition;
+FieldImguploadDefinition |
+FieldTableDefinition;

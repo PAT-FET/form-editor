@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Provide } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { CreateElement, VNode } from 'vue'
 import { ControlDefinition } from '@/components/type'
@@ -17,6 +17,12 @@ export default class FormContorl extends mixins(ControlMixins) {
   @Prop() def!: ControlDefinition
 
   @Prop(Boolean) design!: boolean
+
+  @Prop() rowFormData!: any
+
+  @Provide() getRowFormData () {
+    return this.rowFormData
+  }
 
   render (h: CreateElement) {
     const props = { def: this.def }
