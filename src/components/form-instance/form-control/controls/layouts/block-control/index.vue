@@ -81,8 +81,8 @@ export default class GridControl extends Vue {
   &::before {
     content: " ";
     position: absolute;
-    height: calc(100% - 6px);
-    top: 3px;
+    height: calc(100% - 4px);
+    top: 2px;
     width: 4px;
     background-color: #666;
     left: 0;
