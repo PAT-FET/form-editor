@@ -7,7 +7,8 @@ import {
   FieldFileuploadDefinition,
   FieldImguploadDefinition,
   GridDefinition,
-  TabsDefinition
+  TabsDefinition,
+  BlockDefinition
 } from '@/components/type'
 
 export const basicControls = [
@@ -25,5 +26,6 @@ export const advancedControls = [
 
 export const layoutControls = [
   new GridDefinition(),
-  new TabsDefinition()
+  new TabsDefinition(),
+  new BlockDefinition()
 ]

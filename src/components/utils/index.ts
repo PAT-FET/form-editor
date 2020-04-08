@@ -1,4 +1,4 @@
-import { ControlDefinition, GridDefinition } from '@/components/type'
+import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition } from '@/components/type'
 
 let idx = 10000
 
@@ -31,9 +31,30 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
       })
       if (has) return true
     }
+    if (v.type === 'tabs') {
+      const has = (v as TabsDefinition).tabs.some(w => {
+        const r = findList(w.list, item)
+        if (r) {
+          ret = r
+          return true
+        }
+      })
+      if (has) return true
+    }
+    if (v.type === 'block') {
+      const r = findList((v as BlockDefinition).list, item)
+      if (r) {
+        ret = r
+        return true
+      }
+    }
     return false
   })
   return ret
+}
+
+export function isLayoutType (type: string) {
+  return ['grid', 'tabs', 'block'].includes(type)
 }
 
 export function download (url: string, name: string) {

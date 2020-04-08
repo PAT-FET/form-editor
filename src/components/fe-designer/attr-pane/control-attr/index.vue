@@ -21,6 +21,7 @@ import FileuploadAttr from './fileupload-attr/index.vue'
 import ImguploadAttr from './imgupload-attr/index.vue'
 import GridAttr from './grid-attr/index.vue'
 import TabsAttr from './tabs-attr/index.vue'
+import BlockAttr from './block-attr/index.vue'
 
 @Component({
   components: {
@@ -32,7 +33,8 @@ import TabsAttr from './tabs-attr/index.vue'
     FileuploadAttr,
     ImguploadAttr,
     GridAttr,
-    TabsAttr
+    TabsAttr,
+    BlockAttr
   }
 })
 export default class ControlAttr extends Vue {

@@ -15,6 +15,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
 import { ControlDefinition } from '@/components/type'
+import { isLayoutType } from '@/components/utils'
 
 @Component
 export default class ControlMask extends Vue {
@@ -33,7 +34,7 @@ export default class ControlMask extends Vue {
   }
 
   get isLayout () {
-    return ['grid', 'tabs'].includes(this.def.type)
+    return isLayoutType(this.def.type)
   }
 
   get layoutCls () {
