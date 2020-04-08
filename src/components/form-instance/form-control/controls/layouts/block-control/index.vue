@@ -76,7 +76,7 @@ export default class GridControl extends Vue {
   font-size: 14px;
   color: #666;
   position: relative;
-  padding-left: 8px;
+  padding-left: 12px;
 
   &::before {
     content: " ";
