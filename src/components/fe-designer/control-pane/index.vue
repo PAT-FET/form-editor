@@ -6,8 +6,8 @@
       :class="$style.list"
       tag="ul" :list="row.list"
       v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
-      :clone="cloneFn">
-      <li :class="$style.item" v-for="item in row.list" :key="item.key" @click="onAdd(item)">
+      :move="moveFn" :clone="cloneFn">
+      <li :class="[$style.item]" :type="item.type" v-for="item in row.list" :key="item.key" @click="onAdd(item)">
         <i class="iconfont" :class="['icon-' + item.type, $style.icon]"></i>
         <span>{{item.name}}</span>
       </li>
@@ -20,7 +20,7 @@
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
 import { basicControls, advancedControls, layoutControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
-import { cloneControlDef, findList } from '@/components/utils'
+import { cloneControlDef, findList, isTableType } from '@/components/utils'
 import draggable from 'vuedraggable'
 import '@/components/iconfont/iconfont.css'
 
@@ -51,6 +51,14 @@ export default class ControlPane extends Vue {
   cloneFn (clone: any) {
     const ret = this.cloneControl(clone)
     return ret
+  }
+
+  moveFn (e: any) {
+    const to = e.to as HTMLElement
+    const form = e.dragged as HTMLElement
+    const formType = (form && form.getAttribute('type')) as string
+    if (to && to.classList.contains('fe-table-drop-zone') && !isTableType(formType)) return false
+    return true
   }
 }
 </script>

@@ -22,6 +22,7 @@ import ImguploadAttr from './imgupload-attr/index.vue'
 import GridAttr from './grid-attr/index.vue'
 import TabsAttr from './tabs-attr/index.vue'
 import BlockAttr from './block-attr/index.vue'
+import TableAttr from './table-attr/index.vue'
 
 @Component({
   components: {
@@ -34,7 +35,8 @@ import BlockAttr from './block-attr/index.vue'
     ImguploadAttr,
     GridAttr,
     TabsAttr,
-    BlockAttr
+    BlockAttr,
+    TableAttr
   }
 })
 export default class ControlAttr extends Vue {

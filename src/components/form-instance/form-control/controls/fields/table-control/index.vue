@@ -1,30 +1,37 @@
 <template>
 <div>
-<div :class="[designCls]" :hidden="options.hidden" v-if="design">
-  <el-table border :data="dataSource" :class="[$style.fixTable]">
-    <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
-  </el-table>
-  <draggable
-      :value="def.tableColumns"
-      @input="onInput($event, def)"
-      tag="div"
-      :class="[$style.col]"
-      :no-transition-on-drag="true"
-      v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
-    >
-    <form-control v-for="item in def.tableColumns" :key="item.key" :def="item" :design="design"></form-control>
-  </draggable>
+<div v-if="design">
+  <el-form-item :label="label" :label-width="labelWidth" :hidden="options.hidden">
+    <div :class="[designCls]">
+      <el-table border :data="dataSource" :class="[$style.fixTable]">
+        <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
+      </el-table>
+      <draggable
+          :value="def.tableColumns"
+          @input="onInput($event, def)"
+          tag="div"
+          class="fe-table-drop-zone"
+          :class="[$style.col]"
+          :no-transition-on-drag="true"
+          v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+        >
+        <form-control v-for="item in def.tableColumns" :key="item.key" :def="item" :design="design"></form-control>
+      </draggable>
+    </div>
+  </el-form-item>
 </div>
 <div v-else>
-  <el-table border :data="value">
-    <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
-    <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key">
-      <template slot-scope="{row}">
-        <form-control :row-form-data="row" :def="col" :design="design"></form-control>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-button type="text" @click="onAddRow">添加行</el-button>
+  <el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :rules="rules" :hidden="options.hidden">
+    <el-table border :data="value">
+      <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
+      <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key">
+        <template slot-scope="{row}">
+          <form-control :row-form-data="row" :def="col" :design="design"></form-control>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-button type="text" @click="onAddRow" :disabled="disabled">添加行</el-button>
+  </el-form-item>
 </div>
 </div>
 </template>

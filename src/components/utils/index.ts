@@ -64,6 +64,11 @@ export function isEmbedType (type: string) {
   return ['grid', 'tabs', 'block', 'table'].includes(type)
 }
 
+const tableType = ['input', 'textarea', 'select', 'text', 'html', 'fileupload', 'imgupload']
+export function isTableType (type: string) {
+  return tableType.includes(type)
+}
+
 export function download (url: string, name: string) {
   const link = document.createElement('a')
   link.style.display = 'none'

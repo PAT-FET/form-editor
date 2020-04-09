@@ -58,6 +58,9 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   get disabled () {
     if (!this.edit) return true
+    if (this.table) {
+      return this.table.disabled
+    }
     return this.options.disabled
   }
 
