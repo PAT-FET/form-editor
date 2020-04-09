@@ -17,6 +17,7 @@
 </div>
 <div v-else>
   <el-table border :data="value">
+    <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
     <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key">
       <template slot-scope="{row}">
         <form-control :row-form-data="row" :def="col" :design="design"></form-control>
@@ -84,6 +85,21 @@ export default class TableControl extends mixins(FieldMixins) {
   flex: 1 0 auto;
   display: flex;
   overflow: auto;
+
+  :global {
+    .ghost{
+      background-color: #F56C6C !important;
+      border: 2px solid #F56C6C !important;
+      outline-width: 0 !important;
+      height: 100% !important;
+      width: 3px !important;
+      box-sizing: border-box;
+      font-size: 0;
+      content: '';
+      overflow: hidden;
+      padding: 0;
+    }
+  }
 }
 
 .design {
