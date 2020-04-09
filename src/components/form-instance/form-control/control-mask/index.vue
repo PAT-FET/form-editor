@@ -1,7 +1,7 @@
 <template>
 <div :class="[$style.container, activeCls, layoutCls]" @click.stop="onSelect">
   <div v-if="table">
-    <el-table border :data="[def]" :class="[$style.table]">
+    <el-table border :data="[def]">
       <el-table-column width="198" :label="def.name">
         <slot></slot>
       </el-table-column>
@@ -169,8 +169,4 @@ export default class ControlMask extends Vue {
   }
 }
 
-.table {
-  width: 200px;
-  flex: 0 0 auto;
-}
 </style>

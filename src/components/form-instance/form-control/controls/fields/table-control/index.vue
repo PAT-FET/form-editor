@@ -116,6 +116,11 @@ export default class TableControl extends mixins(FieldMixins) {
     min-height: 50px;
     border: 1px dashed #ccc;
     background: #fff;
+
+    &>* {
+      width: 200px;
+      flex: 0 0 auto;
+    }
   }
 }
 </style>
