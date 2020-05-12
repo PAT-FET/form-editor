@@ -1,6 +1,6 @@
 <template>
 <el-tabs v-model="value" :class="[designCls]" :type="options.type" :tab-position="options.tabPosition" :hidden="options.hidden">
-  <el-tab-pane :label="row.label" :name="row.label" v-for="(row, i) in tabs" :key="i">
+  <el-tab-pane :label="row.label" :name="i" v-for="(row, i) in tabs" :key="i">
     <draggable
       v-if="design"
       :value="row.list"
@@ -35,7 +35,7 @@ export default class TabsControl extends Vue {
 
   @Inject() getDesign!: () => boolean
 
-  value = 'Tab 1'
+  value = 0
 
   get design () {
     return this.getDesign()
