@@ -94,8 +94,8 @@ export default class TableControl extends mixins(FieldMixins) {
 
 <style lang="scss" module>
 .fixTable {
-  width: 51px;
-  flex: 0 0 auto;
+  width: 51px !important;
+  flex: 0 0 auto !important;
 }
 
 .col {
