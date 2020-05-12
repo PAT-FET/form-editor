@@ -22,8 +22,16 @@
 </div>
 <div v-else>
   <el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :rules="rules" :hidden="options.hidden">
-    <el-table border :data="value">
-      <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
+    <el-table border :data="value" class="fe-table">
+      <el-table-column type="index" width="50" fixed="left" label="#">
+        <template slot-scope="{ $index }">
+          <div v-if="!disabled">
+            <span class="fe-table-index">{{$index + 1}}</span>
+            <el-button type="danger" class="fe-table-remove" icon="el-icon-minus" size="mini" circle @click="onRemove($index)"></el-button>
+          </div>
+          <span v-else>{{$index + 1}}</span>
+        </template>
+      </el-table-column>
       <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key">
         <template slot-scope="{row}">
           <form-control :row-form-data="row" :def="col" :design="design"></form-control>
@@ -74,6 +82,12 @@ export default class TableControl extends mixins(FieldMixins) {
     this.value.push({})
   }
 
+  onRemove (i: number) {
+    if (Array.isArray(this.value) && this.value.length >= i + 1) {
+      this.value.splice(i, 1)
+    }
+  }
+
   $style!: any
 }
 </script>
@@ -120,6 +134,25 @@ export default class TableControl extends mixins(FieldMixins) {
     &>* {
       width: 200px;
       flex: 0 0 auto;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.fe-table-remove {
+  font-size: 18px;
+  display: none;
+  padding: 2px !important;
+}
+
+.fe-table {
+  .el-table__row.hover-row{
+    .fe-table-remove {
+      display: inline-block;
+    }
+    .fe-table-index {
+      display: none;
     }
   }
 }

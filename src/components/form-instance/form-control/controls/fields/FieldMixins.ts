@@ -112,6 +112,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
   }
 
   beforeDestroy () {
+    if (this.rowFormData) return
     delete this.formData[this.def.model]
   }
 
