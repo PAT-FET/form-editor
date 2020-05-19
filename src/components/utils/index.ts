@@ -9,9 +9,22 @@ export function genKey () {
 
 export function cloneControlDef (def: ControlDefinition) {
   const ret: ControlDefinition = JSON.parse(JSON.stringify(def))
-  ret.key = genKey()
+  traverse(ret)
   if ((ret as any).model !== undefined) (ret as any).model = ret.type + '_' + genKey()
   return ret
+
+  function traverse (obj: Record<string | number, any>) {
+    if (!obj || Object.prototype.toString.call(obj) !== '[object Object]') return
+    Object.entries(obj || {}).forEach(([k, v]) => {
+      if (['model', 'key'].includes(k)) {
+        obj[k] = genKey()
+      }
+      if (Array.isArray(v)) {
+        v.forEach(w => traverse(w))
+      }
+      traverse(v)
+    })
+  }
 }
 
 export function findList (list: ControlDefinition[], item: ControlDefinition) {

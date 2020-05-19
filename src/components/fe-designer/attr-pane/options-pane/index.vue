@@ -13,7 +13,7 @@
           <el-radio v-model="actualValue" :label="row.value" v-if="!multiple"></el-radio>
           <el-checkbox v-model="actualValue" :label="row.value" v-else></el-checkbox>
       </div>
-      <slot :row="row">
+      <slot :row="row" :index="i">
         <div>
           <el-input v-model="row.value" size="mini"></el-input>
         </div>
@@ -21,6 +21,7 @@
             <el-input v-model="row.label" size="mini"></el-input>
         </div>
       </slot>
+      <div :class="[$style.space, $style.copy]" @click="onCopy(row, i)" v-if="copy"><i class="el-icon-document-copy"></i></div>
       <div :class="[$style.space, $style.move]" class="drag-widget"><i class="el-icon-rank"></i></div>
       <div><el-button type="danger" icon="el-icon-minus" circle size="mini" style="padding: 4px;" @click="onRemove(i)"></el-button></div>
     </li>
@@ -49,6 +50,8 @@ export default class OptionsPane extends Vue {
 
   @Prop({ type: String, default: '添加列' }) addText!: string
 
+  @Prop({ type: Boolean }) copy!: boolean
+
   @Emit() input (value: any[] | string) {}
 
   get actualValue () {
@@ -73,6 +76,14 @@ export default class OptionsPane extends Vue {
 
   onRemove (i: number) {
     this.list.splice(i, 1)
+  }
+
+  onCopy (row: any, i: number) {
+    const newRow = JSON.parse(JSON.stringify(row))
+    if (newRow.label) {
+      newRow.label += '_copy'
+    }
+    this.list.splice(i + 1, 0, newRow)
   }
 }
 </script>
@@ -102,6 +113,11 @@ export default class OptionsPane extends Vue {
 .move {
   font-size: 18px;
   cursor: move;
+}
+
+.copy {
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .space {

@@ -16,7 +16,7 @@
   </el-radio-group>
 </attr-field>
 <attr-field label="标签配置项">
-  <options-pane :list="tabs" :checkable="false" :add-fn="addFn" add-text="添加标签">
+  <options-pane :list="tabs" :checkable="false" :add-fn="addFn" add-text="添加标签" copy>
     <template slot-scope="{row}">
       <div style="margin-right: 12px;">
         <el-input v-model="row.label" size="mini"></el-input>
