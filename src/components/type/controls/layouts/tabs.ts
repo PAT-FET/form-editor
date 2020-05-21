@@ -5,6 +5,7 @@ import { GridDefinition } from './grid'
 export class TabsDefinition {
   type = 'tabs'
   key: string = genKey()
+  model: string = 'tabs_' + genKey()
   name = '标签页'
   tabs: Tab[] = [new Tab()]
   options: TabsOptions = new TabsOptions()
@@ -19,4 +20,5 @@ export class TabsOptions {
   hidden = false
   type: '' | 'card' | 'border-card' = ''
   tabPosition: 'top' | 'bottom' | 'left' | 'right' = 'top'
+  dynamic = false
 }

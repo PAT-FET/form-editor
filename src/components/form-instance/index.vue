@@ -42,6 +42,10 @@ export default class FormInstance extends Vue {
     return this.formData
   }
 
+  @Provide() getRowFormData () {
+    return undefined
+  }
+
   @Provide() getTable (): any {
     return null
   }

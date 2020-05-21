@@ -13,7 +13,7 @@
       <form-control v-for="item in row.list" :key="item.key" :def="item" :design="design"></form-control>
     </draggable>
     <template v-else>
-      <form-control v-for="item in row.list" :key="item.key" :def="item" :design="design"></form-control>
+      <form-control :row-form-data="getRow(i)" v-for="item in row.list" :key="item.key" :def="item" :design="design"></form-control>
     </template>
   </el-tab-pane>
 </el-tabs>
@@ -35,6 +35,10 @@ export default class TabsControl extends Vue {
 
   @Inject() getDesign!: () => boolean
 
+  @Inject() getFormData!: () => Record<string, any>
+
+  @Inject() getRowFormData!: () => Record<string, any>
+
   value = '0'
 
   get design () {
@@ -50,7 +54,42 @@ export default class TabsControl extends Vue {
   }
 
   get tabs (): Tab[] {
-    return this.def.tabs
+    if (this.design) return this.dynamic ? this.def.tabs.slice(0, 1) : this.def.tabs
+    else {
+      if (!this.dynamic) return this.def.tabs
+      const tpl = this.def.tabs[0]
+      if (!tpl) return []
+      const data = (this.formData && this.formData[this.model]) || []
+      const tabs = data.map((v: any) => {
+        const item: any = JSON.parse(JSON.stringify(tpl))
+        item.label = getParser(item.label)(v)
+        return item
+      })
+      return tabs
+    }
+
+    function getParser (expr: string) {
+      const body = 'return ' + '`' + expr + '`'
+      // eslint-disable-next-line no-new-func
+      return new Function('ctx', body)
+    }
+  }
+
+  get dynamic () {
+    return this.options.dynamic
+  }
+
+  get model () {
+    return this.def.model
+  }
+
+  get formData () {
+    return this.getRowFormData() || this.getFormData()
+  }
+
+  getRow (i: number) {
+    if (!this.dynamic) return undefined
+    return ((this.formData && this.formData[this.model]) || [])[i] || {}
   }
 
   onInput (list: any, row: any) {

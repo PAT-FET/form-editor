@@ -15,6 +15,12 @@
     <el-radio-button label="bottom">底部</el-radio-button>
   </el-radio-group>
 </attr-field>
+<attr-field label="动态标签">
+  <el-checkbox v-model="options.dynamic">启用</el-checkbox>
+</attr-field>
+<attr-field label="tabs标识" v-if="options.dynamic">
+  <el-input v-model.trim="def.model"></el-input>
+</attr-field>
 <attr-field label="标签配置项">
   <options-pane :list="tabs" :checkable="false" :add-fn="addFn" add-text="添加标签" copy>
     <template slot-scope="{row}">

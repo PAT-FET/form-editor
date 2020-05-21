@@ -8,7 +8,7 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   @Inject() getFormData!: () => Record<string, any>
 
-  @Inject() getRowFormData!: () => any
+  @Inject() getRowFormData!: () => Record<string, any>
 
   @Inject() getEdit!: () => boolean
 
