@@ -1,5 +1,5 @@
 <template>
-<el-tabs v-model="value" :class="[designCls]" :type="options.type" :tab-position="options.tabPosition" :hidden="options.hidden">
+<el-tabs v-model="value" :class="[designCls]" :type="options.type" lazy :tab-position="options.tabPosition" :hidden="options.hidden">
   <el-tab-pane :label="row.label" :name="i + ''" v-for="(row, i) in tabs" :key="i">
     <draggable
       v-if="design"
