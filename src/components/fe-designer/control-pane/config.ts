@@ -9,7 +9,8 @@ import {
   FieldTableDefinition,
   GridDefinition,
   TabsDefinition,
-  BlockDefinition
+  BlockDefinition,
+  FieldAuditTextDefinition
 } from '@/components/type'
 
 export const basicControls = [
@@ -30,4 +31,8 @@ export const layoutControls = [
   new GridDefinition(),
   new TabsDefinition(),
   new BlockDefinition()
+]
+
+export const auditControls = [
+  new FieldAuditTextDefinition()
 ]

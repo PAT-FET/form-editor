@@ -23,6 +23,7 @@ import GridAttr from './grid-attr/index.vue'
 import TabsAttr from './tabs-attr/index.vue'
 import BlockAttr from './block-attr/index.vue'
 import TableAttr from './table-attr/index.vue'
+import AuditTextAttr from './audit-text-attr/index.vue'
 
 @Component({
   components: {
@@ -36,7 +37,8 @@ import TableAttr from './table-attr/index.vue'
     GridAttr,
     TabsAttr,
     BlockAttr,
-    TableAttr
+    TableAttr,
+    AuditTextAttr
   }
 })
 export default class ControlAttr extends Vue {

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
-import { basicControls, advancedControls, layoutControls } from './config'
+import { basicControls, advancedControls, layoutControls, auditControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList, isTableType } from '@/components/utils'
 import draggable from 'vuedraggable'
@@ -40,6 +40,7 @@ export default class ControlPane extends Vue {
     const ret = []
     ret.push({ title: '基本字段', list: basicControls })
     ret.push({ title: '高级字段', list: advancedControls })
+    ret.push({ title: '审批字段', list: auditControls })
     ret.push({ title: '布局字段', list: layoutControls })
     return ret
   }
