@@ -10,6 +10,7 @@ import { FieldTableOptions, FieldTableDefinition, TableColumn } from './table'
 
 import { FieldAuditTextOptions, FieldAuditTextDefinition } from './audit-text'
 import { FieldAuditFileOptions, FieldAuditFileDefinition } from './audit-file'
+import { FieldAuditDiffOptions, FieldAuditDiffDefinition } from './audit-diff'
 
 export {
   FieldInputOptions, FieldInputDefinition,
@@ -23,7 +24,8 @@ export {
   FieldTableOptions, FieldTableDefinition, TableColumn,
 
   FieldAuditTextOptions, FieldAuditTextDefinition,
-  FieldAuditFileOptions, FieldAuditFileDefinition
+  FieldAuditFileOptions, FieldAuditFileDefinition,
+  FieldAuditDiffOptions, FieldAuditDiffDefinition
 }
 
 export type FieldOptions =
@@ -36,7 +38,8 @@ FieldFileuploadOptions |
 FieldImguploadOptions |
 FieldTableOptions |
 FieldAuditTextOptions |
-FieldAuditFileOptions;
+FieldAuditFileOptions |
+FieldAuditDiffOptions;
 
 export type FieldDefinition =
 FieldInputDefinition |
@@ -48,4 +51,5 @@ FieldFileuploadDefinition |
 FieldImguploadDefinition |
 FieldTableDefinition |
 FieldAuditTextDefinition | 
-FieldAuditFileDefinition;
+FieldAuditFileDefinition |
+FieldAuditDiffDefinition;
