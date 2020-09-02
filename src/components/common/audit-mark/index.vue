@@ -1,7 +1,7 @@
 <template>
 <div :class="[$style.content]">
   <div :class="[$style.text]">
-    <el-link :underline="false" :type="type"><slot>{{newValue}}</slot></el-link>
+    <el-link :underline="false" :type="type"><slot>{{newValue || '-'}}</slot></el-link>
   </div>
   <div :class="[$style.suffix]">
     <span :class="[$style.mark]" v-if="changed">
@@ -13,8 +13,8 @@
       <el-popover placement="top" width="400" v-model="visible" title="审批标记">
         <div>
           <el-radio-group v-model="form.mark">
-            <el-radio label="1">有误</el-radio>
-            <el-radio label="0">无误</el-radio>
+            <el-radio label="0">有误</el-radio>
+            <el-radio label="1">无误</el-radio>
             <el-radio label="2">取消标记</el-radio>
           </el-radio-group>
           <el-input v-model="form.remark" style="margin-top: 12px;" type="textarea" :rows="2" placeholder="请输入审批意见"></el-input>

@@ -24,6 +24,7 @@ import TabsAttr from './tabs-attr/index.vue'
 import BlockAttr from './block-attr/index.vue'
 import TableAttr from './table-attr/index.vue'
 import AuditTextAttr from './audit-text-attr/index.vue'
+import AuditFileAttr from './audit-file-attr/index.vue'
 
 @Component({
   components: {
@@ -38,7 +39,8 @@ import AuditTextAttr from './audit-text-attr/index.vue'
     TabsAttr,
     BlockAttr,
     TableAttr,
-    AuditTextAttr
+    AuditTextAttr,
+    AuditFileAttr
   }
 })
 export default class ControlAttr extends Vue {

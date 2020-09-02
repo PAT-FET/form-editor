@@ -9,6 +9,7 @@ import { FieldImguploadOptions, FieldImguploadDefinition } from './imgupload'
 import { FieldTableOptions, FieldTableDefinition, TableColumn } from './table'
 
 import { FieldAuditTextOptions, FieldAuditTextDefinition } from './audit-text'
+import { FieldAuditFileOptions, FieldAuditFileDefinition } from './audit-file'
 
 export {
   FieldInputOptions, FieldInputDefinition,
@@ -21,7 +22,8 @@ export {
   FieldImguploadOptions, FieldImguploadDefinition,
   FieldTableOptions, FieldTableDefinition, TableColumn,
 
-  FieldAuditTextOptions, FieldAuditTextDefinition
+  FieldAuditTextOptions, FieldAuditTextDefinition,
+  FieldAuditFileOptions, FieldAuditFileDefinition
 }
 
 export type FieldOptions =
@@ -33,7 +35,8 @@ FieldHtmlOptions |
 FieldFileuploadOptions |
 FieldImguploadOptions |
 FieldTableOptions |
-FieldAuditTextOptions;
+FieldAuditTextOptions |
+FieldAuditFileOptions;
 
 export type FieldDefinition =
 FieldInputDefinition |
@@ -44,4 +47,5 @@ FieldHtmlDefinition |
 FieldFileuploadDefinition |
 FieldImguploadDefinition |
 FieldTableDefinition |
-FieldAuditTextDefinition;
+FieldAuditTextDefinition | 
+FieldAuditFileDefinition;

@@ -9,6 +9,7 @@ import ImguploadControl from './fields/imgupload-control/index.vue'
 import TableControl from './fields/table-control/index.vue'
 
 import AuditTextControl from './fields/audit-text-control/index.vue'
+import AuditFileControl from './fields/audit-file-control/index.vue'
 
 import GridControl from './layouts/grid-control/index.vue'
 import TabsControl from './layouts/tabs-control/index.vue'
@@ -27,7 +28,8 @@ import BlockControl from './layouts/block-control/index.vue'
     GridControl,
     TabsControl,
     BlockControl,
-    AuditTextControl
+    AuditTextControl,
+    AuditFileControl
   }
 })
 export default class ControlMixins extends Vue {
