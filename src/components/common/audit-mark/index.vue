@@ -1,7 +1,7 @@
 <template>
 <div :class="[$style.content]">
   <div :class="[$style.text]">
-    <el-link :underline="false" :type="type"><slot>{{newValue || '-'}}</slot></el-link>
+    <el-link :underline="false" :type="type"><slot>{{newValue}}</slot></el-link>
   </div>
   <div :class="[$style.suffix]">
     <span :class="[$style.mark]" v-if="changed">

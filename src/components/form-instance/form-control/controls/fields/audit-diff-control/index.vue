@@ -33,6 +33,19 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
     return this.def.rows || []
   }
 
+  get normalized () {
+    if (!Array.isArray(this.value)) return false
+    return this.cols.every(v => {
+      const col = this.value.find((w: any) => w?.name === v.name)
+      if (!col || !Array.isArray(col.data)) return false
+      return this.rows.every(w => {
+        const row = col.data.find((z: any) => z?.name === w.name)
+        if (!row) return false
+        return true
+      })
+    })
+  }
+
   get dataMap () {
     const list: any[] = this.value || []
     const map: Record<string, Record<string, any>> = {}
@@ -48,6 +61,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
   }
 
   get dataSource () {
+    if (!this.normalized) return []
     return this.rows.map(v => {
       const row: any = { __label: v.label }
       const statMap: any = {}
@@ -55,7 +69,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
         const value = this.dataMap[w.name] && this.dataMap[w.name][v.name]
         row[w.name] = value
         const newValue = value?.value?.value
-        if (newValue !== undefined) statMap[newValue || '-'] = (statMap[w.name] || 0) + 1
+        if (newValue !== undefined) statMap[newValue || '-'] = (statMap[newValue || '-'] || 0) + 1
       })
       const markedKeys = []
       if (Object.keys(statMap).length > 1) {
@@ -76,12 +90,30 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
   }
 
   resolveNewValue (col: any, row: any) {
-    const ret = row[col.name] && row[col.name].value && row[col.name].value.value
+    let ret = row[col.name] && row[col.name].value
+    ret = ret?.value
     return ret === undefined ? undefined : (ret || '-')
   }
 
   showDiffMark (row: any, col: any) {
     return row.__meta.markedKeys.includes(this.resolveNewValue(col, row))
+  }
+
+  normalizeValue () {
+    if (this.normalized) return
+    const origin = this.value
+    const ret = this.cols.map(v => {
+      const data = this.rows.map(w => {
+        const row = this.dataMap[v.name] && this.dataMap[v.name][w.name]
+        return row || { name: w.name, value: null }
+      })
+      return { name: v.name, data }
+    })
+    this.value = ret
+  }
+
+  @Watch('normalized', { immediate: true }) normalizedChange () {
+    this.normalizeValue()
   }
 
   def!: FieldAuditDiffDefinition
