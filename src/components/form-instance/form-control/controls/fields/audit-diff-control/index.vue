@@ -1,9 +1,14 @@
 <template>
 <el-form-item label="" :prop="def.model" :hidden="options.hidden">
-  <el-table :data="dataSource" border stripe style="width: 100%" size="mini">
+  <el-table :data="dataSource" border :row-class-name="rowClassNameFn" style="width: 100%" size="mini">
     <el-table-column prop="__label" :label="def.name"></el-table-column>
     <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
-      <template v-slot="{row}"> <audit-mark v-model="row.value">{{row[col.name] && row[col.name].value}}</audit-mark> </template>
+      <template v-slot="{row}">
+        <audit-mark v-model="row[col.name].value">
+          <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
+          <span>{{resolveNewValue(col, row)}}</span>
+        </audit-mark>
+      </template>
     </el-table-column>
   </el-table>
 </el-form-item>
@@ -35,7 +40,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
       const subMap: Record<string, any> = {}
       const data = v.data || []
       data.forEach((w: any) => {
-        subMap[w.name] = w.value
+        subMap[w.name] = w
       })
       map[v.name] = subMap
     })
@@ -45,13 +50,48 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
   get dataSource () {
     return this.rows.map(v => {
       const row: any = { __label: v.label }
+      const statMap: any = {}
       const rest = this.cols.forEach((w: any) => {
-        row[w.name] = this.dataMap[w.name] && this.dataMap[w.name][v.name]
+        const value = this.dataMap[w.name] && this.dataMap[w.name][v.name]
+        row[w.name] = value
+        const newValue = value?.value?.value
+        if (newValue !== undefined) statMap[newValue || '-'] = (statMap[w.name] || 0) + 1
       })
+      const markedKeys = []
+      if (Object.keys(statMap).length > 1) {
+        const ret = Object.entries(statMap).sort((a: any, b: any) => b[1] - a[1]).map(v => v[0]).slice(1)
+        markedKeys.push(...ret)
+      }
+      row.__meta = {
+        diffs: statMap,
+        diff: Object.keys(statMap).length > 1,
+        markedKeys
+      }
       return row
     })
   }
 
+  rowClassNameFn ({ row, rowIndex }: any) {
+    return row.__meta?.diff ? this.$style.highlightRow : ''
+  }
+
+  resolveNewValue (col: any, row: any) {
+    const ret = row[col.name] && row[col.name].value && row[col.name].value.value
+    return ret === undefined ? undefined : (ret || '-')
+  }
+
+  showDiffMark (row: any, col: any) {
+    return row.__meta.markedKeys.includes(this.resolveNewValue(col, row))
+  }
+
   def!: FieldAuditDiffDefinition
+
+  $style!: any
 }
 </script>
+
+<style lang="scss" module>
+.highlightRow {
+  background-color: #FFF7F7 !important;
+}
+</style>
