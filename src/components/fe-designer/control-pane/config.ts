@@ -12,7 +12,8 @@ import {
   BlockDefinition,
   FieldAuditTextDefinition,
   FieldAuditFileDefinition,
-  FieldAuditDiffDefinition
+  FieldAuditDiffDefinition,
+  FieldAuditListDefinition
 } from '@/components/type'
 
 export const basicControls = [
@@ -38,5 +39,6 @@ export const layoutControls = [
 export const auditControls = [
   new FieldAuditTextDefinition(),
   new FieldAuditFileDefinition(),
-  new FieldAuditDiffDefinition()
+  new FieldAuditDiffDefinition(),
+  new FieldAuditListDefinition()
 ]

@@ -26,6 +26,7 @@ import TableAttr from './table-attr/index.vue'
 import AuditTextAttr from './audit-text-attr/index.vue'
 import AuditFileAttr from './audit-file-attr/index.vue'
 import AuditDiffAttr from './audit-diff-attr/index.vue'
+import AuditListAttr from './audit-list-attr/index.vue'
 
 @Component({
   components: {
@@ -42,7 +43,8 @@ import AuditDiffAttr from './audit-diff-attr/index.vue'
     TableAttr,
     AuditTextAttr,
     AuditFileAttr,
-    AuditDiffAttr
+    AuditDiffAttr,
+    AuditListAttr
   }
 })
 export default class ControlAttr extends Vue {
