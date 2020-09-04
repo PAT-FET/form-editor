@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="label" label-width="auto" :prop="def.model" :hidden="options.hidden">
   <audit-mark v-model="value" :value-fn="valueFn">
     <span @click="onPreview">
       <i class="el-icon-paperclip"></i>
