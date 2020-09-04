@@ -1,20 +1,33 @@
 <template>
 <el-form-item :hidden="options.hidden">
-<div :class="[$style.content]">
+<div :class="[$style.content]" ref="content">
   <div :class="[$style.header]">
     <span>{{def.name}}</span>
+    <span :class="[$style.fullscreen]" title="全屏" @click="onFullScreen"><i class="el-icon-full-screen"></i></span>
   </div>
 
-  <ul :class="[$style.list]">
-    <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
-      <span :class="[$style.markIcon]">
-        <i class="el-icon-error" v-if="item && item.mark === false"></i>
-        <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
-        <i class="el-icon-warning" v-else></i>
-      </span>
-      <span>{{item.name}}</span>
-    </li>
-  </ul>
+  <div :class="[$style.group, expandCls]">
+    <ul :class="[$style.list]" ref="list">
+      <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
+        <span :class="[$style.markIcon]">
+          <i class="el-icon-error" v-if="item && item.mark === false"></i>
+          <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
+          <i class="el-icon-warning" v-else></i>
+        </span>
+        <span>{{item.name}}</span>
+      </li>
+    </ul>
+    <div :class="[$style.action]">
+      <div :class="[$style.arrowGroup]">
+        <div :class="[$style.iconBtn]" @click="onScroll(1)"><span><i class="el-icon-arrow-up"></i></span></div>
+        <div :class="[$style.arrowGroupDivider]"></div>
+        <div :class="[$style.iconBtn]" @click="onScroll(-1)"><span><i class="el-icon-arrow-down"></i></span></div>
+      </div>
+      <div :class="[$style.iconBtn]" title="展开/收起" @click="expand = !expand">
+        <span><i class="el-icon-s-grid"></i></span>
+      </div>
+    </div>
+  </div>
 
   <div :class="[$style.body]">
     <div :class="[designCls]">
@@ -73,6 +86,8 @@ export default class AuditListControl extends Vue {
   @Inject() getRowFormData!: () => Record<string, any>
 
   active = 0
+
+  expand = false
 
   get design () {
     return this.getDesign()
@@ -138,6 +153,10 @@ export default class AuditListControl extends Vue {
     return i === this.active ? this.$style.active : ''
   }
 
+  get expandCls () {
+    return this.expand ? this.$style.expand : ''
+  }
+
   onInput (list: any, row: any) {
     row.list = list || []
   }
@@ -151,6 +170,28 @@ export default class AuditListControl extends Vue {
     const max = Math.max((this.value || []).length - 1, 0)
     const ret = offset + this.active
     this.active = ret > max ? max : (ret < min ? min : ret)
+  }
+
+  onFullScreen () {
+    if (this.$refs.content) {
+      if (!(document as any).webkitIsFullScreen) {
+        (this.$refs.content as any).webkitRequestFullscreen()
+      } else {
+        (document as any).webkitCancelFullScreen()
+      }
+    }
+  }
+
+  onScroll (num: number) {
+    const target = this.$refs.list as any
+    if (!target) return
+    const unit = 40
+    const fixedHeight = 80
+    const height = target.scrollHeight
+    const top = Number((target.style.marginTop || '').replace('px', ''))
+    const offset = top + num * unit
+    if (offset > 0 || Math.abs(offset) > height - fixedHeight) return
+    target.style.marginTop = offset + 'px'
   }
 
   $style!: any
@@ -186,6 +227,8 @@ export default class AuditListControl extends Vue {
   font-weight: 600;
   position: relative;
   padding-left: 12px;
+  display: flex;
+  justify-content: space-between;
 
   &::after {
     content: " ";
@@ -199,12 +242,68 @@ export default class AuditListControl extends Vue {
   }
 }
 
+.fullscreen {
+  font-size: 24px;
+  margin-right: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.group {
+  display: flex;
+  height: 80px;
+  overflow: hidden;
+
+  &.expand {
+    height: auto;
+  }
+}
+
+.action {
+  flex: 0 0 auto;
+  width: 24px;
+  margin-left: 4px;
+  color: #999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.arrowGroup {
+  border-radius: 2px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+
+}
+
+.iconBtn {
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-color: #fff;
+  &:hover {
+    cursor: pointer;
+    color: #359C67;
+    background-color: #F2FAF5;
+  }
+}
+
+.arrowGroupDivider {
+  height: 1px;
+  margin: 0 4px;
+  background-color: #EAEAEA;
+}
+
 .list {
+  flex: 1 1 auto;
   margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 0;
 }
 
 .item {
