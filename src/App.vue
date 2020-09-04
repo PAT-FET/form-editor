@@ -27,6 +27,7 @@
 
     <el-divider></el-divider>
     <el-checkbox v-model="edit" style="margin: 0 20px;">是否可编辑</el-checkbox>
+    <el-button type="primary" size="small" @click="onCopy">复制数据</el-button>
     <div style="padding: 20px;">
       <fe-generator :data="data" :value="value" :edit="edit"></fe-generator>
     </div>
@@ -35,6 +36,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { copyToClipboard } from './components/utils'
 
 @Component
 export default class App extends Vue {
@@ -72,6 +74,12 @@ export default class App extends Vue {
     } else {
       this.value = JSON.parse(this.formData)
     }
+  }
+
+  onCopy () {
+    if (!this.value) return
+    copyToClipboard(JSON.stringify(this.value))
+    this.$message.info('已复制')
   }
 }
 </script>

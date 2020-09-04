@@ -1,4 +1,4 @@
-import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition, FieldTableDefinition } from '@/components/type'
+import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition, FieldTableDefinition, FieldAuditListDefinition } from '@/components/type'
 
 let idx = 10000
 
@@ -63,6 +63,13 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
     }
     if (v.type === 'table') {
       const r = findList((v as FieldTableDefinition).tableColumns, item)
+      if (r) {
+        ret = r
+        return true
+      }
+    }
+    if (v.type === 'audit-list') {
+      const r = findList((v as FieldAuditListDefinition).list, item)
       if (r) {
         ret = r
         return true

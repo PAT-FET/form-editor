@@ -6,35 +6,45 @@
   </div>
 
   <ul :class="[$style.list]">
-    <li v-for="(item, i) in value" :key="i" :class="[$style.item, activeCls(i)]" @click="active = i">{{item.name}}</li>
+    <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
+      <span :class="[$style.markIcon]">
+        <i class="el-icon-error" v-if="item && item.mark === false"></i>
+        <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
+        <i class="el-icon-warning" v-else></i>
+      </span>
+      <span>{{item.name}}</span>
+    </li>
   </ul>
-  <div :class="[designCls]">
-    <draggable
-        v-if="design"
-        :value="def.list"
-        @input="onInput($event, def)"
-        tag="div"
-        :class="[$style.col]"
-        :no-transition-on-drag="true"
-        v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
-      >
-      <form-control v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
-    </draggable>
-    <template v-else>
-      <template v-if="row">
-        <form-control :row-form-data="row" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+
+  <div :class="[$style.body]">
+    <div :class="[designCls]">
+      <draggable
+          v-if="design"
+          :value="def.list"
+          @input="onInput($event, def)"
+          tag="div"
+          :class="[$style.col]"
+          :no-transition-on-drag="true"
+          v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+        >
+        <form-control v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+      </draggable>
+      <template v-else>
+        <template v-if="row">
+          <form-control :row-form-data="row" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+        </template>
       </template>
-    </template>
+    </div>
   </div>
 
-  <div :class="[$style.footer]" v-if="row">
-    <el-button type="priamry" size="small">标记无误</el-button>
-    <el-button type="danger" size="small">标记有误</el-button>
+  <div :class="[$style.footer]" v-if="activeItem">
+    <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
+    <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
 
     <div :class="[$style.pagination]">
       <el-button-group>
-        <el-button plain size="small">上一页</el-button>
-        <el-button plain size="small">下一页</el-button>
+        <el-button plain size="small" @click="onSwitchPage(-1)" :disabled="active <= 0">上一页</el-button>
+        <el-button plain size="small" @click="onSwitchPage(1)" :disabled="active >= (value || []).length - 1">下一页</el-button>
       </el-button-group>
     </div>
   </div>
@@ -110,8 +120,18 @@ export default class AuditListControl extends Vue {
     return (this.formData && this.formData[this.model]) || []
   }
 
+  get activeItem () {
+    return this.value[this.active] || null
+  }
+
   get row () {
-    return (this.value[this.active] || {})?.value || null
+    return (this.value[this.active] || {})?.value || {}
+  }
+
+  markCls (item: any) {
+    if (item?.mark === true) return this.$style.markRight
+    else if (item?.mark === false) return this.$style.markError
+    else return this.$style.markNone
   }
 
   activeCls (i: number) {
@@ -120,6 +140,17 @@ export default class AuditListControl extends Vue {
 
   onInput (list: any, row: any) {
     row.list = list || []
+  }
+
+  onMark (mark: boolean) {
+    if (this.activeItem) this.activeItem.mark = mark
+  }
+
+  onSwitchPage (offset: number) {
+    const min = 0
+    const max = Math.max((this.value || []).length - 1, 0)
+    const ret = offset + this.active
+    this.active = ret > max ? max : (ret < min ? min : ret)
   }
 
   $style!: any
@@ -182,13 +213,42 @@ export default class AuditListControl extends Vue {
   background: #FFFFFF;
   border-radius: 2px;
   border: 1px solid #EAEAEA;
-  padding: 0 14px;
+  padding: 0 14px 0 6px;
   flex: 1 0 120px;
 
   &.active {
     color: #fff;
     background-color: #359C67;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.markRight {
+  color: #359C67;
+}
+
+.markError {
+  color: #FF4F4F;
+}
+
+.markNone {
+  &>.markIcon {
+    color: #C5C5C5;
+  }
+  &.active>.markIcon {
+    color: #fff;
+  }
+}
+
+.markIcon {
+  margin-right: 4px;
+}
+
+.body {
+  padding: 20px;
 }
 
 .footer {
