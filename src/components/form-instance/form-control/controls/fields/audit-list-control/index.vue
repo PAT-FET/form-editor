@@ -1,65 +1,70 @@
 <template>
 <el-form-item :hidden="options.hidden">
-<div :class="[$style.content]" ref="content">
-  <div :class="[$style.header]">
-    <span>{{def.name}}</span>
-    <span :class="[$style.fullscreen]" title="全屏" @click="onFullScreen"><i class="el-icon-full-screen"></i></span>
-  </div>
+<div :class="[$style.container, fullScreenCls]" ref="container">
+  <div :class="[$style.content]">
+    <div :class="[$style.header]">
+      <span>{{def.name}}</span>
+      <span :class="[$style.fullscreenIcon]" title="全屏" @click="onFullScreen"><i class="el-icon-full-screen"></i></span>
+    </div>
 
-  <div :class="[$style.group, expandCls]">
-    <ul :class="[$style.list]" ref="list">
-      <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
-        <span :class="[$style.markIcon]">
-          <i class="el-icon-error" v-if="item && item.mark === false"></i>
-          <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
-          <i class="el-icon-warning" v-else></i>
-        </span>
-        <span>{{item.name}}</span>
-      </li>
-    </ul>
-    <div :class="[$style.action]">
-      <div :class="[$style.arrowGroup]">
-        <div :class="[$style.iconBtn]" @click="onScroll(1)"><span><i class="el-icon-arrow-up"></i></span></div>
-        <div :class="[$style.arrowGroupDivider]"></div>
-        <div :class="[$style.iconBtn]" @click="onScroll(-1)"><span><i class="el-icon-arrow-down"></i></span></div>
-      </div>
-      <div :class="[$style.iconBtn]" title="展开/收起" @click="expand = !expand">
-        <span><i class="el-icon-s-grid"></i></span>
+    <div :class="[$style.group, expandCls]">
+      <ul :class="[$style.list]" ref="list">
+        <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
+          <span :class="[$style.markIcon]">
+            <i class="el-icon-error" v-if="item && item.mark === false"></i>
+            <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
+            <i class="el-icon-warning" v-else></i>
+          </span>
+          <span>{{item.name}}</span>
+        </li>
+      </ul>
+      <div :class="[$style.action]">
+        <div :class="[$style.arrowGroup]">
+          <div :class="[$style.iconBtn]" @click="onScroll(1)"><span><i class="el-icon-arrow-up"></i></span></div>
+          <div :class="[$style.arrowGroupDivider]"></div>
+          <div :class="[$style.iconBtn]" @click="onScroll(-1)"><span><i class="el-icon-arrow-down"></i></span></div>
+        </div>
+        <div :class="[$style.iconBtn]" title="展开/收起" @click="expand = !expand">
+          <span><i class="el-icon-s-grid"></i></span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div :class="[$style.body]">
-    <div :class="[designCls]">
-      <draggable
-          v-if="design"
-          :value="def.list"
-          @input="onInput($event, def)"
-          tag="div"
-          :class="[$style.col]"
-          :no-transition-on-drag="true"
-          v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
-        >
-        <form-control v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
-      </draggable>
-      <template v-else>
-        <template v-if="row">
-          <form-control :row-form-data="row" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+    <div :class="[$style.body]">
+      <div :class="[designCls]">
+        <draggable
+            v-if="design"
+            :value="def.list"
+            @input="onInput($event, def)"
+            tag="div"
+            :class="[$style.col]"
+            :no-transition-on-drag="true"
+            v-bind="{group:'people', ghostClass: 'ghost',animation: 200, handle: '.drag-widget'}"
+          >
+          <form-control v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+        </draggable>
+        <template v-else>
+          <template v-if="row">
+            <form-control :row-form-data="row" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+          </template>
         </template>
-      </template>
+      </div>
+    </div>
+
+    <div :class="[$style.footer]" v-if="activeItem">
+      <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
+      <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
+
+      <div :class="[$style.pagination]">
+        <el-button-group>
+          <el-button plain size="small" @click="onSwitchPage(-1)" :disabled="active <= 0">上一页</el-button>
+          <el-button plain size="small" @click="onSwitchPage(1)" :disabled="active >= (value || []).length - 1">下一页</el-button>
+        </el-button-group>
+      </div>
     </div>
   </div>
-
-  <div :class="[$style.footer]" v-if="activeItem">
-    <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
-    <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
-
-    <div :class="[$style.pagination]">
-      <el-button-group>
-        <el-button plain size="small" @click="onSwitchPage(-1)" :disabled="active <= 0">上一页</el-button>
-        <el-button plain size="small" @click="onSwitchPage(1)" :disabled="active >= (value || []).length - 1">下一页</el-button>
-      </el-button-group>
-    </div>
+  <div :class="[$style.preview]" v-if="fullscreen">
+    <file-preview :list="activeItem && activeItem.files"></file-preview>
   </div>
 </div>
 </el-form-item>
@@ -68,10 +73,12 @@
 <script lang="ts">
 import { Component, Prop, Vue, Inject } from 'vue-property-decorator'
 import { FieldAuditListDefinition, FieldAuditListOptions } from '@/components/type'
+import FilePreview from '@/components/common/file-preview/index.vue'
 import draggable from 'vuedraggable'
 
 @Component({
   components: {
+    FilePreview,
     draggable,
     'form-control': () => import('@/components/form-instance/form-control/index.vue')
   }
@@ -88,6 +95,8 @@ export default class AuditListControl extends Vue {
   active = 0
 
   expand = false
+
+  fullscreen = false
 
   get design () {
     return this.getDesign()
@@ -157,6 +166,10 @@ export default class AuditListControl extends Vue {
     return this.expand ? this.$style.expand : ''
   }
 
+  get fullScreenCls () {
+    return this.fullscreen ? this.$style.fullscreen : ''
+  }
+
   onInput (list: any, row: any) {
     row.list = list || []
   }
@@ -173,9 +186,9 @@ export default class AuditListControl extends Vue {
   }
 
   onFullScreen () {
-    if (this.$refs.content) {
+    if (this.$refs.container) {
       if (!(document as any).webkitIsFullScreen) {
-        (this.$refs.content as any).webkitRequestFullscreen()
+        (this.$refs.container as any).webkitRequestFullscreen()
       } else {
         (document as any).webkitCancelFullScreen()
       }
@@ -192,6 +205,17 @@ export default class AuditListControl extends Vue {
     const offset = top + num * unit
     if (offset > 0 || Math.abs(offset) > height - fixedHeight) return
     target.style.marginTop = offset + 'px'
+  }
+
+  mounted () {
+    const hanlder = () => {
+      if (!(document as any).webkitIsFullScreen) this.fullscreen = false
+      else this.fullscreen = true
+    }
+    window.addEventListener('resize', hanlder)
+    this.$once('hook:beforeDestroy', function () {
+      window.removeEventListener('resize', hanlder)
+    })
   }
 
   $style!: any
@@ -213,10 +237,24 @@ export default class AuditListControl extends Vue {
   }
 }
 
+.container {
+  display: flex;
+  max-width: 100%;
+  min-width: 0;
+
+  &.fullscreen {
+    .content {
+      max-width: 70%;
+    }
+  }
+}
+
 .content {
   background-color: #F3F3F3;
   border-radius: 2px;
   border: 1px solid #EAEAEA;
+  height: 100%;
+  flex: 1 1 auto;
 }
 
 .header {
@@ -242,7 +280,7 @@ export default class AuditListControl extends Vue {
   }
 }
 
-.fullscreen {
+.fullscreenIcon {
   font-size: 24px;
   margin-right: 8px;
 
@@ -362,5 +400,12 @@ export default class AuditListControl extends Vue {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.preview {
+  background-color: #fff;
+  width: 30%;
+  min-width: 0;
+  flex: 0 0 auto;
 }
 </style>
