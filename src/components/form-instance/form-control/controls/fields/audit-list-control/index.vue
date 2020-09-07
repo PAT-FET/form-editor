@@ -4,7 +4,14 @@
   <div :class="[$style.content]">
     <div :class="[$style.header]">
       <span>{{def.name}}</span>
-      <span :class="[$style.fullscreenIcon]" title="全屏" @click="onFullScreen"><i class="el-icon-full-screen"></i></span>
+      <span>
+        <span v-if="fullscreen">
+          <span :class="[$style.fullscreenIcon]" title="显示右侧栏" @click="previewVisible = true" v-if="!previewVisible"><i class="el-icon-back"></i></span>
+          <span :class="[$style.fullscreenIcon]" title="隐藏右侧栏" @click="previewVisible = false" v-else><i class="el-icon-right"></i></span>
+        </span>
+        <span :class="[$style.fullscreenIcon]" title="全屏" @click="onFullScreen" v-if="!fullscreen"><i class="el-icon-full-screen"></i></span>
+        <span :class="[$style.fullscreenIcon]" title="退出全屏" @click="onFullScreen" v-else><i class="el-icon-bottom-left"></i></span>
+      </span>
     </div>
 
     <div :class="[$style.group, expandCls]">
@@ -63,7 +70,7 @@
       </div>
     </div>
   </div>
-  <div :class="[$style.preview]" v-if="fullscreen">
+  <div :class="[$style.preview]" v-if="fullscreen && previewVisible">
     <file-preview :list="activeItem && activeItem.files"></file-preview>
   </div>
 </div>
@@ -97,6 +104,8 @@ export default class AuditListControl extends Vue {
   expand = false
 
   fullscreen = false
+
+  previewVisible = true
 
   get design () {
     return this.getDesign()
@@ -167,7 +176,7 @@ export default class AuditListControl extends Vue {
   }
 
   get fullScreenCls () {
-    return this.fullscreen ? this.$style.fullscreen : ''
+    return this.fullscreen && this.previewVisible ? this.$style.fullscreen : ''
   }
 
   onInput (list: any, row: any) {
@@ -210,7 +219,10 @@ export default class AuditListControl extends Vue {
   mounted () {
     const hanlder = () => {
       if (!(document as any).webkitIsFullScreen) this.fullscreen = false
-      else this.fullscreen = true
+      else {
+        this.fullscreen = true
+        this.previewVisible = true
+      }
     }
     window.addEventListener('resize', hanlder)
     this.$once('hook:beforeDestroy', function () {
