@@ -16,7 +16,7 @@
 
     <div :class="[$style.group, expandCls]">
       <ul :class="[$style.list]" ref="list">
-        <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" @click="active = i">
+        <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" :title="item.name" @click="active = i">
           <span :class="[$style.markIcon]">
             <i class="el-icon-error" v-if="item && item.mark === false"></i>
             <i class="el-icon-success" v-else-if="item && item.mark === true"></i>
@@ -184,7 +184,10 @@ export default class AuditListControl extends Vue {
   }
 
   onMark (mark: boolean) {
-    if (this.activeItem) this.activeItem.mark = mark
+    if (this.activeItem) {
+      this.activeItem.mark = mark
+      this.onSwitchPage(1)
+    }
   }
 
   onSwitchPage (offset: number) {
@@ -257,6 +260,22 @@ export default class AuditListControl extends Vue {
   &.fullscreen {
     .content {
       max-width: 70%;
+      overflow-y: auto;
+      position: relative;
+
+      .header {
+        position: sticky;
+        top: 0;
+        background-color: #f3f3f3;
+        z-index: 9999;
+      }
+
+      .footer {
+        position: sticky;
+        bottom: 0;
+        background-color: #f3f3f3;
+        z-index: 9999;
+      }
     }
   }
 }
@@ -363,7 +382,12 @@ export default class AuditListControl extends Vue {
   border-radius: 2px;
   border: 1px solid #EAEAEA;
   padding: 0 14px 0 6px;
-  flex: 1 0 120px;
+  min-width: 160px;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 2 120px;
 
   &.active {
     color: #fff;
@@ -403,7 +427,6 @@ export default class AuditListControl extends Vue {
 .footer {
   text-align: center;
   position: relative;
-
   padding: 12px 0;
 }
 

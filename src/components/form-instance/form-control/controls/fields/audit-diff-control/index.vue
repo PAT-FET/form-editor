@@ -6,7 +6,8 @@
       <template v-slot="{row}">
         <audit-mark v-model="row[col.name].value">
           <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
-          <span>{{resolveNewValue(col, row)}}</span>
+          <span v-if="resolveNewValue(col, row) !== undefined">{{resolveNewValue(col, row)}}</span>
+          <span style="color: #bcbcbc;" v-else>不对比</span>
         </audit-mark>
       </template>
     </el-table-column>
