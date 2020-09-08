@@ -5,12 +5,12 @@
   </div>
   <div :class="[$style.suffix]">
     <span :class="[$style.mark]" v-if="changed">
-      <el-tooltip effect="dark" :content="'变更前: ' + oldValue" placement="top" v-if="changed">
+      <el-tooltip effect="dark" :content="'变更前: ' + oldValue" placement="top" :append-to-body="false" v-tooltip-append-to v-if="changed">
         <span>已变更</span>
       </el-tooltip>
     </span>
     <span>
-      <el-popover placement="top" width="400" v-model="visible" title="审批标记">
+      <el-popover placement="top" width="400" v-model="visible" :append-to-body="false" title="审批标记">
         <div>
           <el-radio-group v-model="form.mark">
             <el-radio label="0">有误</el-radio>
@@ -24,20 +24,20 @@
           </div>
         </div>
         <span slot="reference" @click="onEdit">
-          <el-tooltip effect="dark" content="无误" placement="top" v-if="mark === '1'">
+          <el-tooltip effect="dark" content="无误" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '1'">
             <el-link :underline="false" type="primary" :class="[$style.icon]"><i class="el-icon-circle-check"></i></el-link>
           </el-tooltip>
-          <el-tooltip effect="dark" content="有误" placement="top" v-if="mark === '0'">
+          <el-tooltip effect="dark" content="有误" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '0'">
             <el-link :underline="false" type="danger" :class="[$style.icon]"><i class="el-icon-circle-close"></i></el-link>
           </el-tooltip>
-          <el-tooltip effect="dark" content="批注" placement="top" v-if="mark === '2'">
+          <el-tooltip effect="dark" content="批注" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '2'">
             <el-link :underline="false" type="info" :class="[$style.icon]"><i class="el-icon-discover"></i></el-link>
           </el-tooltip>
         </span>
       </el-popover>
     </span>
     <span>
-      <el-tooltip effect="dark" :content="remark" placement="top" v-if="remark">
+      <el-tooltip effect="dark" :content="remark" placement="top" :append-to-body="false" v-tooltip-append-to v-if="remark">
         <el-link :underline="false" type="info" :class="[$style.icon]"><i class="el-icon-chat-line-square"></i></el-link>
       </el-tooltip>
     </span>
@@ -47,8 +47,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch, InjectReactive, Emit } from 'vue-property-decorator'
+import TooltipAppendTo from './tooltip-append-to-directive'
 
-@Component
+@Component({
+  directives: { TooltipAppendTo }
+})
 export default class AuditMark extends Vue {
   @Prop() value!: any
 
