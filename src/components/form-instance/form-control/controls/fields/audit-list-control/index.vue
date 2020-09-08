@@ -267,14 +267,14 @@ export default class AuditListControl extends Vue {
         position: sticky;
         top: 0;
         background-color: #f3f3f3;
-        z-index: 9999;
+        z-index: 10;
       }
 
       .footer {
         position: sticky;
         bottom: 0;
         background-color: #f3f3f3;
-        z-index: 9999;
+        z-index: 10;
       }
     }
   }
