@@ -31,13 +31,14 @@
           <div :class="[$style.arrowGroupDivider]"></div>
           <div :class="[$style.iconBtn]" @click="onScroll(-1)"><span><i class="el-icon-arrow-down"></i></span></div>
         </div>
-        <div :class="[$style.iconBtn]" title="展开/收起" @click="expand = !expand">
+        <div :class="[$style.iconBtn]" title="展开/收起" @click="onToggleExpand">
           <span><i class="el-icon-s-grid"></i></span>
         </div>
       </div>
     </div>
 
-    <div :class="[$style.body]">
+    <transition name="form-editor-slide">
+    <div :class="[$style.body]" v-if="!loading">
       <div :class="[designCls]">
         <draggable
             v-if="design"
@@ -57,6 +58,7 @@
         </template>
       </div>
     </div>
+    </transition>
 
     <div :class="[$style.footer]" v-if="activeItem">
       <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
@@ -78,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Inject } from 'vue-property-decorator'
+import { Component, Prop, Vue, Inject, Watch } from 'vue-property-decorator'
 import { FieldAuditListDefinition, FieldAuditListOptions } from '@/components/type'
 import FilePreview from '@/components/common/file-preview/index.vue'
 import draggable from 'vuedraggable'
@@ -106,6 +108,8 @@ export default class AuditListControl extends Vue {
   fullscreen = false
 
   previewVisible = true
+
+  loading = false
 
   get design () {
     return this.getDesign()
@@ -208,6 +212,7 @@ export default class AuditListControl extends Vue {
   }
 
   onScroll (num: number) {
+    if (this.expand) return
     const target = this.$refs.list as any
     if (!target) return
     const unit = 40
@@ -217,6 +222,12 @@ export default class AuditListControl extends Vue {
     const offset = top + num * unit
     if (offset > 0 || Math.abs(offset) > height - fixedHeight) return
     target.style.marginTop = offset + 'px'
+  }
+
+  onToggleExpand () {
+    this.expand = !this.expand
+    const target = this.$refs.list as any
+    if (target) target.style.marginTop = '0px'
   }
 
   mounted () {
@@ -230,6 +241,17 @@ export default class AuditListControl extends Vue {
     window.addEventListener('resize', hanlder)
     this.$once('hook:beforeDestroy', function () {
       window.removeEventListener('resize', hanlder)
+    })
+  }
+
+  @Watch('active') activeChange () {
+    this.loading = true
+    this.$nextTick(() => {
+      this.loading = false
+      this.$nextTick(() => {
+        const c = this.$refs.container as any
+        if (c) c.scrollTop = 0
+      })
     })
   }
 
@@ -266,6 +288,13 @@ export default class AuditListControl extends Vue {
       .header {
         position: sticky;
         top: 0;
+        background-color: #f3f3f3;
+        z-index: 10;
+      }
+
+      .group {
+        position: sticky;
+        top: 42px;
         background-color: #f3f3f3;
         z-index: 10;
       }
@@ -442,5 +471,22 @@ export default class AuditListControl extends Vue {
   width: 30%;
   min-width: 0;
   flex: 0 0 auto;
+}
+</style>
+<style lang="scss">
+.form-editor-slide-enter-active {
+  transition: all .75s ease;
+}
+.form-editor-slide-leave-active {
+  transition: all .2s ease-out;
+}
+.form-editor-slide-enter {
+  transform: translateX(-60px);
+  opacity: 0;
+}
+
+.form-editor-slide-leave-to {
+  transform: translateX(60px);
+  opacity: 0;
 }
 </style>
