@@ -9,6 +9,7 @@ export interface AuditDiffRow {
 export interface AuditDiffCol {
   name: string
   label: string
+  markable: boolean
 }
 
 export class FieldAuditDiffDefinition {
@@ -17,12 +18,13 @@ export class FieldAuditDiffDefinition {
   name = '审批对比'
   model: string = 'audit-diff_' + genKey()
   rows: AuditDiffRow[] = [{ name: 'key1', label: '字段 1' }]
-  cols: AuditDiffCol[] = [{ name: 'data1', label: '数据源 1' }]
+  cols: AuditDiffCol[] = [{ name: 'data1', label: '数据源 1', markable: false }]
   options: FieldAuditDiffOptions = new FieldAuditDiffOptions()
   rules?: FieldRule[] = []
 }
 
 export class FieldAuditDiffOptions {
+  mark = true
   disabled = false
   hidden = false
   defaultValue = null

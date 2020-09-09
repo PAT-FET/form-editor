@@ -4,7 +4,7 @@
     <el-table-column prop="__label" :label="def.name"></el-table-column>
     <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
       <template v-slot="{row}">
-        <audit-mark v-model="row[col.name].value">
+        <audit-mark v-model="row[col.name].value" :disabled="!col.markable">
           <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
           <span v-if="resolveNewValue(col, row) !== undefined">{{resolveNewValue(col, row)}}</span>
           <span style="color: #bcbcbc;" v-else>不对比</span>
@@ -87,6 +87,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
   }
 
   rowClassNameFn ({ row, rowIndex }: any) {
+    if (!this.def.options.mark) return ''
     return row.__meta?.diff ? this.$style.highlightRow : ''
   }
 
@@ -97,6 +98,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
   }
 
   showDiffMark (row: any, col: any) {
+    if (!this.def.options.mark) return false
     return row.__meta.markedKeys.includes(this.resolveNewValue(col, row))
   }
 

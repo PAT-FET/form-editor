@@ -6,6 +6,9 @@
 <attr-field label="标题">
   <el-input v-model.trim="def.name"></el-input>
 </attr-field>
+<attr-field label="自动对比">
+  <el-checkbox v-model="options.mark">启用</el-checkbox>
+</attr-field>
 <attr-field label="数据源">
   <options-pane :list="cols" :checkable="false" :add-fn="addColFn">
     <template slot-scope="{row}">
@@ -14,6 +17,9 @@
       </div>
       <div style="margin-right: 12px;">
         <el-input v-model="row.label" size="mini" placeholder="数据源名称"></el-input>
+      </div>
+      <div style="margin-right: 12px;" title="可标记">
+        <el-checkbox v-model="row.markable">可标记</el-checkbox>
       </div>
     </template>
   </options-pane>
@@ -70,7 +76,7 @@ export default class AuditDiffAttr extends mixins(ControlMixins) {
     const max = Math.max(...list.map(v => (+(v.name || '').slice(-1) || 1)), 1)
     const name = 'data' + (max + 1)
     const label = '数据源 ' + (max + 1)
-    list.push({ name, label })
+    list.push({ name, label, markable: false })
   }
 
   addRowFn (list: any[]) {
