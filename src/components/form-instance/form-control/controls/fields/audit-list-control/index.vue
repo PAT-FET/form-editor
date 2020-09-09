@@ -73,14 +73,14 @@
     </div>
   </div>
   <div :class="[$style.preview]" v-if="fullscreen && previewVisible">
-    <file-preview :list="activeItem && activeItem.files"></file-preview>
+    <file-preview :list="files" ref="filePreview"></file-preview>
   </div>
 </div>
 </el-form-item>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Inject, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Inject, Watch, Provide } from 'vue-property-decorator'
 import { FieldAuditListDefinition, FieldAuditListOptions } from '@/components/type'
 import FilePreview from '@/components/common/file-preview/index.vue'
 import draggable from 'vuedraggable'
@@ -100,6 +100,8 @@ export default class AuditListControl extends Vue {
   @Inject() getFormData!: () => Record<string, any>
 
   @Inject() getRowFormData!: () => Record<string, any>
+
+  fileControls: any = []
 
   active = 0
 
@@ -163,6 +165,28 @@ export default class AuditListControl extends Vue {
 
   get row () {
     return (this.value[this.active] || {})?.value || {}
+  }
+
+  get files () {
+    return this.fileControls.map((v: any) => {
+      return v.file
+    }).filter((v: any) => !!v)
+  }
+
+  @Provide() addFileControl (c: any) {
+    this.fileControls.push(c)
+  }
+
+  @Provide() removeFileControl (c: any) {
+    const idx = this.fileControls.findIndex((v: any) => v === c)
+    if (idx >= 0) this.fileControls.splice(idx, 1)
+  }
+
+  @Provide() onAuditFilePreview (file: any) {
+    if (!this.fullscreen) return false
+    const $e = this.$refs.filePreview as any
+    if ($e) $e.select(file && file.url)
+    return true
   }
 
   markCls (item: any) {

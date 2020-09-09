@@ -70,6 +70,15 @@ export default class FilePreview extends Vue {
     this.index = num
   }
 
+  select (url: string) {
+    const i = (this.list || []).findIndex((v: any) => v.url === url)
+    if (i >= 0) {
+      this.index = i
+    } else {
+      this.$message.warning('未找到该文件')
+    }
+  }
+
   $style!: any
 }
 </script>

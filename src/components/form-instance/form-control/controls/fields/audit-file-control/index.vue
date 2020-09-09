@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Inject } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
 import { FieldTextDefinition, FieldTextOptions } from '@/components/type'
@@ -24,6 +24,12 @@ export default class AuditFileControl extends mixins(FieldMixins) {
     return value && value[0]?.url
   }
 
+  @Inject({ default: () => () => {} }) addFileControl!: (c: any) => void
+
+  @Inject({ default: () => () => {} }) removeFileControl!: (c: any) => void
+
+  @Inject({ default: () => () => false }) onAuditFilePreview!: (file: any) => boolean
+
   get file () {
     const v = this.value?.value
     return v && v[0]
@@ -35,7 +41,16 @@ export default class AuditFileControl extends mixins(FieldMixins) {
 
   onPreview () {
     if (!this.file || !this.file?.url) return
+    if (this.onAuditFilePreview(this.file)) return
     window.open(this.file?.url, '_blank')
+  }
+
+  created () {
+    this.addFileControl(this)
+  }
+
+  beforeDestroy () {
+    this.removeFileControl(this)
   }
 }
 </script>
