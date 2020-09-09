@@ -7,7 +7,8 @@
       <span></span>
     </div>
     <div :class="[$style.body]">
-      <iframe :src="current && current.url" border="0" :class="[$style.iframe]"></iframe>
+      <iframe :src="current && current.url" border="0" :class="[$style.iframe]" v-if="isPdf(current && current.url)"></iframe>
+      <img-preview :url="current && current.url" :class="[$style.iframe]" v-else></img-preview>
     </div>
     <div :class="[$style.footer]">
       <div :class="[$style.footerHeader]">
@@ -40,8 +41,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch, InjectReactive, Emit } from 'vue-property-decorator'
+import ImgPreview from './img-preview/index.vue'
 
-@Component
+@Component({
+  components: { ImgPreview }
+})
 export default class FilePreview extends Vue {
   @Prop(Array) list!: any[]
 
