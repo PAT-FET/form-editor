@@ -1,12 +1,12 @@
 <template>
-<div :class="[$style.content]">
+<div :class="[$style.content]" v-if="!loading">
   <div :class="[$style.text]">
     <el-link :underline="false" :type="type"><slot>{{newValue || '-'}}</slot></el-link>
   </div>
   <div :class="[$style.suffix]">
     <span style="position: relative;">
       <span :class="[$style.mark]" v-if="changed">
-        <el-tooltip effect="dark" placement="top" :append-to-body="false" v-tooltip-append-to v-if="changed">
+        <el-tooltip effect="dark" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="changed">
           <template v-slot:content="">
             <span style="white-space: nowrap;">变更前: {{oldValue}}</span>
           </template>
@@ -15,7 +15,7 @@
       </span>
     </span>
     <span v-if="!disabled">
-      <el-popover placement="top" width="400" v-model="visible" :append-to-body="false" title="审批标记">
+      <el-popover placement="top" width="400" v-model="visible" :append-to-body="!fullscreen" title="审批标记">
         <div>
           <el-radio-group v-model="form.mark">
             <el-radio label="0">有误</el-radio>
@@ -29,20 +29,20 @@
           </div>
         </div>
         <span slot="reference" @click="onEdit">
-          <el-tooltip effect="dark" content="无误" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '1'">
+          <el-tooltip effect="dark" content="无误" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="mark === '1'">
             <el-link :underline="false" type="primary" :class="[$style.icon]"><i class="el-icon-circle-check"></i></el-link>
           </el-tooltip>
-          <el-tooltip effect="dark" content="有误" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '0'">
+          <el-tooltip effect="dark" content="有误" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="mark === '0'">
             <el-link :underline="false" type="danger" :class="[$style.icon]"><i class="el-icon-circle-close"></i></el-link>
           </el-tooltip>
-          <el-tooltip effect="dark" content="批注" placement="top" :append-to-body="false" v-tooltip-append-to v-if="mark === '2'">
+          <el-tooltip effect="dark" content="批注" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="mark === '2'">
             <el-link :underline="false" type="info" :class="[$style.icon]"><i class="el-icon-discover"></i></el-link>
           </el-tooltip>
         </span>
       </el-popover>
     </span>
     <span v-if="!disabled">
-      <el-tooltip effect="dark" :content="remark" placement="top" :append-to-body="false" v-tooltip-append-to v-if="remark">
+      <el-tooltip effect="dark" :content="remark" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="remark">
         <el-link :underline="false" type="info" :class="[$style.icon]"><i class="el-icon-chat-line-square"></i></el-link>
       </el-tooltip>
     </span>
@@ -72,6 +72,10 @@ export default class AuditMark extends Vue {
   }
 
   visible = false
+
+  fullscreen = false
+
+  loading = false
 
   get mark (): '0' | '1' | '2' {
     const ret = this.value?.mark
@@ -129,6 +133,23 @@ export default class AuditMark extends Vue {
 
   onCancel () {
     this.visible = false
+  }
+
+  mounted () {
+    const hanlder = () => {
+      if (!(document as any).webkitIsFullScreen) this.fullscreen = false
+      else {
+        this.fullscreen = true
+        this.loading = true
+        this.$nextTick(() => {
+          this.loading = false
+        })
+      }
+    }
+    window.addEventListener('resize', hanlder)
+    this.$once('hook:beforeDestroy', function () {
+      window.removeEventListener('resize', hanlder)
+    })
   }
 }
 </script>

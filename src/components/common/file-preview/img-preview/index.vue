@@ -1,11 +1,12 @@
 <template>
-<div :class="[$style.container]">
+<div :class="[$style.container]" ref="container">
 <img :src="url" alt="" :class="[$style.img]" :style="[imgStyle]" ref="img">
 
 <div :class="[$style.action]">
   <div style="margin-top: 8px;"><el-button type="info" icon="el-icon-rank" circle size="medium" @click="onReset"></el-button></div>
   <div style="margin-top: 8px;"><el-button type="info" icon="el-icon-plus" circle size="medium" @click="onScale(2)"></el-button></div>
   <div style="margin-top: 8px;"><el-button type="info" icon="el-icon-minus" circle size="medium" @click="onScale(.5)"></el-button></div>
+  <div style="margin-top: 8px;"><el-button type="info" icon="el-icon-refresh-right" circle size="medium" @click="onRotate"></el-button></div>
 </div>
 </div>
 </template>
@@ -19,16 +20,19 @@ export default class ImgPreview extends Vue {
 
   scale = 1
 
+  rotate = 0
+
   isDown = false
 
   get imgStyle () {
     return {
-      transform: `scale(${this.scale})`
+      transform: `scale(${this.scale}) rotate(${this.rotate}deg)`
     }
   }
 
   onReset () {
     this.scale = 1
+    this.rotate = 0
     const dv = this.$refs.img as any
     if (dv) {
       dv.style.left = 0
@@ -43,6 +47,10 @@ export default class ImgPreview extends Vue {
     ret = Math.max(min, ret)
     ret = Math.min(max, ret)
     this.scale = ret
+  }
+
+  onRotate () {
+    this.rotate = this.rotate + 90
   }
 
   mounted () {
@@ -89,6 +97,10 @@ export default class ImgPreview extends Vue {
     }
 
     const wheelHandler = (event: any) => {
+      const target = event.target || event.srcElement
+      const container = this.$refs.container as any
+      if (!target) return
+      if (!container.contains(target)) return
       const delta = getDelta()
       if (delta > 0) {
         this.onScale(1.25)
