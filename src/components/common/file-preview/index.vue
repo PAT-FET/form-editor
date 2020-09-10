@@ -83,6 +83,10 @@ export default class FilePreview extends Vue {
     }
   }
 
+  @Watch('list') listChange () {
+    this.index = 0
+  }
+
   $style!: any
 }
 </script>
