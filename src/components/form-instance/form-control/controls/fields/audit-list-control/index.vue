@@ -1,6 +1,6 @@
 <template>
 <el-form-item :hidden="options.hidden">
-<div :class="[$style.container, fullScreenCls]" ref="container">
+<div :class="[$style.container, fullScreenCls, previewVisibleCls]" ref="container">
   <div :class="[$style.content]">
     <div :class="[$style.header]">
       <span>{{def.name}}</span>
@@ -221,7 +221,11 @@ export default class AuditListControl extends Vue {
   }
 
   get fullScreenCls () {
-    return this.fullscreen && this.previewVisible ? this.$style.fullscreen : ''
+    return this.fullscreen ? this.$style.fullscreen : ''
+  }
+
+  get previewVisibleCls () {
+    return this.previewVisible ? this.$style.previewExpand : ''
   }
 
   onInput (list: any, row: any) {
@@ -322,7 +326,7 @@ export default class AuditListControl extends Vue {
 
   &.fullscreen {
     .content {
-      max-width: 70%;
+      max-width: 100%;
       overflow-y: auto;
       position: relative;
 
@@ -345,6 +349,21 @@ export default class AuditListControl extends Vue {
         bottom: 0;
         background-color: #f3f3f3;
         z-index: 10;
+      }
+    }
+    .preview {
+      background-color: #fff;
+      width: 0%;
+      min-width: 0;
+      flex: 0 0 auto;
+    }
+
+    &.previewExpand {
+      .content {
+        max-width: 70%;
+      }
+      .preview {
+        width: 30%;
       }
     }
   }
@@ -505,13 +524,6 @@ export default class AuditListControl extends Vue {
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.preview {
-  background-color: #fff;
-  width: 30%;
-  min-width: 0;
-  flex: 0 0 auto;
 }
 </style>
 <style lang="scss">
