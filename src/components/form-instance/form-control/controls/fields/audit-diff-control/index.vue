@@ -1,17 +1,25 @@
 <template>
 <el-form-item label="" :prop="def.model" :hidden="options.hidden">
-  <el-table :data="dataSource" border :row-class-name="rowClassNameFn" style="width: 100%" size="mini">
-    <el-table-column prop="__label" :label="def.name"></el-table-column>
-    <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
-      <template v-slot="{row}">
-        <audit-mark v-model="row[col.name].value" :markable="col.markable" :disabled="disabled">
-          <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
-          <span v-if="resolveNewValue(col, row) !== undefined">{{resolveNewValue(col, row)}}</span>
-          <span style="color: #bcbcbc;" v-else>不对比</span>
-        </audit-mark>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div :class="[$style.content]">
+    <el-table :data="dataSource" border :row-class-name="rowClassNameFn" style="width: 100%" size="mini" :class="[$style.table]">
+      <el-table-column prop="__label" :label="def.name"></el-table-column>
+      <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
+        <template v-slot="{row}">
+          <audit-mark v-model="row[col.name].value" :markable="col.markable" :disabled="disabled">
+            <span style="display: inline-flex; align-items: center;">
+              <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
+              <span v-if="resolveNewValue(col, row) !== undefined">{{resolveNewValue(col, row)}}</span>
+              <span style="color: #bcbcbc;" v-else>不对比</span>
+            </span>
+          </audit-mark>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div :class="[$style.action]" v-if="options.mark">
+      <span :class="[$style.actionIcon, allCls]" @click="all = true"><i class="el-icon-s-grid"></i></span>
+      <span :class="[$style.actionIcon, notAllCls]" @click="all = false"><i class="el-icon-menu"></i></span>
+    </div>
+  </div>
 </el-form-item>
 </template>
 
@@ -26,6 +34,8 @@ import AuditMark from '@/components/common/audit-mark/index.vue'
   components: { AuditMark }
 })
 export default class AuditDiffControl extends mixins(FieldMixins) {
+  all = true
+
   get cols () {
     return this.def.cols || []
   }
@@ -63,7 +73,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
 
   get dataSource () {
     if (!this.normalized) return []
-    return this.rows.map(v => {
+    const ret = this.rows.map(v => {
       const row: any = { __label: v.label }
       const statMap: any = {}
       const rest = this.cols.forEach((w: any) => {
@@ -84,6 +94,15 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
       }
       return row
     })
+    return this.all ? ret : ret.filter((v: any) => v?.__meta?.diff)
+  }
+
+  get allCls () {
+    return this.all ? this.$style.active : ''
+  }
+
+  get notAllCls () {
+    return !this.all ? this.$style.active : ''
   }
 
   rowClassNameFn ({ row, rowIndex }: any) {
@@ -128,5 +147,36 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
 <style lang="scss" module>
 .highlightRow {
   background-color: #FFF7F7 !important;
+}
+
+.table {
+  :global {
+    thead {
+      th {
+        padding: 2px 0 !important;
+      }
+    }
+  }
+}
+
+.content {
+  position: relative;
+}
+
+.action {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  color: #999;
+  font-size: 20px;
+}
+
+.actionIcon {
+  margin: 0 2px;
+
+  &:hover, &.active {
+    color: #359C67;
+    cursor: pointer;
+  }
 }
 </style>
