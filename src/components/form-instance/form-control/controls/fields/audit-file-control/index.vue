@@ -1,10 +1,10 @@
 <template>
 <el-form-item :label="label" label-width="auto" :prop="def.model" :hidden="options.hidden" style="margin-bottom: 0;">
   <audit-mark v-model="value" :disabled="disabled" :markable="markable" :value-fn="valueFn">
-    <span @click="onPreview">
+    <div @click="onPreview(row)" v-for="(row, i) in files" :key="i">
       <i class="el-icon-paperclip"></i>
-      <span>{{name || '-'}}</span>
-    </span>
+      <span>{{row.name || '-'}}</span>
+    </div>
   </audit-mark>
 </el-form-item>
 </template>
@@ -30,9 +30,12 @@ export default class AuditFileControl extends mixins(FieldMixins) {
 
   @Inject({ default: () => () => false }) onAuditFilePreview!: (file: any) => boolean
 
+  get files () {
+    return this.value?.value || []
+  }
+
   get file () {
-    const v = this.value?.value
-    return v && v[0]
+    return this.files && this.files[0]
   }
 
   get name () {
@@ -43,10 +46,9 @@ export default class AuditFileControl extends mixins(FieldMixins) {
     return (this.options as any)?.markable
   }
 
-  onPreview () {
-    if (!this.file || !this.file?.url) return
-    if (this.onAuditFilePreview(this.file)) return
-    window.open(this.file?.url, '_blank')
+  onPreview (row: any) {
+    if (this.onAuditFilePreview(row)) return
+    window.open(row.url, '_blank')
   }
 
   created () {

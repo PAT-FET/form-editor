@@ -8,7 +8,7 @@
       <span :class="[$style.mark]" v-if="changed">
         <el-tooltip effect="dark" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="changed">
           <template v-slot:content="">
-            <span style="white-space: nowrap;">变更前: {{oldValue}}</span>
+            <span style="white-space: nowrap;">{{changeTip}}</span>
           </template>
           <span style="white-space: nowrap;">已变更</span>
         </el-tooltip>
@@ -68,6 +68,8 @@ export default class AuditMark extends Vue {
 
   @Prop({ type: Boolean, default: true }) markable!: boolean
 
+  @Prop() diff!: false | string | undefined // 手动指定对比， false - 无更改， string - 有更改，更改信息， undefined - 使用默认对比
+
   form = {
     mark: '2',
     remark: ''
@@ -98,8 +100,14 @@ export default class AuditMark extends Vue {
   }
 
   get changed () {
+    if (this.diff || this.diff === false) return !!this.diff
     if (this.oldValue === undefined) return false
     return this.value !== this.oldValue
+  }
+
+  get changeTip () {
+    if (this.diff && typeof this.diff === 'string') return this.diff
+    return `变更前: ${this.oldValue}`
   }
 
   get remark () {

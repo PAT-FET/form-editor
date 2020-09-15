@@ -183,9 +183,11 @@ export default class AuditListControl extends Vue {
   }
 
   get files () {
-    return this.fileControls.map((v: any) => {
-      return v.file
-    }).filter((v: any) => !!v)
+    const ret: any[] = []
+    this.fileControls.forEach((v: any) => {
+      ret.push(...v.files)
+    })
+    return ret
   }
 
   @Provide() addFileControl (c: any) {
