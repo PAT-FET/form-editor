@@ -14,8 +14,8 @@
         </el-tooltip>
       </span>
     </span>
-    <span v-if="!disabled">
-      <el-popover placement="top" width="400" v-model="visible" :append-to-body="!fullscreen" title="审批标记">
+    <span v-if="markable">
+      <el-popover placement="top" width="400" v-model="visible" :append-to-body="!fullscreen" title="审批标记" :disabled="disabled">
         <div>
           <el-radio-group v-model="form.mark">
             <el-radio label="0">有误</el-radio>
@@ -41,7 +41,7 @@
         </span>
       </el-popover>
     </span>
-    <span v-if="!disabled">
+    <span v-if="markable">
       <el-tooltip effect="dark" :content="remark" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="remark">
         <el-link :underline="false" type="info" :class="[$style.icon]"><i class="el-icon-chat-line-square"></i></el-link>
       </el-tooltip>
@@ -65,6 +65,8 @@ export default class AuditMark extends Vue {
   @Emit() input (value: any) {}
 
   @Prop(Boolean) disabled!: boolean
+
+  @Prop({ type: Boolean, default: true }) markable!: boolean
 
   form = {
     mark: '2',
@@ -109,7 +111,7 @@ export default class AuditMark extends Vue {
   // }
 
   get type () {
-    if (this.disabled) return undefined
+    if (!this.markable) return undefined
     return this.mark === '0' ? 'danger' : (this.mark === '1' ? 'primary' : undefined)
   }
 
@@ -118,6 +120,7 @@ export default class AuditMark extends Vue {
   }
 
   onEdit () {
+    if (this.disabled) return
     this.form = {
       mark: this.mark,
       remark: this.remark

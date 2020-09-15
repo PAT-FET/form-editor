@@ -15,4 +15,5 @@ export class FieldAuditTextOptions {
   hidden = false
   defaultValue = null
   required = false
+  markable = true
 }

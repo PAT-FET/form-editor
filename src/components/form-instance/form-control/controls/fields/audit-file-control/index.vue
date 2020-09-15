@@ -1,6 +1,6 @@
 <template>
 <el-form-item :label="label" label-width="auto" :prop="def.model" :hidden="options.hidden" style="margin-bottom: 0;">
-  <audit-mark v-model="value" :value-fn="valueFn">
+  <audit-mark v-model="value" :disabled="disabled" :markable="markable" :value-fn="valueFn">
     <span @click="onPreview">
       <i class="el-icon-paperclip"></i>
       <span>{{name || '-'}}</span>
@@ -13,7 +13,7 @@
 import { Component, Prop, Vue, Watch, Inject } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
-import { FieldTextDefinition, FieldTextOptions } from '@/components/type'
+import { FieldAuditFileDefinition, FieldAuditFileOptions } from '@/components/type'
 import AuditMark from '@/components/common/audit-mark/index.vue'
 
 @Component({
@@ -37,6 +37,10 @@ export default class AuditFileControl extends mixins(FieldMixins) {
 
   get name () {
     return this.file?.name
+  }
+
+  get markable () {
+    return (this.options as any)?.markable
   }
 
   onPreview () {

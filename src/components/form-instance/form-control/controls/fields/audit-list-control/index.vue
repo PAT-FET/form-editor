@@ -61,8 +61,13 @@
     </transition>
 
     <div :class="[$style.footer]" v-if="activeItem">
-      <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
-      <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
+      <template v-if="!disabled">
+        <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
+        <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
+      </template>
+      <template v-else>
+        <el-button type="priamry" size="small" style="visibility: hidden;"></el-button>
+      </template>
 
       <div :class="[$style.pagination]">
         <el-button-group>
@@ -101,6 +106,8 @@ export default class AuditListControl extends Vue {
 
   @Inject() getRowFormData!: () => Record<string, any>
 
+  @Inject() getEdit!: () => boolean
+
   fileControls: any = []
 
   active = 0
@@ -125,6 +132,14 @@ export default class AuditListControl extends Vue {
     return this.def.options
   }
 
+  get edit () {
+    return this.getEdit()
+  }
+
+  get disabled () {
+    if (!this.edit) return true
+    return this.options.disabled
+  }
   // get tabs (): Tab[] {
   //   if (this.design) return this.dynamic ? this.def.tabs.slice(0, 1) : this.def.tabs
   //   else {
@@ -485,7 +500,7 @@ export default class AuditListControl extends Vue {
 
 .pagination {
   position: absolute;
-  right: 0;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
 }

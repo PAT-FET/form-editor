@@ -10,6 +10,7 @@
   <el-input v-model.trim="options.defaultValue"></el-input>
 </attr-field> -->
 <attr-field label="操作属性">
+  <el-checkbox v-model="options.markable">可标记</el-checkbox>
   <el-checkbox v-model="options.hidden">隐藏</el-checkbox>
 </attr-field>
 </div>
