@@ -62,7 +62,7 @@
 
     <div :class="[$style.footer]" v-if="activeItem">
       <template v-if="!disabled">
-        <el-button type="priamry" size="small" @click="onMark(true)">标记无误</el-button>
+        <el-button type="primary" size="small" @click="onMark(true)">标记无误</el-button>
         <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
       </template>
       <template v-else>
@@ -234,7 +234,7 @@ export default class AuditListControl extends Vue {
 
   onMark (mark: boolean) {
     if (this.activeItem) {
-      this.activeItem.mark = mark
+      Vue.set(this.activeItem, 'mark', mark)
       this.onSwitchPage(1)
     }
   }
