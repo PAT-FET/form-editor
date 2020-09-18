@@ -102,7 +102,7 @@ export default class AuditMark extends Vue {
   get changed () {
     if (this.diff || this.diff === false) return !!this.diff
     if (this.oldValue === undefined) return false
-    return this.value !== this.oldValue
+    return this.newValue !== this.oldValue
   }
 
   get changeTip () {

@@ -1,6 +1,6 @@
 <template>
 <el-form-item :label="label" label-width="auto" :prop="def.model" :hidden="options.hidden" style="margin-bottom: 0;">
-  <audit-mark v-model="value" :disabled="disabled" :markable="markable" :value-fn="valueFn">
+  <audit-mark v-model="value" :disabled="disabled" :markable="markable" :diff="diff" :value-fn="valueFn">
     <div @click="onPreview(row)" v-for="(row, i) in files" :key="i">
       <i class="el-icon-paperclip"></i>
       <span>{{row.name || '-'}}</span>
@@ -34,6 +34,10 @@ export default class AuditFileControl extends mixins(FieldMixins) {
     return this.value?.value || []
   }
 
+  get oldFiles () {
+    return this.value?.oldValue || []
+  }
+
   get file () {
     return this.files && this.files[0]
   }
@@ -44,6 +48,15 @@ export default class AuditFileControl extends mixins(FieldMixins) {
 
   get markable () {
     return (this.options as any)?.markable
+  }
+
+  get diff () {
+    if (this.oldFiles === undefined || !Array.isArray(this.oldFiles)) return false
+    const tip = '文件已更改，暂无描述'
+    if (this.oldFiles.length !== this.files.length) return tip
+    if (this.files.length === 0) return false
+    const d = this.files.some((v: any) => !this.oldFiles.some((w: any) => w.url === v.url))
+    return d ? tip : false
   }
 
   onPreview (row: any) {
