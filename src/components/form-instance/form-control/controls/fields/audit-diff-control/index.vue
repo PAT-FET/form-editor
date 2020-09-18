@@ -156,6 +156,16 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
         padding: 2px 0 !important;
       }
     }
+    tbody {
+      td {
+        padding: 0 !important;
+      }
+
+      .cell {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+      }
+    }
   }
 }
 
