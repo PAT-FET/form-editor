@@ -1,9 +1,14 @@
 <template>
 <el-form-item :hidden="options.hidden">
 <div :class="[$style.container, fullScreenCls, previewVisibleCls]" ref="container">
-  <div :class="[$style.content]">
+  <div :class="[$style.content]" :style="[fullscreenContentRadioCls]">
     <div :class="[$style.header]">
-      <span>{{def.name}}</span>
+      <span style="display: flex;">
+        <span>{{def.name}}</span>
+        <span v-if="fullscreen && previewVisible" style="min-width: 240px; margin-left: 24px;">
+          <el-slider v-model="radio" :min="40" :max="80"></el-slider>
+        </span>
+      </span>
       <span>
         <span v-if="fullscreen">
           <span :class="[$style.fullscreenIcon]" title="显示右侧栏" @click="previewVisible = true" v-if="!previewVisible"><i class="el-icon-back"></i></span>
@@ -77,7 +82,7 @@
       </div>
     </div>
   </div>
-  <div :class="[$style.preview]" v-if="fullscreen && previewVisible">
+  <div :class="[$style.preview]" :style="[fullscreenPreviewRadioCls]" v-if="fullscreen && previewVisible">
     <file-preview :list="files" ref="filePreview"></file-preview>
   </div>
 </div>
@@ -119,6 +124,8 @@ export default class AuditListControl extends Vue {
   previewVisible = true
 
   loading = false
+
+  radio = 70
 
   get design () {
     return this.getDesign()
@@ -188,6 +195,16 @@ export default class AuditListControl extends Vue {
       ret.push(...v.files)
     })
     return ret
+  }
+
+  get fullscreenContentRadioCls () {
+    if (!this.fullscreen || !this.previewVisible) return {}
+    return { maxWidth: this.radio + '%' }
+  }
+
+  get fullscreenPreviewRadioCls () {
+    if (!this.fullscreen || !this.previewVisible) return {}
+    return { width: (100 - this.radio) + '%' }
   }
 
   @Provide() addFileControl (c: any) {
@@ -356,6 +373,7 @@ export default class AuditListControl extends Vue {
       width: 0%;
       min-width: 0;
       flex: 0 0 auto;
+      resize: horizontal;
     }
 
     &.previewExpand {
