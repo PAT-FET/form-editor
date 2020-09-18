@@ -5,7 +5,7 @@
   </div>
   <div :class="[$style.suffix]">
     <span style="position: relative;">
-      <span :class="[$style.mark]" v-if="changed">
+      <span :class="[$style.mark, floatCls]" v-if="changed">
         <el-tooltip effect="dark" placement="top" :append-to-body="!fullscreen" v-tooltip-append-to v-if="changed">
           <template v-slot:content="">
             <span style="white-space: nowrap;">{{changeTip}}</span>
@@ -70,6 +70,8 @@ export default class AuditMark extends Vue {
 
   @Prop() diff!: false | string | undefined // 手动指定对比， false - 无更改， string - 有更改，更改信息， undefined - 使用默认对比
 
+  @Prop({ type: Boolean, default: true }) float!: boolean
+
   form = {
     mark: '2',
     remark: ''
@@ -118,6 +120,10 @@ export default class AuditMark extends Vue {
   //   this.setValue({ remark: r })
   // }
 
+  get floatCls () {
+    return this.float ? this.$style.floatMark : ''
+  }
+
   get type () {
     if (!this.markable) return undefined
     return this.mark === '0' ? 'danger' : (this.mark === '1' ? 'primary' : undefined)
@@ -162,6 +168,8 @@ export default class AuditMark extends Vue {
       window.removeEventListener('resize', hanlder)
     })
   }
+
+  $style!: any
 }
 </script>
 
@@ -185,9 +193,7 @@ export default class AuditMark extends Vue {
 }
 
 .mark {
-  position: absolute;
-  top: -12px;
-  left: -8px;
+
   font-size: 12px;
   background-color: #FF902A;
   color: #fff;
@@ -195,13 +201,25 @@ export default class AuditMark extends Vue {
   padding: 2px 4px;
   border-radius: 2px 2px 2px 0;
 
-  &::after {
-    content: " ";
+  &.floatMark {
     position: absolute;
-    left: 0;
-    bottom: -4px;
-    border-top: 4px solid #FF902A;
-    border-right: 4px solid transparent;
+    top: -12px;
+    left: -8px;
+    font-size: 12px;
+    background-color: #FF902A;
+    color: #fff;
+    line-height: 12px;
+    padding: 2px 4px;
+    border-radius: 2px 2px 2px 0;
+
+    &::after {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      border-top: 4px solid #FF902A;
+      border-right: 4px solid transparent;
+    }
   }
 }
 </style>

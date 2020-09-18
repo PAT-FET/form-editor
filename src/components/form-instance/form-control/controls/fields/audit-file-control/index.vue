@@ -35,7 +35,7 @@ export default class AuditFileControl extends mixins(FieldMixins) {
   }
 
   get oldFiles () {
-    return this.value?.oldValue || []
+    return this.value?.oldValue
   }
 
   get file () {

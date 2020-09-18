@@ -5,7 +5,7 @@
       <el-table-column prop="__label" :label="def.name"></el-table-column>
       <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
         <template v-slot="{row}">
-          <audit-mark v-model="row[col.name].value" :markable="col.markable" :disabled="disabled">
+          <audit-mark v-model="row[col.name].value" :markable="col.markable" :float="false" :disabled="disabled">
             <span style="display: inline-flex; align-items: center;">
               <el-link type="danger" :underline="false" style="margin-right: 6px;" v-if="showDiffMark(row, col)"><i class="el-icon-warning"></i></el-link>
               <span v-if="resolveNewValue(col, row) !== undefined">{{resolveNewValue(col, row)}}</span>
@@ -154,16 +154,6 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
     thead {
       th {
         padding: 2px 0 !important;
-      }
-    }
-    tbody {
-      td {
-        padding: 0 !important;
-      }
-
-      .cell {
-        padding-top: 6px !important;
-        padding-bottom: 6px !important;
       }
     }
   }
