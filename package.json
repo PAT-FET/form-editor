@@ -1,6 +1,6 @@
 {
   "name": "@pat-fet/form-editor",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "main": "dist/form-editor.common.js",
   "types": "src/components/index.d.ts",
   "scripts": {
