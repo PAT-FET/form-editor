@@ -110,3 +110,15 @@ export function copyToClipboard (copyTxt: string) {
     event.preventDefault()
   }
 }
+
+export function isOffice (url: string) {
+  const names = ['doc', 'docx', 'xls', 'xlsx', 'cvs', 'ppt', 'pptx']
+  const suffix = url.slice(url.lastIndexOf('.') + 1) || ''
+  return names.some(v => suffix.toLowerCase() === v)
+}
+
+export function isText (url: string) {
+  const names = ['txt', 'yaml', 'yml', 'xml', 'json', 'md']
+  const suffix = url.slice(url.lastIndexOf('.') + 1) || ''
+  return names.some(v => suffix.toLowerCase() === v)
+}
