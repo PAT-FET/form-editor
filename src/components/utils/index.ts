@@ -113,12 +113,14 @@ export function copyToClipboard (copyTxt: string) {
 
 export function isOffice (url: string) {
   const names = ['doc', 'docx', 'xls', 'xlsx', 'cvs', 'ppt', 'pptx']
-  const suffix = url.slice(url.lastIndexOf('.') + 1) || ''
+  const path = new URL(url).pathname
+  const suffix = path.slice(path.lastIndexOf('.') + 1) || ''
   return names.some(v => suffix.toLowerCase() === v)
 }
 
 export function isText (url: string) {
   const names = ['txt', 'yaml', 'yml', 'xml', 'json', 'md']
-  const suffix = url.slice(url.lastIndexOf('.') + 1) || ''
+  const path = new URL(url).pathname
+  const suffix = path.slice(path.lastIndexOf('.') + 1) || ''
   return names.some(v => suffix.toLowerCase() === v)
 }
