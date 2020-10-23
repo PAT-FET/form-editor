@@ -127,6 +127,8 @@ export default class AuditListControl extends Vue {
 
   radio = 70
 
+  markedSet = new Set()
+
   get design () {
     return this.getDesign()
   }
@@ -223,6 +225,11 @@ export default class AuditListControl extends Vue {
     return true
   }
 
+  @Provide() addMarkedItem (item: any, remove = false) {
+    if (!remove) this.markedSet.add(item)
+    else this.markedSet.delete(item)
+  }
+
   markCls (item: any) {
     if (item?.mark === true) return this.$style.markRight
     else if (item?.mark === false) return this.$style.markError
@@ -251,8 +258,15 @@ export default class AuditListControl extends Vue {
 
   onMark (mark: boolean) {
     if (this.activeItem) {
-      Vue.set(this.activeItem, 'mark', mark)
-      this.onSwitchPage(1)
+      if (mark && this.markedSet.size > 0) {
+        this.$confirm('你已经标记了一部分字段有误，确定要整体标记为无误吗?', '标记提示').then(() => {
+          Vue.set(this.activeItem, 'mark', mark)
+          this.onSwitchPage(1)
+        })
+      } else {
+        Vue.set(this.activeItem, 'mark', mark)
+        this.onSwitchPage(1)
+      }
     }
   }
 

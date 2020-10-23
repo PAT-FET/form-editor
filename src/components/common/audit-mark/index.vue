@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, InjectReactive, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, InjectReactive, Emit, Inject } from 'vue-property-decorator'
 import TooltipAppendTo from './tooltip-append-to-directive'
 
 @Component({
@@ -129,6 +129,8 @@ export default class AuditMark extends Vue {
     return this.mark === '0' ? 'danger' : (this.mark === '1' ? 'primary' : undefined)
   }
 
+  @Inject({ default: () => () => {} }) addMarkedItem!: (item: any, remove?: boolean) => void
+
   setValue (value: any) {
     this.input(Object.assign({}, this.value || {}, value || {}))
   }
@@ -167,6 +169,18 @@ export default class AuditMark extends Vue {
     this.$once('hook:beforeDestroy', function () {
       window.removeEventListener('resize', hanlder)
     })
+  }
+
+  @Watch('mark', { immediate: true }) markChange () {
+    if (this.mark === '0') {
+      this.addMarkedItem(this)
+    } else {
+      this.addMarkedItem(this, true)
+    }
+  }
+
+  beforeDestroy () {
+    this.addMarkedItem(this, true)
   }
 
   $style!: any
