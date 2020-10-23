@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, ProvideReactive, Provide } from 'vue-property-decorator'
+import { Component, Prop, Vue, ProvideReactive, Provide, Ref } from 'vue-property-decorator'
 import { FieldInputDefinition, FormDefinition, ControlDefinition, FormOptions } from '@/components/type'
 import FormControl from './form-control/index.vue'
 import draggable from 'vuedraggable'
@@ -22,6 +22,8 @@ import draggable from 'vuedraggable'
   components: { FormControl, draggable }
 })
 export default class FormInstance extends Vue {
+  @Ref() fm!: any
+
   @Prop() def!: FormDefinition
 
   @Prop(Boolean) design!: boolean
@@ -48,6 +50,10 @@ export default class FormInstance extends Vue {
 
   @Provide() getTable (): any {
     return null
+  }
+
+  validate (cb: (valid: boolean) => void) {
+    this.fm.validate(cb)
   }
 
   get controlDefs (): ControlDefinition[] {

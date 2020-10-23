@@ -28,18 +28,21 @@
     <el-divider></el-divider>
     <el-checkbox v-model="edit" style="margin: 0 20px;">是否可编辑</el-checkbox>
     <el-button type="primary" size="small" @click="onCopy">复制数据</el-button>
+    <el-button type="primary" size="small" @click="onValidate">验证</el-button>
     <div style="padding: 20px;">
-      <fe-generator :data="data" :value="value" :edit="edit"></fe-generator>
+      <fe-generator :data="data" :value="value" :edit="edit" ref="fg"></fe-generator>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Ref } from 'vue-property-decorator'
 import { copyToClipboard } from './components/utils'
 
 @Component
 export default class App extends Vue {
+  @Ref() fg!: any
+
   formJson = ''
 
   formData = ''
@@ -80,6 +83,16 @@ export default class App extends Vue {
     if (!this.value) return
     copyToClipboard(JSON.stringify(this.value))
     this.$message.info('已复制')
+  }
+
+  onValidate () {
+    this.fg.validate((valid: boolean) => {
+      if (valid) {
+        this.$message.success('验证成功')
+      } else {
+        this.$message.error('验证失败')
+      }
+    })
   }
 }
 </script>

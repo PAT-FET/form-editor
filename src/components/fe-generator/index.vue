@@ -1,9 +1,9 @@
 <template>
-<form-instance :def="def" :form-data="formData" :edit="edit"></form-instance>
+<form-instance :def="def" :form-data="formData" :edit="edit" ref="fi"></form-instance>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator'
 import { FormDefinition } from '@/components/type'
 import FormInstance from '@/components/form-instance/index.vue'
 import { genKey } from '@/components/utils'
@@ -12,6 +12,8 @@ import { genKey } from '@/components/utils'
   components: { FormInstance }
 })
 export default class FeGenerator extends Vue {
+  @Ref() fi!: FormInstance
+
   @Prop() data!: any
 
   @Prop() value!: any
@@ -21,6 +23,10 @@ export default class FeGenerator extends Vue {
   def: FormDefinition = new FormDefinition()
 
   formData: any = {}
+
+  validate (cb: (valid: boolean) => void) {
+    this.fi.validate(cb)
+  }
 
   @Watch('data', { immediate: true }) dataChange () {
     if (!this.data) return
