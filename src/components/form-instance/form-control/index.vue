@@ -20,10 +20,18 @@ export default class FormControl extends mixins(ControlMixins) {
 
   @Prop() rowFormData!: any
 
+  @Prop() prop!: string
+
   @Inject('getRowFormData') getParentRowFormData!: () => Record<string, any>
+
+  @Inject({ from: 'getProp', default: () => () => null }) getParentProp!: () => string
 
   @Provide() getRowFormData () {
     return this.rowFormData === undefined ? this.getParentRowFormData() : this.rowFormData
+  }
+
+  @Provide() getProp () {
+    return this.prop === undefined ? this.getParentProp() : this.prop
   }
 
   render (h: CreateElement) {

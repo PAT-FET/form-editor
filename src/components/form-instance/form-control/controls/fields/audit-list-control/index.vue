@@ -58,7 +58,7 @@
         </draggable>
         <template v-else>
           <template v-if="row">
-            <form-control :row-form-data="row" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
+            <form-control :row-form-data="row" :prop="model + '.' + active + '.' + 'value'" v-for="item in def.list" :key="item.key" :def="item" :design="design"></form-control>
           </template>
         </template>
       </div>

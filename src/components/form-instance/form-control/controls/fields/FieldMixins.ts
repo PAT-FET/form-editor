@@ -16,6 +16,8 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   @Inject('getTable') injectGetTable!: () => any
 
+  @Inject({ default: () => () => '' }) getProp!: () => string
+
   get table () {
     return this.injectGetTable()
   }
@@ -46,6 +48,11 @@ export default class InputControl<D extends FieldDefinition, O extends FieldOpti
 
   get model () {
     return this.def.model
+  }
+
+  get prop () {
+    const p = this.getProp()
+    return p ? `${p}.${this.model}` : this.model
   }
 
   get value () {
