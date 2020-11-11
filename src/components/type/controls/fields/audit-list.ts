@@ -5,7 +5,7 @@ import { FieldDefinition, GridDefinition, TabsDefinition } from '..'
 export class FieldAuditListDefinition {
   type = 'audit-list'
   key: string = genKey()
-  name = '审批列表'
+  name = '审批卡片'
   model: string = 'audit-list_' + genKey()
   list: Array<FieldDefinition | GridDefinition | TabsDefinition> = []
   options: FieldAuditListOptions = new FieldAuditListOptions()

@@ -4,7 +4,7 @@ import { genKey } from '@/components/utils'
 export class FieldAuditFileDefinition {
   type = 'audit-file'
   key: string = genKey()
-  name = '审批文件'
+  name = '文件预览'
   model: string = 'audit-file_' + genKey()
   options: FieldAuditFileOptions = new FieldAuditFileOptions()
   rules?: FieldRule[] = []

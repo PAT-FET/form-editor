@@ -15,7 +15,7 @@ export interface AuditDiffCol {
 export class FieldAuditDiffDefinition {
   type = 'audit-diff'
   key: string = genKey()
-  name = '审批对比'
+  name = '对比表单'
   model: string = 'audit-diff_' + genKey()
   rows: AuditDiffRow[] = [{ name: 'key1', label: '字段 1' }]
   cols: AuditDiffCol[] = [{ name: 'data1', label: '数据源 1', markable: false }]

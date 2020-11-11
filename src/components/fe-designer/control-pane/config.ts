@@ -16,29 +16,29 @@ import {
   FieldAuditListDefinition
 } from '@/components/type'
 
+export const layoutControls = [
+  new FieldAuditListDefinition()
+]
+
+export const dataControls = [
+  new FieldAuditDiffDefinition(),
+  new FieldTableDefinition()
+]
+
 export const basicControls = [
+  new FieldAuditTextDefinition(),
+  new FieldAuditFileDefinition(),
+  new FieldFileuploadDefinition(),
+  new FieldImguploadDefinition()
+]
+
+export const otherControls = [
+  new GridDefinition(),
+  new TabsDefinition(),
+  new BlockDefinition(),
   new FieldInputDefinition(),
   new FieldTextareaDefinition(),
   new FieldSelectDefinition(),
   new FieldTextDefinition(),
   new FieldHtmlDefinition()
-]
-
-export const advancedControls = [
-  new FieldFileuploadDefinition(),
-  new FieldImguploadDefinition(),
-  new FieldTableDefinition()
-]
-
-export const layoutControls = [
-  new GridDefinition(),
-  new TabsDefinition(),
-  new BlockDefinition()
-]
-
-export const auditControls = [
-  new FieldAuditTextDefinition(),
-  new FieldAuditFileDefinition(),
-  new FieldAuditDiffDefinition(),
-  new FieldAuditListDefinition()
 ]
