@@ -1,0 +1,156 @@
+{
+  "id": "2197085",
+  "name": "form-editor",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7239663",
+      "name": "block",
+      "font_class": "block",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "3216237",
+      "name": "html",
+      "font_class": "html",
+      "unicode": "e78c",
+      "unicode_decimal": 59276
+    },
+    {
+      "icon_id": "5127350",
+      "name": "grid",
+      "font_class": "grid",
+      "unicode": "e79c",
+      "unicode_decimal": 59292
+    },
+    {
+      "icon_id": "11488145",
+      "name": "text",
+      "font_class": "text",
+      "unicode": "e768",
+      "unicode_decimal": 59240
+    },
+    {
+      "icon_id": "11761239",
+      "name": "select",
+      "font_class": "select",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "15617359",
+      "name": "tabs",
+      "font_class": "tabs",
+      "unicode": "e8cd",
+      "unicode_decimal": 59597
+    },
+    {
+      "icon_id": "16880988",
+      "name": "input",
+      "font_class": "input",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "18167091",
+      "name": "audit-diff",
+      "font_class": "audit-diff",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "18167092",
+      "name": "audit-file",
+      "font_class": "audit-file",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "18167093",
+      "name": "table",
+      "font_class": "table",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "18167094",
+      "name": "audit-list",
+      "font_class": "audit-list",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "18167097",
+      "name": "audit-text",
+      "font_class": "audit-text",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "18165886",
+      "name": "list",
+      "font_class": "list",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "18165627",
+      "name": "import",
+      "font_class": "import",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "18165629",
+      "name": "lattice",
+      "font_class": "lattice",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "18165630",
+      "name": "imgupload",
+      "font_class": "imgupload",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "18165631",
+      "name": "textarea",
+      "font_class": "textarea",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "18165607",
+      "name": "empty2",
+      "font_class": "empty2",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "18165608",
+      "name": "gen",
+      "font_class": "gen",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "18165612",
+      "name": "empty1",
+      "font_class": "empty1",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "18165613",
+      "name": "fileupload",
+      "font_class": "fileupload",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    }
+  ]
+}

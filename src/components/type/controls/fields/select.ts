@@ -4,7 +4,7 @@ import { genKey } from '@/components/utils'
 export class FieldSelectDefinition {
   type = 'select'
   key: string = genKey()
-  name = '下拉选择框'
+  name = '下拉选择'
   model: string = 'select_' + genKey()
   options: FieldSelectOptions = new FieldSelectOptions()
   rules?: FieldRule[] = []

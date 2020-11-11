@@ -110,7 +110,7 @@ export default class FeDesigner extends Vue {
 }
 
 .left {
-  width: 250px;
+  width: 180px;
   height: 100%;
   overflow: auto;
 }

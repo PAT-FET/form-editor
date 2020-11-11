@@ -8,8 +8,15 @@
       v-bind="{group:{ name:'people', pull:'clone', put:false },sort: false, ghostClass: 'ghost'}"
       :move="moveFn" :clone="cloneFn">
       <li :class="[$style.item]" :type="item.type" v-for="item in row.list" :key="item.key" @click="onAdd(item)">
-        <i class="iconfont" :class="['icon-' + item.type, $style.icon]"></i>
-        <span>{{item.name}}</span>
+        <div>
+          <!-- <i class="iconfont" :class="['icon' + item.type, $style.icon]"></i> -->
+          <i :class="[$style.icon]">
+            <svg class="fe-icon" aria-hidden="true">
+              <use :xlink:href="'#icon' + item.type"></use>
+            </svg>
+          </i>
+        </div>
+        <div>{{item.name}}</div>
       </li>
     </draggable>
   </div>
@@ -22,7 +29,7 @@ import { basicControls, dataControls, layoutControls, otherControls } from './co
 import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList, isTableType } from '@/components/utils'
 import draggable from 'vuedraggable'
-import '@/components/iconfont/iconfont.css'
+import '@/components/iconfont/iconfont'
 
 @Component({
   components: { draggable }
@@ -81,24 +88,33 @@ export default class ControlPane extends Vue {
 .item {
   box-sizing: border-box;
   width: calc(50% - 4px);
-  line-height: 26px;
-  background-color: #f4f6fc;;
-  border: 1px solid #f4f6fc;
+  height: 76px;
+  background-color: #eeeeee;
+  border-radius: 4px;
   margin: 4px 2px;
   font-size: 12px;
-  color: #333;
-  text-align: left;
+  color: #666;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
-    border: dashed 1px #409eff;
-    color: #409eff;
+    // border: dashed 1px #409eff;
+    color: #359C67;
+    background-color: #fafafa;
   }
 }
 
 .icon {
-  margin-right: 6px;
-  margin-left: 8px;
-  font-size: 14px;
+  font-size: 36px;
+}
+</style>
+
+<style lang="scss">
+.fe-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 </style>
