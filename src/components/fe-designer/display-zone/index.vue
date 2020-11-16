@@ -1,7 +1,7 @@
 <template>
 <div :class="[$style.container]">
   <div :class="[$style.content]">
-    <form-instance :def="def" :form-data="formData" design v-show="!empty"></form-instance>
+    <form-instance :def="def" :form-data="formData" design></form-instance>
     <div :class="[$style.empty]" v-show="empty">
       <img src="@/assets/pic_hb.png"/>
       <p style="color: #666; font-size: 14px;">从右侧元件组中拖拽到这里开始自定义表单</p>
@@ -36,6 +36,7 @@ export default class DisplayZone extends Vue {
 }
 
 .content {
+  position: relative;
   width: 100%;
   margin: 10px;
   border: 1px dashed #999;
@@ -49,6 +50,10 @@ export default class DisplayZone extends Vue {
 
 .empty {
   text-align: center;
-  margin: 120px auto;
+  position: absolute;
+  width: 280px;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
