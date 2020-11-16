@@ -30,6 +30,7 @@ import AuditTextAttr from './audit-text-attr/index.vue'
 import AuditFileAttr from './audit-file-attr/index.vue'
 import AuditDiffAttr from './audit-diff-attr/index.vue'
 import AuditListAttr from './audit-list-attr/index.vue'
+import LatticeAttr from './lattice-attr/index.vue'
 
 @Component({
   components: {
@@ -47,7 +48,8 @@ import AuditListAttr from './audit-list-attr/index.vue'
     AuditTextAttr,
     AuditFileAttr,
     AuditDiffAttr,
-    AuditListAttr
+    AuditListAttr,
+    LatticeAttr
   }
 })
 export default class ControlAttr extends Vue {

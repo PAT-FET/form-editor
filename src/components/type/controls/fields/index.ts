@@ -13,6 +13,8 @@ import { FieldAuditFileOptions, FieldAuditFileDefinition } from './audit-file'
 import { FieldAuditDiffOptions, FieldAuditDiffDefinition } from './audit-diff'
 import { FieldAuditListOptions, FieldAuditListDefinition } from './audit-list'
 
+import { FieldLatticeOptions, FieldLatticeDefinition, FieldLatticeColumn } from './lattice'
+
 export {
   FieldInputOptions, FieldInputDefinition,
   FieldTextareaOptions, FieldTextareaDefinition,
@@ -27,7 +29,9 @@ export {
   FieldAuditTextOptions, FieldAuditTextDefinition,
   FieldAuditFileOptions, FieldAuditFileDefinition,
   FieldAuditDiffOptions, FieldAuditDiffDefinition,
-  FieldAuditListOptions, FieldAuditListDefinition
+  FieldAuditListOptions, FieldAuditListDefinition,
+  
+  FieldLatticeOptions, FieldLatticeDefinition
 }
 
 export type FieldOptions =
@@ -42,7 +46,8 @@ FieldTableOptions |
 FieldAuditTextOptions |
 FieldAuditFileOptions |
 FieldAuditDiffOptions |
-FieldAuditListOptions;
+FieldAuditListOptions |
+FieldLatticeOptions;
 
 export type FieldDefinition =
 FieldInputDefinition |
@@ -56,4 +61,8 @@ FieldTableDefinition |
 FieldAuditTextDefinition | 
 FieldAuditFileDefinition |
 FieldAuditDiffDefinition |
-FieldAuditListDefinition;
+FieldAuditListDefinition | 
+FieldLatticeDefinition;
+
+
+export { FieldLatticeColumn }

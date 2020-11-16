@@ -13,11 +13,13 @@ import {
   FieldAuditTextDefinition,
   FieldAuditFileDefinition,
   FieldAuditDiffDefinition,
-  FieldAuditListDefinition
+  FieldAuditListDefinition,
+  FieldLatticeDefinition
 } from '@/components/type'
 
 export const layoutControls = [
-  new FieldAuditListDefinition()
+  new FieldAuditListDefinition(),
+  new FieldLatticeDefinition()
 ]
 
 export const dataControls = [
