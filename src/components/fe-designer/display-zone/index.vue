@@ -2,12 +2,9 @@
 <div :class="[$style.container]">
   <div :class="[$style.content]">
     <form-instance :def="def" :form-data="formData" design v-show="!empty"></form-instance>
-    <div v-show="empty">
-      <i :class="[$style.icon]">
-        <svg class="fe-icon" aria-hidden="true">
-          <use :xlink:href="'#iconempty1'"></use>
-        </svg>
-      </i>
+    <div :class="[$style.empty]" v-show="empty">
+      <img src="@/assets/pic_hb.png"/>
+      <p style="color: #666; font-size: 14px;">从右侧元件组中拖拽到这里开始自定义表单</p>
     </div>
   </div>
 </div>
@@ -48,5 +45,10 @@ export default class DisplayZone extends Vue {
 
 .icon {
   font-size: 96px;
+}
+
+.empty {
+  text-align: center;
+  margin: 120px auto;
 }
 </style>

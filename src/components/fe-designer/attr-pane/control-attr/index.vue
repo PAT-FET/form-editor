@@ -5,7 +5,10 @@
   </el-form>
 </div>
 <div v-else :class="[$style.empty]">
-  <span>请添加字段</span>
+  <div>
+    <img src="@/assets/empty_at.svg"/>
+    <p style="color: #666; font-size: 14px;">选中元件编辑属性</p>
+  </div>
 </div>
 </template>
 
