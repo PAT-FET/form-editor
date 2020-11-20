@@ -7,13 +7,14 @@ export class FieldLatticeDefinition {
   key: string = genKey()
   name = '网格'
   model: string = 'lattice_' + genKey()
-  columns: FieldLatticeColumn[] = [new FieldLatticeColumn(), new FieldLatticeColumn()]
+  columns: FieldLatticeColumn[][] = [[new FieldLatticeColumn(), new FieldLatticeColumn()], [new FieldLatticeColumn(), new FieldLatticeColumn()]]
   options: FieldLatticeOptions = new FieldLatticeOptions()
   rules?: FieldRule[] = []
 }
 
 export class FieldLatticeColumn {
-  span = 12
+  row = 1
+  col = 1
   list: Array<FieldDefinition> = []
 }
 
@@ -27,4 +28,5 @@ export class FieldLatticeOptions {
   row = 2
   col = 2
   align: 'bottom' | 'middle' | 'top' = 'top'
+  border = true
 }

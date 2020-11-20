@@ -1,3 +1,4 @@
+import { FieldLatticeDefinition } from './../type/controls/fields/lattice'
 import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition, FieldTableDefinition, FieldAuditListDefinition } from '@/components/type'
 
 let idx = 10000
@@ -34,7 +35,7 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
       ret = list
       return true
     }
-    if (v.type === 'grid') {
+    if (['grid'].includes(v.type)) {
       const has = (v as GridDefinition).columns.some(w => {
         const r = findList(w.list, item)
         if (r) {
@@ -75,9 +76,29 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
         return true
       }
     }
+    if (['lattice'].includes(v.type)) {
+      const has = (v as FieldLatticeDefinition).columns.some(w => {
+        const r = findList(flat(w as any), item)
+        if (r) {
+          ret = r
+          return true
+        }
+      })
+      if (has) return true
+    }
     return false
   })
   return ret
+
+  function flat (ls: any[]) {
+    const ret: any[] = []
+    ls.forEach(v => {
+      (v?.list || []).forEach((w: any) => {
+        ret.push(w)
+      })
+    })
+    return ret
+  }
 }
 
 export function isEmbedType (type: string) {
