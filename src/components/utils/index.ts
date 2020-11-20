@@ -78,7 +78,14 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
     }
     if (['lattice'].includes(v.type)) {
       const has = (v as FieldLatticeDefinition).columns.some(w => {
-        const r = findList(flat(w as any), item)
+        let r
+        ;(w || []).some(u => {
+          const s = findList((u as any)?.list, item)
+          if (s) {
+            r = s
+            return true
+          }
+        })
         if (r) {
           ret = r
           return true
@@ -89,16 +96,6 @@ export function findList (list: ControlDefinition[], item: ControlDefinition) {
     return false
   })
   return ret
-
-  function flat (ls: any[]) {
-    const ret: any[] = []
-    ls.forEach(v => {
-      (v?.list || []).forEach((w: any) => {
-        ret.push(w)
-      })
-    })
-    return ret
-  }
 }
 
 export function isEmbedType (type: string) {
