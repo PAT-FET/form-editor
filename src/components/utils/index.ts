@@ -11,7 +11,7 @@ export function genKey () {
 export function cloneControlDef (def: ControlDefinition) {
   const ret: ControlDefinition = JSON.parse(JSON.stringify(def))
   traverse(ret)
-  if ((ret as any).model !== undefined) (ret as any).model = ret.type + '_' + genKey()
+  if ((ret as any).model !== undefined) (ret as any).model = (ret.type || '').replace('-', '_') + '_' + genKey()
   return ret
 
   function traverse (obj: Record<string | number, any>) {
