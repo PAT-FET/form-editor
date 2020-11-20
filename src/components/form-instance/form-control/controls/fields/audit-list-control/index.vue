@@ -1,5 +1,5 @@
 <template>
-<el-form-item :hidden="options.hidden">
+<div :hidden="options.hidden">
 <div :class="[$style.container, fullScreenCls, previewVisibleCls]" ref="container">
   <div :class="[$style.content]" :style="[fullscreenContentRadioCls]">
     <div :class="[$style.header]">
@@ -19,7 +19,7 @@
       </span>
     </div>
 
-    <div :class="[$style.group, expandCls]">
+    <div :class="[$style.group, expandCls]" v-show="!design">
       <ul :class="[$style.list]" ref="list">
         <li v-for="(item, i) in value" :key="i" :class="[$style.item, markCls(item), activeCls(i)]" :title="item.name" @click="active = i">
           <span :class="[$style.markIcon]">
@@ -65,7 +65,7 @@
     </div>
     </transition>
 
-    <div :class="[$style.footer]" v-if="activeItem">
+    <div :class="[$style.footer]" v-if="activeItem" v-show="!design">
       <template v-if="!disabled">
         <el-button type="primary" size="small" @click="onMark(true)">标记无误</el-button>
         <el-button type="danger" size="small" @click="onMark(false)">标记有误</el-button>
@@ -86,7 +86,7 @@
     <file-preview :list="files" ref="filePreview"></file-preview>
   </div>
 </div>
-</el-form-item>
+</div>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,6 @@
 import { FieldLatticeDefinition } from './../type/controls/fields/lattice'
 import { ControlDefinition, GridDefinition, TabsDefinition, BlockDefinition, FieldTableDefinition, FieldAuditListDefinition } from '@/components/type'
+import config from '../config'
 
 let idx = 10000
 
@@ -141,4 +142,45 @@ export function isText (url: string) {
   const path = new URL(url).pathname
   const suffix = path.slice(path.lastIndexOf('.') + 1) || ''
   return names.some(v => suffix.toLowerCase() === v)
+}
+
+const contentTypeMap: any = {
+  jpg: 'image',
+  jpeg: 'image',
+  svg: 'image',
+  png: 'image',
+  pdf: 'pdf',
+  doc: 'word',
+  docx: 'word',
+  xls: 'excel',
+  xlsx: 'excel',
+  cvs: 'excel',
+  ppt: 'ppt',
+  pptx: 'ppt'
+}
+
+export function getFileType (name: string): 'pdf' | 'image' | 'word' | 'excel' | 'ppt' | 'other' {
+  const suffix = (name.substr(name.lastIndexOf('.') + 1) || '').toLowerCase()
+  return contentTypeMap[suffix] || 'unknown'
+}
+
+export function previewPdf (url: string) {
+  window.open(url)
+}
+
+export function previewOffice (url: string) {
+  // http://view.officeapps.live.com/op/view.aspx 官方
+  const server = config?.officeUrl
+  window.open(`${server}?src=${url}`)
+}
+
+export function downloadFile (name: string, url: string) {
+  const link = document.createElement('a')
+  link.style.display = 'none'
+  link.href = url
+  link.setAttribute('download', name)
+  link.setAttribute('target', '_blank')
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }

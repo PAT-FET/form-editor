@@ -1,5 +1,5 @@
 <template>
-<el-form-item label="" :prop="def.model" :hidden="options.hidden">
+<el-form-item label="" :prop="def.model" label-width="auto" :hidden="options.hidden">
   <div :class="[$style.content]">
     <el-table :data="dataSource" border :row-class-name="rowClassNameFn" style="width: 100%" size="mini" :class="[$style.table]">
       <el-table-column prop="__label" :label="def.name"></el-table-column>
