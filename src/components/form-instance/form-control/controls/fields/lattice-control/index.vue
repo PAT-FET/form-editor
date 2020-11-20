@@ -74,10 +74,6 @@ export default class LatticeControl extends Vue {
     return this.design ? this.$style.design : ''
   }
 
-  get borderCls () {
-    return this.options?.border ? this.$style?.border : ''
-  }
-
   get options (): FieldLatticeOptions {
     return this.def.options
   }

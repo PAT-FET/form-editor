@@ -23,10 +23,9 @@ export class FieldLatticeOptions {
   disabled = false
   defaultValue = null
   required = false
-  gutter = 0
+  // gutter = 0
   // justify: 'start' | 'end' | 'center' | 'space-around' | 'space-between' = 'start'
   row = 2
   col = 2
   align: 'bottom' | 'middle' | 'top' = 'top'
-  border = true
 }

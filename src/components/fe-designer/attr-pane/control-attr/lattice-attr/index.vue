@@ -6,9 +6,6 @@
 <attr-field label="标题">
   <el-input v-model.trim="def.name"></el-input>
 </attr-field>
-<attr-field label="栅格间隔">
-  <el-input-number v-model="options.gutter" :min="0"></el-input-number>
-</attr-field>
 <attr-field label="列数">
   <el-input-number v-model="options.col" :min="1"></el-input-number>
 </attr-field>
@@ -23,7 +20,6 @@
   </el-select>
 </attr-field>
 <attr-field label="操作属性">
-  <el-checkbox v-model="options.border">边框</el-checkbox>
   <el-checkbox v-model="options.hidden">隐藏</el-checkbox>
 </attr-field>
 </div>
