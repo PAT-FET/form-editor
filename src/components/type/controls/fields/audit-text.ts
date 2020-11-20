@@ -5,7 +5,7 @@ export class FieldAuditTextDefinition {
   type = 'audit-text'
   key: string = genKey()
   name = '文本'
-  model: string = 'audit-text_' + genKey()
+  model: string = 'audit_text_' + genKey()
   options: FieldAuditTextOptions = new FieldAuditTextOptions()
   rules?: FieldRule[] = []
 }

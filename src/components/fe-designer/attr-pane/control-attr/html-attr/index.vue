@@ -1,6 +1,6 @@
 <template>
 <div>
-<attr-field label="字段标识">
+<attr-field label="数据源">
   <el-input v-model.trim="def.model"></el-input>
 </attr-field>
 <attr-field label="标题">

@@ -196,10 +196,12 @@ export default class LatticeControl extends Vue {
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 16px;
 }
 
 .cell {
   border: 1px solid rgba(53, 156, 103, 0.4);
   padding: 4px 8px;
+  min-height: 24px;
 }
 </style>

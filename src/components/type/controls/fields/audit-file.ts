@@ -5,7 +5,7 @@ export class FieldAuditFileDefinition {
   type = 'audit-file'
   key: string = genKey()
   name = '文件预览'
-  model: string = 'audit-file_' + genKey()
+  model: string = 'audit_file_' + genKey()
   options: FieldAuditFileOptions = new FieldAuditFileOptions()
   rules?: FieldRule[] = []
 }

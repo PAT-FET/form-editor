@@ -1,6 +1,6 @@
 <template>
 <div>
-<attr-field label="字段标识">
+<attr-field label="数据源">
   <el-input v-model.trim="def.model"></el-input>
 </attr-field>
 <attr-field label="标题">
@@ -28,7 +28,7 @@
   <options-pane :list="rows" :checkable="false" :add-fn="addRowFn">
     <template slot-scope="{row}">
       <div style="margin-right: 12px;">
-        <el-input v-model="row.name" size="mini" placeholder="字段标识"></el-input>
+        <el-input v-model="row.name" size="mini" placeholder="数据源"></el-input>
       </div>
       <div style="margin-right: 12px;">
         <el-input v-model="row.label" size="mini" placeholder="字段名称"></el-input>

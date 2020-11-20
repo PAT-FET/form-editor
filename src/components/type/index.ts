@@ -9,7 +9,7 @@ export class FormDefinition {
 
 export class FormOptions {
   labelWidth: number = 100
-  labelPosition: 'top' | 'right' | 'left' = 'right'
+  labelPosition: 'top' | 'right' | 'left' = 'left'
   size: 'small' | 'medium' | 'mini' = 'small'
 }
 
