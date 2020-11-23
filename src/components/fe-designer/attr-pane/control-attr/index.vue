@@ -6,7 +6,7 @@
 </div>
 <div v-else :class="[$style.empty]">
   <div>
-    <img src="@/assets/empty_at.svg"/>
+    <img src="@/assets/empty_at.png"/>
     <p style="color: #666; font-size: 14px;">选中元件编辑属性</p>
   </div>
 </div>
