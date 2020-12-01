@@ -1,7 +1,7 @@
 <template>
 <el-form-item label="" :prop="def.model" label-width="auto" :hidden="options.hidden">
   <div :class="[$style.content]">
-    <el-table :data="dataSource" border :row-class-name="rowClassNameFn" style="width: 100%" size="mini" :class="[$style.table]">
+    <el-table :data="dataSource" border :row-class-name="rowClassNameFn" size="mini" :class="[$style.table]">
       <el-table-column prop="__label" :label="def.name"></el-table-column>
       <el-table-column :prop="col.name" :label="col.label" v-for="col in cols" :key="col.name">
         <template v-slot="{row}">
@@ -150,6 +150,7 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
 }
 
 .table {
+  width: 100%;
   :global {
     thead {
       th {
@@ -161,6 +162,8 @@ export default class AuditDiffControl extends mixins(FieldMixins) {
 
 .content {
   position: relative;
+  min-width: 100%;
+  width: 0;
 }
 
 .action {
