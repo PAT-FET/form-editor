@@ -3,6 +3,7 @@ import { FieldTextareaOptions, FieldTextareaDefinition } from './textarea'
 import { FieldSelectOptions, FieldSelectDefinition } from './select'
 import { FieldTextOptions, FieldTextDefinition } from './text'
 import { FieldHtmlOptions, FieldHtmlDefinition } from './html'
+import { FieldCustomerOptions, FieldCustomerDefinition } from './customer'
 
 import { FieldFileuploadOptions, FieldFileuploadDefinition } from './fileupload'
 import { FieldImguploadOptions, FieldImguploadDefinition } from './imgupload'
@@ -21,6 +22,7 @@ export {
   FieldSelectOptions, FieldSelectDefinition,
   FieldTextOptions, FieldTextDefinition,
   FieldHtmlOptions, FieldHtmlDefinition,
+  FieldCustomerOptions, FieldCustomerDefinition,
 
   FieldFileuploadOptions, FieldFileuploadDefinition,
   FieldImguploadOptions, FieldImguploadDefinition,
@@ -40,6 +42,7 @@ FieldTextareaOptions |
 FieldSelectOptions |
 FieldTextOptions |
 FieldHtmlOptions |
+FieldCustomerOptions |
 FieldFileuploadOptions |
 FieldImguploadOptions |
 FieldTableOptions |
@@ -55,6 +58,7 @@ FieldTextareaDefinition |
 FieldSelectDefinition |
 FieldTextDefinition |
 FieldHtmlDefinition |
+FieldCustomerDefinition |
 FieldFileuploadDefinition |
 FieldImguploadDefinition |
 FieldTableDefinition |

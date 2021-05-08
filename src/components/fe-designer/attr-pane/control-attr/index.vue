@@ -20,6 +20,7 @@ import TextareaAttr from './textarea-attr/index.vue'
 import SelectAttr from './select-attr/index.vue'
 import TextAttr from './text-attr/index.vue'
 import HtmlAttr from './html-attr/index.vue'
+import CustomerAttr from './customer-attr/index.vue'
 import FileuploadAttr from './fileupload-attr/index.vue'
 import ImguploadAttr from './imgupload-attr/index.vue'
 import GridAttr from './grid-attr/index.vue'
@@ -39,6 +40,7 @@ import LatticeAttr from './lattice-attr/index.vue'
     SelectAttr,
     TextAttr,
     HtmlAttr,
+    CustomerAttr,
     FileuploadAttr,
     ImguploadAttr,
     GridAttr,

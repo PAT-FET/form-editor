@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4570435",
+      "name": "custom",
+      "font_class": "customer",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "18181198",
+      "name": "empty_cp",
+      "font_class": "empty_cp",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "18181199",
+      "name": "empty_at",
+      "font_class": "empty_at",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "7239663",
       "name": "block",
       "font_class": "block",
@@ -125,25 +146,11 @@
       "unicode_decimal": 58896
     },
     {
-      "icon_id": "18165607",
-      "name": "empty2",
-      "font_class": "empty2",
-      "unicode": "e605",
-      "unicode_decimal": 58885
-    },
-    {
       "icon_id": "18165608",
       "name": "gen",
       "font_class": "gen",
       "unicode": "e606",
       "unicode_decimal": 58886
-    },
-    {
-      "icon_id": "18165612",
-      "name": "empty1",
-      "font_class": "empty1",
-      "unicode": "e60a",
-      "unicode_decimal": 58890
     },
     {
       "icon_id": "18165613",

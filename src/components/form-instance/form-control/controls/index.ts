@@ -4,6 +4,7 @@ import TextareaControl from './fields/textarea-control/index.vue'
 import SelectControl from './fields/select-control/index.vue'
 import TextControl from './fields/text-control/index.vue'
 import HtmlControl from './fields/html-control/index.vue'
+import CustomerControl from './fields/customer-control/index.vue'
 import FileuploadControl from './fields/fileupload-control/index.vue'
 import ImguploadControl from './fields/imgupload-control/index.vue'
 import TableControl from './fields/table-control/index.vue'
@@ -25,6 +26,7 @@ import BlockControl from './layouts/block-control/index.vue'
     SelectControl,
     TextControl,
     HtmlControl,
+    CustomerControl,
     FileuploadControl,
     ImguploadControl,
     TableControl,

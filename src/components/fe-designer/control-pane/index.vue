@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, InjectReactive, Inject } from 'vue-property-decorator'
-import { basicControls, dataControls, layoutControls, otherControls } from './config'
+import { basicControls, dataControls, layoutControls, otherControls, infoControls } from './config'
 import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList, isTableType } from '@/components/utils'
 import draggable from 'vuedraggable'
@@ -48,6 +48,7 @@ export default class ControlPane extends Vue {
     ret.push({ title: '布局元件', list: layoutControls })
     ret.push({ title: '数据元件', list: dataControls })
     ret.push({ title: '基本元件', list: basicControls })
+    ret.push({ title: '信息元件', list: infoControls })
     ret.push({ title: '其他元件', list: otherControls })
     return ret
   }

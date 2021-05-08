@@ -4,6 +4,7 @@ import {
   FieldSelectDefinition,
   FieldTextDefinition,
   FieldHtmlDefinition,
+  FieldCustomerDefinition,
   FieldFileuploadDefinition,
   FieldImguploadDefinition,
   FieldTableDefinition,
@@ -43,4 +44,8 @@ export const otherControls = [
   new FieldSelectDefinition(),
   new FieldTextDefinition(),
   new FieldHtmlDefinition()
+]
+
+export const infoControls = [
+  new FieldCustomerDefinition()
 ]
