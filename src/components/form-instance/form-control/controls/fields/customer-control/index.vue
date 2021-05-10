@@ -1,5 +1,5 @@
 <template>
-<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="this.custName || '未设置'" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
   <span>
       <span style="margin-right: 8px;" v-if="hasBasic">
         <el-button size="mini" type="primary" plain :class="[$style.tag]" @click="onGoBasic"> <i class="el-icon-s-custom"></i> 基本信息</el-button>
@@ -48,6 +48,18 @@ export default class CustomerControl extends mixins(FieldMixins) {
     return Math.max(this.data?.commonRiskLevel || -1, this.data?.personalRiskLevel || -1)
   }
 
+  get custName () {
+    return this.value?.custName
+  }
+
+  get certCode () {
+    return this.value?.certCode
+  }
+
+  get cifId () {
+    return this.value?.cifId
+  }
+
   onGoBasic () {
     if (!this.options.basicInfoUrl) return
     const url = this.getUrl(this.options.basicInfoUrl)
@@ -67,7 +79,7 @@ export default class CustomerControl extends mixins(FieldMixins) {
 
   loadData () {
     if (!this.value) return
-    const req: any = { certCodeList: [this.value] }
+    const req: any = { certCodeList: [this.certCode] }
 
     const http = this.getHttp()
     if (http) {

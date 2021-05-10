@@ -59,10 +59,14 @@ export default class App extends Vue {
     },
     imgupload: {
       action: 'http://localhost:3000/form/uploadFile'
-    }
+    },
     // input: {
     //   disabled: true
     // }
+    customer: {
+      basicInfoUrl: 'http://wwww.baidu.com',
+      riskLevelUrl: 'http://wwww.tecent.com'
+    }
   }
 
   run () {

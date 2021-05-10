@@ -13,9 +13,13 @@ export class FieldCustomerDefinition {
 export class FieldCustomerOptions {
   disabled = false
   hidden = false
-  defaultValue = ''
+  defaultValue = {
+    custName: '',
+    certCode: '',
+    cifId: ''
+  }
   url = '/permission/batchRiskLevel'
-  tags = ['riskLevel', 'basicInfo']
+  tags = ['riskLevel']
   basicInfoUrl = ''
   riskLevelUrl = ''
   required = false

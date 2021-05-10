@@ -3,14 +3,14 @@
 <attr-field label="数据源">
   <el-input v-model.trim="def.model"></el-input>
 </attr-field>
-<attr-field label="标题">
+<!-- <attr-field label="标题">
   <el-input v-model.trim="def.name"></el-input>
-</attr-field>
+</attr-field> -->
 <attr-field label="客户标签">
   <el-checkbox-group v-model="options.tags">
     <el-checkbox label="riskLevel">风险等级</el-checkbox>
-    <el-checkbox label="basicInfo">基本信息</el-checkbox>
-    <el-checkbox label="quotaInfo">额度信息</el-checkbox>
+    <el-checkbox label="basicInfo" disabled>基本信息</el-checkbox>
+    <el-checkbox label="quotaInfo" disabled>额度信息</el-checkbox>
   </el-checkbox-group>
 </attr-field>
 <attr-field label="接口地址">
