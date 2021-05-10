@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, Ref } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, Ref, Provide } from 'vue-property-decorator'
 import { FormDefinition } from '@/components/type'
 import FormInstance from '@/components/form-instance/index.vue'
 import { genKey } from '@/components/utils'
@@ -19,6 +19,12 @@ export default class FeGenerator extends Vue {
   @Prop() value!: any
 
   @Prop({ type: Boolean, default: true }) edit!: any
+
+  @Prop() http!: any
+
+  @Provide() getHttp (): any {
+    return this.http
+  }
 
   def: FormDefinition = new FormDefinition()
 

@@ -16,13 +16,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch, InjectReactive, Inject } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import FieldMixins from '../FieldMixins'
 import { FieldCustomerDefinition, FieldCustomerOptions } from '@/components/type'
 
 @Component
 export default class CustomerControl extends mixins(FieldMixins) {
+  @Inject() getHttp!: () => any
+
   options!: FieldCustomerOptions
 
   data: any = {
@@ -66,19 +68,28 @@ export default class CustomerControl extends mixins(FieldMixins) {
   loadData () {
     if (!this.value) return
     const req: any = { certCodeList: [this.value] }
-    fetch(this.options.url, {
-      method: 'post',
-      body: JSON.stringify(req)
-    }).then((response) => {
-      const data: any = response.json()
-      if (String(data?.code) === '200') {
-        const ret = data?.data && data?.data[0]
+
+    const http = this.getHttp()
+    if (http) {
+      http.post(this.options.url, req).then((data: any) => {
+        const ret = data && data[0]
         if (ret) this.data = ret
-      }
-    })
+      })
+    } else {
+      fetch(this.options.url, {
+        method: 'post',
+        body: JSON.stringify(req)
+      }).then((response) => {
+        const data: any = response.json()
+        if (String(data?.code) === '200') {
+          const ret = data?.data && data?.data[0]
+          if (ret) this.data = ret
+        }
+      })
+    }
   }
 
-  created () {
+  @Watch('value', { immediate: true }) valueChange () {
     this.loadData()
   }
 }

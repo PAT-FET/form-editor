@@ -14,7 +14,7 @@ export class FieldCustomerOptions {
   disabled = false
   hidden = false
   defaultValue = ''
-  url = '/api/permission/batchRiskLevel'
+  url = '/permission/batchRiskLevel'
   tags = ['riskLevel', 'basicInfo']
   basicInfoUrl = ''
   riskLevelUrl = ''
