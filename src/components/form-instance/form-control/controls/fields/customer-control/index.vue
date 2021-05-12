@@ -1,6 +1,7 @@
 <template>
-<el-form-item :label="this.custName || '未设置'" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
+<el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :hidden="options.hidden">
   <span>
+      <span style="margin-right: 8px;" v-if="custName">{{custName}}</span>
       <span style="margin-right: 8px;" v-if="hasBasic">
         <el-button size="mini" type="primary" plain :class="[$style.tag]" @click="onGoBasic"> <i class="el-icon-s-custom"></i> 基本信息</el-button>
       </span>

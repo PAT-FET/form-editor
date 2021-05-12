@@ -3,9 +3,9 @@
 <attr-field label="数据源">
   <el-input v-model.trim="def.model"></el-input>
 </attr-field>
-<!-- <attr-field label="标题">
+<attr-field label="标题">
   <el-input v-model.trim="def.name"></el-input>
-</attr-field> -->
+</attr-field>
 <attr-field label="客户标签">
   <el-checkbox-group v-model="options.tags">
     <el-checkbox label="riskLevel">风险等级</el-checkbox>
