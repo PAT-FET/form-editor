@@ -3,7 +3,7 @@
 <div v-if="design">
   <el-form-item :label="label" :label-width="labelWidth" :hidden="options.hidden">
     <div :class="[designCls]">
-      <el-table border :data="dataSource" :class="[$style.fixTable]">
+      <el-table border :data="dataSource" :class="[$style.fixTable]" size="small">
         <el-table-column type="index" width="50" fixed="left" label="#"></el-table-column>
       </el-table>
       <draggable
@@ -22,7 +22,7 @@
 </div>
 <div v-else>
   <el-form-item :label="label" :label-width="labelWidth" :prop="def.model" :rules="rules" :hidden="options.hidden">
-    <el-table border :data="value" class="fe-table">
+    <el-table border :data="value" size="small" class="fe-table">
       <el-table-column type="index" width="50" fixed="left" label="#">
         <template slot-scope="{ $index }">
           <div v-if="!disabled">

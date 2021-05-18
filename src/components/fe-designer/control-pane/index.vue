@@ -30,6 +30,7 @@ import { FormDefinition, ControlDefinition } from '@/components/type'
 import { cloneControlDef, findList, isTableType } from '@/components/utils'
 import draggable from 'vuedraggable'
 import '@/components/iconfont/iconfont'
+import '@/components/iconfont/iconfont.css'
 
 @Component({
   components: { draggable }

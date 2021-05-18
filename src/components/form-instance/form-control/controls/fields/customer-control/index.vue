@@ -5,10 +5,22 @@
       <span style="margin-right: 8px;" v-if="hasBasic">
         <el-button size="mini" type="primary" plain :class="[$style.tag]" @click="onGoBasic"> <i class="el-icon-s-custom"></i> 基本信息</el-button>
       </span>
-     <span v-if="hasRisk">
-       <el-button size="mini" type="danger" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 3"> <i class="el-icon-lightning"></i> 高风险</el-button>
-       <el-button size="mini" type="warning" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 2"> <i class="el-icon-lightning"></i> 中风险</el-button>
-       <el-button size="mini" type="info" :class="[$style.tag, $style.info]" @click="onGoRisk" v-if="riskLevel === 1"> <i class="el-icon-lightning"></i> 低风险</el-button>
+     <span v-if="hasRisk || true">
+       <el-button size="mini" type="danger" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 3  || true">
+         <!-- <svg class="fe-icon" aria-hidden="true">
+            <use xlink:href="#iconsafe"></use>
+          </svg> -->
+          <i class="iconfont iconsafe" style="font-size: 14px;"></i>
+          高风险
+        </el-button>
+       <el-button size="mini" type="warning" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 2  || true">
+         <i class="iconfont iconsafe" style="font-size: 14px;"></i>
+          中风险
+       </el-button>
+       <el-button size="mini" type="info" :class="[$style.tag, $style.info]" @click="onGoRisk" v-if="riskLevel === 1  || true">
+         <i class="iconfont iconsafe" style="font-size: 14px;"></i>
+         低风险
+       </el-button>
        <el-button size="mini" type="success" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 0"> 无风险</el-button>
        <el-button size="mini" :class="[$style.tag]" @click="onGoRisk" v-if="data && String(data.monitorStatus) != '1'"> 未监控</el-button>
      </span>
@@ -24,7 +36,7 @@ import { FieldCustomerDefinition, FieldCustomerOptions } from '@/components/type
 
 @Component
 export default class CustomerControl extends mixins(FieldMixins) {
-  @Inject() getHttp!: () => any
+  @Inject({ default: () => () => null }) getHttp!: () => any
 
   options!: FieldCustomerOptions
 
@@ -82,7 +94,7 @@ export default class CustomerControl extends mixins(FieldMixins) {
     if (!this.value) return
     const req: any = { certCodeList: [this.certCode] }
 
-    const http = this.getHttp()
+    const http = this.getHttp && this.getHttp()
     if (http) {
       http.post(this.options.url, req).then((data: any) => {
         const ret = data && data[0]
