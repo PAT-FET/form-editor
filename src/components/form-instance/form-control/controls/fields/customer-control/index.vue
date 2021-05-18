@@ -5,19 +5,19 @@
       <span style="margin-right: 8px;" v-if="hasBasic">
         <el-button size="mini" type="primary" plain :class="[$style.tag]" @click="onGoBasic"> <i class="el-icon-s-custom"></i> 基本信息</el-button>
       </span>
-     <span v-if="hasRisk || true">
-       <el-button size="mini" type="danger" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 3  || true">
+     <span v-if="hasRisk">
+       <el-button size="mini" type="danger" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 3">
          <!-- <svg class="fe-icon" aria-hidden="true">
             <use xlink:href="#iconsafe"></use>
           </svg> -->
           <i class="iconfont iconsafe" style="font-size: 14px;"></i>
           高风险
         </el-button>
-       <el-button size="mini" type="warning" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 2  || true">
+       <el-button size="mini" type="warning" plain :class="[$style.tag]" @click="onGoRisk" v-if="riskLevel === 2">
          <i class="iconfont iconsafe" style="font-size: 14px;"></i>
           中风险
        </el-button>
-       <el-button size="mini" type="info" :class="[$style.tag, $style.info]" @click="onGoRisk" v-if="riskLevel === 1  || true">
+       <el-button size="mini" type="info" :class="[$style.tag, $style.info]" @click="onGoRisk" v-if="riskLevel === 1">
          <i class="iconfont iconsafe" style="font-size: 14px;"></i>
          低风险
        </el-button>
