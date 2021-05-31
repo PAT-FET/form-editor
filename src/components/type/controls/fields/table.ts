@@ -33,4 +33,5 @@ export class FieldTableOptions {
   hidden = false
   required = false
   defaultValue = []
+  minWidth = 120
 }

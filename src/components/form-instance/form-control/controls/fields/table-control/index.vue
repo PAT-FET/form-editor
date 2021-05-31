@@ -32,7 +32,7 @@
           <span v-else>{{$index + 1}}</span>
         </template>
       </el-table-column>
-      <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key">
+      <el-table-column v-for="col in def.tableColumns" :key="col.key" :label="col.name" :prop="col.key" :min-width="options.minWidth">
         <template slot-scope="{row}">
           <form-control :row-form-data="row" :def="col" :design="design"></form-control>
         </template>
