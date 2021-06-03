@@ -103,7 +103,7 @@ export function isEmbedType (type: string) {
   return ['grid', 'tabs', 'block', 'table'].includes(type)
 }
 
-const tableType = ['input', 'textarea', 'select', 'text', 'html', 'fileupload', 'imgupload']
+const tableType = ['input', 'textarea', 'select', 'text', 'html', 'fileupload', 'imgupload', 'audit-file', 'audit-text']
 export function isTableType (type: string) {
   return tableType.includes(type)
 }
